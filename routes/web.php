@@ -30,8 +30,15 @@ Route::get('/tournaments', array('as' => 'tournaments.list', 'uses' => 'ViewCont
 
 Route::get('/tournaments/details/{id}', array('as' => 'tournaments.details', 'uses' => 'ViewController@showTournamentsDetails'));
 
+Route::get('/tournaments/edit/{id}', array('as' => 'tournaments.edit', 'uses' => 'ViewController@showTournamentsEdit'));
+Route::post('/tournaments/edit/{id}', array('as' => 'tournaments.edit', 'uses' => 'TournamentController@editTournament'));
+
+Route::get('/tournaments/new', array('as' => 'tournaments.new', 'uses' => 'ViewController@showNewTournaments'));
+Route::post('/tournaments/new', array('as' => 'tournaments.new', 'uses' => 'TournamentController@createNewTournament'));
+
 Route::get('/games', array('as' => 'games.list', 'uses' => 'ViewController@showGames'));
 
 Route::get('/games/new', array('as' => 'games.new', 'uses' => 'ViewController@showNewGames'));
 Route::post('/games/new', array('as' => 'games.new', 'uses' => 'GameController@createNewGame'));
 
+Route::get('/test', array('as' => 'test', 'uses' => 'ViewController@test'));

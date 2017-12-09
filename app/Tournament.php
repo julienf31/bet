@@ -18,4 +18,8 @@ class Tournament extends Model
     public function teams(){
         return $this->belongsToMany(Team::class, 'tournaments_teams');
     }
+
+    public function matches(){
+        return $this->hasMany(Match::class);
+    }
 }

@@ -12,8 +12,8 @@ class TournamentSeeder extends Seeder
     public function run()
     {
         $tournaments = array(
-            array('name' => 'Ligue 1', 'year' => '2017', 'type' => 'league', 'country_id' => 74, 'description' => 'Premiére ligue de france', 'participants' => 20, 'status' => 2),
-            array('name' => 'Ligue 2', 'year' => '2017', 'type' => 'league', 'country_id' => 74, 'description' => 'Seconde ligue de france', 'participants' => 20, 'status' => 2),
+            array('name' => 'Ligue 1', 'year' => '2017', 'type' => 'league', 'country_id' => 74, 'description' => 'Premiére ligue de france', 'participants' => 20, 'status' => 2, 'currentDay' => 1),
+            array('name' => 'Ligue 2', 'year' => '2017', 'type' => 'league', 'country_id' => 74, 'description' => 'Seconde ligue de france', 'participants' => 20, 'status' => 2, 'currentDat' => 1),
         );
 
         $teams = array(
@@ -46,7 +46,7 @@ class TournamentSeeder extends Seeder
         }
 
         $days = array(
-            array('tournament_id' => 1, 'date' => date('Y-m-d H:i:s', time()), 'type' => 'championship', 'home_team_id' => 12, 'visitor_team_id' => 19, 'days' => 1, 'home_score' => 3, 'visitor_score' => 2),
+            array('tournament_id' => 2, 'date' => date('Y-m-d H:i:s', time()), 'type' => 'championship', 'home_team_id' => 12, 'visitor_team_id' => 19, 'days' => 1, 'home_score' => 3, 'visitor_score' => 2),
             array('tournament_id' => 1, 'date' => date('Y-m-d H:i:s', time()), 'type' => 'championship', 'home_team_id' => 11, 'visitor_team_id' => 20, 'days' => 1, 'home_score' => 0, 'visitor_score' => 2),
             array('tournament_id' => 1, 'date' => date('Y-m-d H:i:s', time()), 'type' => 'championship', 'home_team_id' => 1, 'visitor_team_id' => 17, 'days' => 1, 'home_score' => 4, 'visitor_score' => 0),
         );

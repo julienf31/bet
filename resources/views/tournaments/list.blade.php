@@ -25,7 +25,7 @@
             <!-- small box -->
             <div class="small-box bg-green">
                 <div class="inner">
-                    <h3>20</h3>
+                    <h3>{{ $countries }}</h3>
 
                     <p>Pays représentés</p>
                 </div>
@@ -40,7 +40,7 @@
             <!-- small box -->
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <h3>44</h3>
+                    <h3>{{ $teams }}</h3>
 
                     <p>Equipes</p>
                 </div>
@@ -71,11 +71,12 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Mes parties <span class="badge bg-green"> {{ count($tournaments) }}</span></h3>
-
-                    <div class="pull-right">
-                        <a href="{{ route('games.new') }}" name="create" class="btn btn-success"><i class="fa fa-plus"> </i> Creer une partie</a>
-                    </div>
+                    <h3 class="box-title">Tournois <span class="badge bg-green"> {{ count($tournaments) }}</span></h3>
+                    @if(Auth::user()->group_id == 1)
+                        <div class="pull-right">
+                            <a href="{{ route('tournaments.new') }}" name="create" class="btn btn-success"><i class="fa fa-plus"> </i> Ajouter un tournois</a>
+                        </div>
+                    @endif
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
@@ -85,7 +86,11 @@
                             <th>Nom</th>
                             <th>Année / Saison</th>
                             <th>Status</th>
+                            <th>Journée</th>
                             <th>Description</th>
+                            @if(Auth::user()->group_id == 1)
+                                <th>Gestion</th>
+                            @endif
                         </tr>
                         @foreach($tournaments as $tournament)
                             <tr>
@@ -93,7 +98,13 @@
                                 <td><a href="{{ route('tournaments.details', $tournament->id) }}"> {{ $tournament->name }} </a></td>
                                 <td>{{ $tournament->year }}</td>
                                 <td><span class="label label-{{ ($tournament->status == 1) ? 'warning' : (($tournament->status == 2) ? 'danger' : 'success') }}">{{ ($tournament->status == 1) ? 'En cours' : (($tournament->status == 2) ? 'A venir' : 'Terminé') }}</span></td>
+                                <td>{{ $tournament->currentDay.' / '.$tournament->days }}</td>
                                 <td>{{ $tournament->description }}</td>
+                                @if(Auth::user()->group_id == 1)
+                                    <td>
+                                        <a href="{{ route('tournaments.edit',$tournament->id) }}"><i class="fa fa-gear text-warning"></i></a>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                         </tbody></table>

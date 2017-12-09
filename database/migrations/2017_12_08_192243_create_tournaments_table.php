@@ -21,6 +21,7 @@ class CreateTournamentsTable extends Migration
             $table->enum('type', array('league', 'tournament'));
             $table->string('description');
             $table->integer('participants')->nullable();
+            $table->integer('currentDay')->nullable();
             $table->integer('days')->nullable();
             $table->integer('status');
             $table->timestamps();

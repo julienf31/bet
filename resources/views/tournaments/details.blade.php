@@ -36,10 +36,13 @@
                     <h3 class="box-title">Derniers matches</h3>
                 </div>
                 <!-- /.box-header -->
+                <div class="box-body">
+                    <h5 class="box-title">Journee : {{ $tournament->currentDay }}</h5>
+                </div>
                 <div class="box-body table-responsive no-padding">
+
                     <table class="table table-hover">
                         <tbody>
-                        Journee :
                         @foreach($lastmatchs as $match)
                             <tr>
                                 <td><img src="{{ asset('img/logos/teams/'.$match->home_team_id.'.png') }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></td>

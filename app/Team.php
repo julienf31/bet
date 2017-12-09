@@ -16,6 +16,6 @@ class Team extends Model
     }
 
     public function matches(){
-        return $this->hasMany(Match::class,'home_team_id');
+        return $this->hasMany(Match::class);
     }
 }
