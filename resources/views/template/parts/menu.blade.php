@@ -27,7 +27,10 @@
                     </li>
                 @else
                     <li class=" {{ (route('login') == Request::url()) ? 'active' : '' }} ">
-                        <a href="{{ Route('login') }}" class="">Profil</a>
+                        <a href="{{ Route('home') }}" class="">Profil</a>
+                    </li>
+                    <li class=" {{ (route('logout') == Request::url()) ? 'active' : '' }} ">
+                        <a href="{{ Route('logout') }}" class="">Déconexion</a>
                     </li>
                 @endif
             </ul>
@@ -49,6 +52,34 @@
                     <i class="fa fa-home"></i> <span>Accueil</span>
                 </a>
             </li>
+            <!-- TOURNAMENTS -->
+            <li class=" {{ (Request::is('tournaments')) ? 'active menu-open' : '' }} treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Tournois</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li {{ (Request::is('tournaments')) ? 'class=active' : '' }}><a href="{{ route('tournaments.list') }}"><i class="fa fa-circle-o"></i> Liste des tournois</a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i> Mes tournois</a></li>
+                </ul>
+            </li>
+            @if(Auth::user())
+            <!-- GAMES -->
+            <li class=" {{ (Request::is('games')) ? 'active menu-open' : '' }} treeview">
+                <a href="#">
+                    <i class="fa fa-gamepad"></i> <span>Parties</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li {{ (Request::is('games')) ? 'class=active' : '' }}><a href="{{ route('games.list') }}"><i class="fa fa-circle-o"></i>Mes parties</a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i> Historique</a></li>
+                </ul>
+            </li>
+                @endif
         </ul>
     </section>
     <!-- /.sidebar -->

@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('plugins/Ionicons/css/ionicons.min.css') }}">
-    <!-- DataTables -->
+    <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+    <link href="{{ asset('plugins/flag-icon-css-master/css/flag-icon.css') }}" rel="stylesheet">
 
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
@@ -74,6 +75,8 @@
 <script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
 <script src="{{ asset('plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+<!-- Select2 -->
+<script src="{{ asset('plugins/select2/dist/js/select2.full.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ asset('plugins/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
@@ -81,10 +84,11 @@
 <script>
     $(document).ready(function () {
         $('.sidebar-menu').tree()
-    })
+    });
 </script>
 
 @section('scripts')
+
 @show
 </body>
 </html>

@@ -16,15 +16,16 @@ class CreateTournamentsTable extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('country')->unsigned();
+            $table->integer('country_id')->unsigned();
             $table->string('year');
             $table->enum('type', array('league', 'tournament'));
             $table->string('description');
-            $table->string('participants');
+            $table->integer('participants')->nullable();
+            $table->integer('days')->nullable();
             $table->integer('status');
             $table->timestamps();
 
-            $table->foreign('country')->references('id')->on('countries');
+            $table->foreign('country_id')->references('id')->on('countries');
 
         });
     }

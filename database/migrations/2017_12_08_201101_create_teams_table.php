@@ -18,8 +18,8 @@ class CreateTeamsTable extends Migration
             $table->enum('type', array('national', 'local'));
             $table->integer('country')->unsigned();
             $table->string('name');
-            $table->string('logo');
-            $table->timestamps();
+            $table->string('city');
+            $table->string('logo')->nullable();
 
             $table->foreign('country')->references('id')->on('countries');
         });

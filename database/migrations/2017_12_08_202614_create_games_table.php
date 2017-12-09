@@ -16,11 +16,12 @@ class CreateGamesTable extends Migration
         Schema::create('games', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('owner')->unsigned();
-            $table->string('participants');
+            $table->string('participants')->nullable();;
+            $table->boolean('privacy')->nullable();;
             $table->string('name');
             $table->string('description');
             $table->integer('tournament_id')->unsigned();
-            $table->integer('winner');
+            $table->integer('winner')->nullable();;
             $table->timestamps();
 
             $table->foreign('owner')->references('id')->on('users');

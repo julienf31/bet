@@ -22,7 +22,7 @@ class CreateBetsTable extends Migration
             $table->boolean('result');
             $table->timestamps();
 
-            $table->foreign('match_id')->references('id')->on('matchs');
+            $table->foreign('match_id')->references('id')->on('matches');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('game_id')->references('id')->on('games');
 
