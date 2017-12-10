@@ -62,6 +62,10 @@ return [
             'region' => env('AWS_DEFAULT_REGION'),
             'bucket' => env('AWS_BUCKET'),
         ],
+        'teamLogo' => [
+            'driver' => 'local',
+            'root'   => public_path() . '/img/logos/teams/',
+        ],
 
     ],
 

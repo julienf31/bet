@@ -9,34 +9,38 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Mes parties <span class="badge bg-green"> {{ count($games->games) }}</span></h3>
-
-                    <div class="pull-right">
-                        <a href="{{ route('games.new') }}" name="create" class="btn btn-success"><i class="fa fa-plus"> </i> Creer une partie</a>
-                    </div>
+                    <h3 class="box-title">Équipes <span class="badge bg-green"> {{ count($teams) }}</span></h3>
+                    @if(Auth::user() && Auth::user()->group_id == 1)
+                        <div class="pull-right">
+                            <a href="{{ route('teams.new') }}" name="create" class="btn btn-success"><i class="fa fa-plus"> </i> Ajouter une équipe</a>
+                        </div>
+                    @endif
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
                         <tbody><tr>
-                            <th>ID</th>
                             <th>Nom</th>
-                            <th>Compétition</th>
-                            <th>Status</th>
-                            <th>Description</th>
-                            <th>Création</th>
+                            <th>Ville</th>
+                            <th>Pays</th>
+                            @if(Auth::user() &&  Auth::user()->group_id == 1)
+                                <th>Gestion</th>
+                            @endif
                         </tr>
-                        @foreach($games->games as $game)
-                        <tr>
-                            <td>{{ $game->id }}</td>
-                            <td>{{ $game->name }}</td>
-                            <td><span class="flag-icon flag-icon-{{ strtolower($game->tournament->country->code) }}"></span> {{ $game->tournament->name }}</td>
-                            <td><span class="label label-danger">Denied</span></td>
-                            <td>{{ $game->description }}</td>
-                            <td>{{ $game->created_at }}</td>
-                        </tr>
+                        @foreach($teams as $team)
+                            <tr>
+                                <td><img src="{{ asset('img/logos/teams/'.$team->id.'.'.$team->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/> <span class="flag-icon flag-icon-"></span><a href="{{ route('teams.details', $team->id) }}"> {{ $team->name }} </a></td>
+                                <td>{{ $team->city }}</td>
+                                <td><span class="flag-icon flag-icon-{{ strtolower($team->country->code) }}"></span> {{ $team->country->name }}</td>
+                                @if(Auth::user() && Auth::user()->group_id == 1)
+                                    <td>
+                                        <a href="{{ route('teams.edit',$team->id) }}"><i class="fa fa-gear text-warning"></i></a>
+                                    </td>
+                                @endif
+                            </tr>
                         @endforeach
-                        </tbody></table>
+                        </tbody>
+                    </table>
                 </div>
                 <!-- /.box-body -->
             </div>

@@ -34,6 +34,7 @@ class ViewController extends BaseController
         return view('register');
     }
 
+    // VUES TOURNOIS
     public function showTournaments(){
         $data['tournaments'] = Tournament::with('country:id,code,name')->get();
         $data['countries'] = Tournament::select('country_id')->distinct('country_id')->get()->count();
@@ -51,7 +52,7 @@ class ViewController extends BaseController
         return view('tournaments.details', $data);
     }
 
-    public function showNewTournaments(){
+    public function showNewTournament(){
         //$data['games'] = User::find(Auth::user()->id)->games;
         $data['tournaments'] = Tournament::with('country:id,code')->get();
         $data['countries'] = Country::all();
@@ -69,15 +70,35 @@ class ViewController extends BaseController
         return view('tournaments.edit', $data);
     }
 
+    // VUES PARTIES
     public function showGames(){
         $data['games'] = User::find(Auth::user()->id)->with(['games.tournament','games.tournament.country'])->first();
         return view('games.list', $data);
     }
 
     public function showNewGames(){
-        //$data['games'] = User::find(Auth::user()->id)->games;
         $data['tournaments'] = Tournament::with('country:id,code')->get();
         return view('games.new', $data);
+    }
+
+    // VUES TEAMS
+    public function showTeams(){
+        $data['teams'] = Team::with('country')->orderBy('name')->get();
+        return view('teams.list', $data);
+    }
+
+    public function showTeamsEdit($team_id){
+        //récupération des informations du tournois
+        $data['team'] = Team::find($team_id);
+        //récupération des pays
+        $data['countries'] = Country::all();
+        return view('teams.edit', $data);
+    }
+
+    public function showNewTeam(){
+        $data['countries'] = Country::all();
+
+        return view('teams.new', $data);
     }
 
     public function test(){

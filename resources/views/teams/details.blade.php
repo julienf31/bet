@@ -20,12 +20,11 @@
                         </tr>
                         @foreach($teams as $team)
                             <tr>
-                                <td><img src="{{ asset('img/logos/teams/'.$team->id.'.'.$team->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span> {{ $team->name }} </td>
+                                <td><img src="{{ asset('img/logos/teams/'.$team->id.'.png') }}" class="img-responsive" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span> {{ $team->name }} </td>
                                 <td>{{ ucfirst($team->city) }}</td>
                             </tr>
                         @endforeach
-                        </tbody>
-                    </table>
+                        </tbody></table>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -46,11 +45,11 @@
                         <tbody>
                         @foreach($lastmatchs as $match)
                             <tr>
-                                <td><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></td>
+                                <td><img src="{{ asset('img/logos/teams/'.$match->home_team_id.'.png') }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></td>
                                 <td>{{ $match->home_score }}</td>
                                 <td>-</td>
                                 <td>{{ $match->visitor_score }}</td>
-                                <td><img src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/></td>
+                                <td><img src="{{ asset('img/logos/teams/'.$match->visitor_team_id.'.png') }}" class="img-responsive" style="display: inline-block; height: 30px;"/></td>
                             </tr>
                         @endforeach
                         </tbody></table>

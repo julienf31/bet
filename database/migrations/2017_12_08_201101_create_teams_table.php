@@ -16,12 +16,14 @@ class CreateTeamsTable extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('type', array('national', 'local'));
-            $table->integer('country')->unsigned();
+            $table->integer('country_id')->unsigned();
             $table->string('name');
-            $table->string('city');
+            $table->string('city')->nullable();
             $table->string('logo')->nullable();
+            $table->timestamps();
 
-            $table->foreign('country')->references('id')->on('countries');
+
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 

@@ -65,6 +65,19 @@
                     <li><a href=""><i class="fa fa-circle-o"></i> Mes tournois</a></li>
                 </ul>
             </li>
+            <!-- TEAMS -->
+            <li class=" {{ (Request::is('teams')) ? 'active menu-open' : '' }} treeview">
+                <a href="#">
+                    <i class="fa fa-dashboard"></i> <span>Équipes</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li {{ (Request::is('teams')) ? 'class=active' : '' }}><a href="{{ route('teams.list') }}"><i class="fa fa-circle-o"></i> Liste des équipes</a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i> Mes tournois</a></li>
+                </ul>
+            </li>
             @if(Auth::user())
             <!-- GAMES -->
             <li class=" {{ (Request::is('games')) ? 'active menu-open' : '' }} treeview">
