@@ -8,6 +8,7 @@ use App\Match;
 use App\Team;
 use App\Tournament;
 use App\User;
+use App\Bet;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -120,6 +121,8 @@ class ViewController extends BaseController
         $data['game'] = Game::find($game_id);
         $data['tournament'] = Game::find($game_id)->tournament;
         $data['matches'] = Tournament::find($data['tournament']->id)->matches()->where('days', $data['tournament']->currentDay)->get();
+        $matches = Tournament::find($data['tournament']->id)->matches()->where('days', $data['tournament']->currentDay)->select('id')->get()->toArray();
+        $data['bets'] = Bet::where('user_id', Auth::user()->id)->whereIn('match_id', $matches)->where('game_id', $data['game']->id)->get()->toArray();
         return view('bet.do', $data);
     }
 

@@ -18,8 +18,8 @@ class CreateBetsTable extends Migration
             $table->integer('match_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('game_id')->unsigned();
-            $table->integer('bet');
-            $table->boolean('result');
+            $table->string('bet');
+            $table->boolean('result')->nullable();
             $table->timestamps();
 
             $table->foreign('match_id')->references('id')->on('matches');

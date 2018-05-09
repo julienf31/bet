@@ -56,9 +56,10 @@ Route::get('/teams/details/{id}', array('as' => 'teams.details', 'uses' => 'View
 Route::get('/teams/new', array('as' => 'teams.new', 'uses' => 'ViewController@showNewTeam'));
 Route::post('/teams/new', array('as' => 'teams.new', 'uses' => 'TeamController@createNewTeam'));
 
-Route::get('/bet/{game_id}', array('as' => 'bet', 'uses' => 'ViewController@showBet'));
-
 
 
 
 Route::get('/test', array('as' => 'test', 'uses' => 'ViewController@test'));
+
+Route::get('/bet/{game_id}', array('as' => 'bet', 'uses' => 'ViewController@showBet'));
+Route::post('/bet/{game_id}', array('as' => 'bet.save', 'uses' => 'BetController@doBet'));
