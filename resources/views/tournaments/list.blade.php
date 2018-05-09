@@ -102,6 +102,7 @@
                                 <td>{{ $tournament->description }}</td>
                                 @if(Auth::user()->group_id == 1)
                                     <td>
+                                        <a href="{{ route('tournaments.details',$tournament->id) }}"><i class="fa fa-play text-blue"></i></a>&nbsp;
                                         <a href="{{ route('tournaments.edit',$tournament->id) }}"><i class="fa fa-gear text-warning"></i></a>
                                     </td>
                                 @endif

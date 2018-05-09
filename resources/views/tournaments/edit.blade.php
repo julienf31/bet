@@ -43,7 +43,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <button type="reset" class="btn btn-warning">Vider</button>
+                            <a href="{{ route('tournaments.list') }}" class="btn btn-warning">Retour</a>
                             <button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"></i> Sauvegarder</button>
                         </div>
                         <!-- /.box-footer -->

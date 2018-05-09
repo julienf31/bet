@@ -25,6 +25,7 @@
                             <th>Status</th>
                             <th>Description</th>
                             <th>Création</th>
+                            <th>Actions</th>
                         </tr>
                         @foreach($games->games as $game)
                         <tr>
@@ -34,6 +35,9 @@
                             <td><span class="label label-danger">Denied</span></td>
                             <td>{{ $game->description }}</td>
                             <td>{{ $game->created_at }}</td>
+                            <td>
+                                <a href="{{ route('games.details', $game->id) }}"> <i class="fa fa-info"></i> </a>
+                            </td>
                         </tr>
                         @endforeach
                         </tbody></table>

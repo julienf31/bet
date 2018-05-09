@@ -41,6 +41,11 @@ Route::get('/games', array('as' => 'games.list', 'uses' => 'ViewController@showG
 Route::get('/games/new', array('as' => 'games.new', 'uses' => 'ViewController@showNewGames'));
 Route::post('/games/new', array('as' => 'games.new', 'uses' => 'GameController@createNewGame'));
 
+Route::get('/games/details/{id}', array('as' => 'games.details', 'uses' => 'ViewController@showGameDetails'));
+
+Route::get('/games/edit/{id}', array('as' => 'games.edit', 'uses' => 'ViewController@showGameEdit'));
+Route::post('/games/edit/{id}', array('as' => 'games.edit', 'uses' => 'GameController@editGame'));
+
 Route::get('/teams', array('as' => 'teams.list', 'uses' => 'ViewController@showTeams'));
 
 Route::get('/teams/edit/{id}', array('as' => 'teams.edit', 'uses' => 'ViewController@showTeamsEdit'));
@@ -50,6 +55,8 @@ Route::get('/teams/details/{id}', array('as' => 'teams.details', 'uses' => 'View
 
 Route::get('/teams/new', array('as' => 'teams.new', 'uses' => 'ViewController@showNewTeam'));
 Route::post('/teams/new', array('as' => 'teams.new', 'uses' => 'TeamController@createNewTeam'));
+
+Route::get('/bet/{game_id}', array('as' => 'bet', 'uses' => 'ViewController@showBet'));
 
 
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Game;
 use App\User;
+use App\Participant;
+use Analytics;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -36,6 +38,11 @@ class GameController extends BaseController
         $game->privacy = $game_privacy;
         $game->owner = $user_id;
         $game->save();
+
+        $participant = new Participant();
+        $participant->user_id = $user_id;
+        $participant->game_id = $game->id;
+        $participant->save();
 
         return redirect('games');
     }

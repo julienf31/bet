@@ -32,4 +32,5 @@ class User extends Authenticatable
     public function games(){
         return $this->hasMany('\App\Game', 'owner');
     }
+
 }
