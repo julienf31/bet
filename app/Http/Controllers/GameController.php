@@ -15,6 +15,18 @@ use Illuminate\Support\Facades\Auth;
 
 class GameController extends BaseController
 {
+    public function index(Request $request)
+    {
+        $data['games'] = User::where('id',Auth::user()->id)->with(['games.tournament','games.tournament.country'])->first();
+        //$data['games'] = User::find(Auth::user()->id)->games()->get();
+
+        return view('games.index', $data);
+    }
+
+    public function show()
+    {
+        
+    }
 
     public function createNewGame(Request $request){
 
@@ -45,5 +57,13 @@ class GameController extends BaseController
         $participant->save();
 
         return redirect('games');
+    }
+
+    public function getRanking($game_id,Request $request)
+    {
+        //$game = $request->get('game');
+        $game = Game::find(1)->ranking();
+        var_dump($game);
+        die();
     }
 }

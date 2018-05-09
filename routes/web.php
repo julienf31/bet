@@ -36,7 +36,7 @@ Route::post('/tournaments/edit/{id}', array('as' => 'tournaments.edit', 'uses' =
 Route::get('/tournaments/new', array('as' => 'tournaments.new', 'uses' => 'ViewController@showNewTournament'));
 Route::post('/tournaments/new', array('as' => 'tournaments.new', 'uses' => 'TournamentController@createNewTournament'));
 
-Route::get('/games', array('as' => 'games.list', 'uses' => 'ViewController@showGames'));
+Route::get('/games', array('as' => 'games.index', 'uses' => 'GameController@index'));
 
 Route::get('/games/new', array('as' => 'games.new', 'uses' => 'ViewController@showNewGames'));
 Route::post('/games/new', array('as' => 'games.new', 'uses' => 'GameController@createNewGame'));
@@ -51,10 +51,12 @@ Route::get('/teams', array('as' => 'teams.list', 'uses' => 'ViewController@showT
 Route::get('/teams/edit/{id}', array('as' => 'teams.edit', 'uses' => 'ViewController@showTeamsEdit'));
 Route::post('/teams/edit/{id}', array('as' => 'teams.edit', 'uses' => 'TeamController@editTeam'));
 
-Route::get('/teams/details/{id}', array('as' => 'teams.details', 'uses' => 'ViewController@showTournamentsDetails'));
+Route::get('/teams/details/{id}', array('as' => 'teams.details', 'uses' => 'ViewController@showTeamDetails'));
 
 Route::get('/teams/new', array('as' => 'teams.new', 'uses' => 'ViewController@showNewTeam'));
 Route::post('/teams/new', array('as' => 'teams.new', 'uses' => 'TeamController@createNewTeam'));
+
+Route::get('/scoring/{game}', array('as' => 'games.score', 'uses' => 'GameController@getRanking'));
 
 
 

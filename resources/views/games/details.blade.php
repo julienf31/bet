@@ -35,12 +35,17 @@
                 <div class="box-body">
                     <table class="tab-pane">
                         <thead>
-                        <th>test</th>
+                        <th>nom</th>
+                        <th>score</th>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>test</td>
-                        </tr>
+                        @foreach($rank as $r)
+                            <tr>
+                                <td>{{ $r['name'] }}</td>
+                                <td>{{ $r['score'] }}</td>
+                            </tr>
+                        @endforeach
+
                         </tbody>
                     </table>
                 </div>

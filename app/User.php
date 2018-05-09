@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Game;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model as Model;
@@ -30,7 +31,11 @@ class User extends Authenticatable
     ];
 
     public function games(){
-        return $this->hasMany('\App\Game', 'owner');
+        return $this->hasMany(Game::class, 'owner');
+    }
+
+    public function bets(){
+        return $this->hasMany(Bet::class);
     }
 
 }

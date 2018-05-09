@@ -88,7 +88,7 @@
             </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li {{ (Request::is('games')) ? 'class=active' : '' }}><a href="{{ route('games.list') }}"><i class="fa fa-circle-o"></i>Mes parties</a></li>
+                    <li {{ (Request::is('games')) ? 'class=active' : '' }}><a href="{{ route('games.index') }}"><i class="fa fa-circle-o"></i>Mes parties</a></li>
                     <li><a href=""><i class="fa fa-circle-o"></i> Historique</a></li>
                 </ul>
             </li>
