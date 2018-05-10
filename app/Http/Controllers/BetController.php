@@ -31,14 +31,10 @@ class BetController extends BaseController
 
         $firstMatch = Tournament::find($data['tournament']->id)->matches()->where('days', $data['tournament']->currentDay)->select('date')->orderBy('date')->first();
         $firstMatch = Carbon::parse($firstMatch->date);
-
         $now = Carbon::create();
 
-        var_dump($firstMatch);
-        var_dump($now->addHours(-1));
-        die();
-
-        if($firstMatch->lt($now->addHours(-1))){
+        //check if first match is in less than one hour
+        if($firstMatch->lt($now->addHours(+1))){
             Toastr::error('Les paris pour cette journée ne sont plus disponible !', $title = 'Erreur', $options = []);
             return redirect()->route('games.show', $game_id);
         }else{
