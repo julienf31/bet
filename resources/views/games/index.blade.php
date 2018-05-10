@@ -12,7 +12,7 @@
                     <h3 class="box-title">Mes parties <span class="badge bg-green"> {{ count($games->games) }}</span></h3>
 
                     <div class="pull-right">
-                        <a href="{{ route('games.new') }}" name="create" class="btn btn-success"><i class="fa fa-plus"> </i> Creer une partie</a>
+                        <a href="{{ route('games.create') }}" name="create" class="btn btn-success"><i class="fa fa-plus"> </i> Creer une partie</a>
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -36,7 +36,7 @@
                             <td>{{ $game->description }}</td>
                             <td>{{ $game->created_at }}</td>
                             <td>
-                                <a href="{{ route('games.details', $game->id) }}"> <i class="fa fa-info"></i> </a>
+                                <a href="{{ route('games.show', $game->id) }}"> <i class="fa fa-info"></i> </a>
                             </td>
                         </tr>
                         @endforeach

@@ -71,26 +71,6 @@ class ViewController extends BaseController
         return view('tournaments.edit', $data);
     }
 
-    public function showNewGames(){
-        $data['tournaments'] = Tournament::with('country:id,code')->get();
-        return view('games.new', $data);
-    }
-
-    public function showGameDetails($id){
-        $data['game'] = Game::with('participants.user')->where('id',$id)->first();
-        $data['tournament'] = Tournament::find($data['game']->tournament_id);
-        $data['nextmatchs'] = Tournament::find($data['game']->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$data['tournament']->currentDay)->get();
-        $data['lastmatchs'] = Tournament::find($data['game']->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$data['tournament']->currentDay-1)->get();
-        $data['rank'] = $data['game']->ranking();
-        return view('games.details', $data);
-    }
-
-    public function showGameEdit($id){
-        $data['game'] = Game::with('participants.user')->where('id',$id)->first();
-
-        return view('games.edit', $data);
-    }
-
     // VUES TEAMS
     public function showTeams(){
         $data['teams'] = Team::with('country')->orderBy('name')->get();

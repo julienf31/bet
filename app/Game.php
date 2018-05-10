@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model as Model;
 
 class Game extends Model
 {
-    public $coucou = "coucou";
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -25,8 +24,8 @@ class Game extends Model
         $rank = array();
         foreach ($this->participants as $participant) {
             $part = array();
-            $user = User::where('id',$participant->id)->first();
-            $bets = User::find($participant->id)->bets()->where('game_id', $this->id)->get();
+            $user = User::where('id',$participant->user_id)->first();
+            $bets = User::find($participant->user_id)->bets()->where('game_id', $this->id)->get();
             $part['name'] = $user->firstname;
             $part['score'] = 0;
             //echo "Paris de : ".$participant->id."<br>";

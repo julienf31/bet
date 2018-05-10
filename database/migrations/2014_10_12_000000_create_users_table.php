@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('group_id')->unsigned();
             $table->boolean('active');
             $table->boolean('banned');
+            $table->string('country')->default('fr');
             $table->rememberToken();
             $table->timestamps();
 

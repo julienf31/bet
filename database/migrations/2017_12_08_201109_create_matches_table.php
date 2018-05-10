@@ -16,7 +16,7 @@ class CreateMatchesTable extends Migration
         Schema::create('matches', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tournament_id')->unsigned();
-            $table->date('date');
+            $table->dateTime('date');
             $table->enum('type', array('poule','championship','finalphase'));
             $table->integer('home_team_id')->unsigned();
             $table->integer('visitor_team_id')->unsigned();

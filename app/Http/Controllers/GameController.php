@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Game;
 use App\User;
+use App\Tournament;
 use App\Participant;
 use Analytics;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -15,20 +16,83 @@ use Illuminate\Support\Facades\Auth;
 
 class GameController extends BaseController
 {
-    public function index(Request $request)
+    public function index()
     {
         $data['games'] = User::where('id',Auth::user()->id)->with(['games.tournament','games.tournament.country'])->first();
-        //$data['games'] = User::find(Auth::user()->id)->games()->get();
 
         return view('games.index', $data);
     }
 
-    public function show()
+    public function show($id)
     {
-        
+        $data['game'] = Game::with('participants.user')->where('id',$id)->first();
+        $data['tournament'] = Tournament::find($data['game']->tournament_id);
+        $data['nextmatchs'] = Tournament::find($data['game']->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$data['tournament']->currentDay)->get();
+        $data['lastmatchs'] = Tournament::find($data['game']->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$data['tournament']->currentDay-1)->get();
+        $data['rank'] = $data['game']->ranking();
+
+        return view('games.show', $data);
     }
 
-    public function createNewGame(Request $request){
+    public function create()
+    {
+        $data['tournaments'] = Tournament::with('country:id,code')->get();
+
+        return view('games.create', $data);
+    }
+
+    public function edit($id)
+    {
+        $game = Game::with('participants.user')->where('id',$id)->first();
+        $users = User::all();
+        $participantsList = Participant::where('game_id',$id)->select('user_id')->get();
+        $participants = array();
+
+        foreach ($participantsList as $participant){
+            $participants[] = $participant->user_id;
+        }
+
+        return view('games.edit', compact('game','users','participants'));
+    }
+
+    public function update($id,Request $request)
+    {
+        $game = Game::Find($id);
+        $game->name = $request->get('name');
+        $game->description = $request->get('description');
+        if($request->get('privacy')){
+            $game->privacy = 1;
+        }else{
+            $game->privacy = 0;
+        }
+        $game->save();
+
+        $participants = $request->get('participants');
+
+        foreach ($participants as $participant){
+            if($p = Participant::where('user_id', $participant)->where('game_id',$game->id)->first()){
+            }else{
+                $p = new Participant();
+                $p->game_id = $game->id;
+                $p->user_id = $participant;
+                $p->save();
+            }
+        }
+
+        //remove old participants
+        $participantsList = Participant::where('game_id',$game->id)->get();
+
+        foreach ($participantsList as $oldParticipants){
+            if(!in_array($oldParticipants->user_id,$participants)){
+                $p = Participant::find($oldParticipants->id);
+                $p->delete();
+            }
+        }
+
+        return redirect()->route('games.show', $id);
+    }
+
+    public function store(Request $request){
 
         $user_id = Auth::user()->id;
 
@@ -56,7 +120,7 @@ class GameController extends BaseController
         $participant->game_id = $game->id;
         $participant->save();
 
-        return redirect('games');
+        return redirect()->route('games.show', $game->id);
     }
 
     public function getRanking($game_id,Request $request)

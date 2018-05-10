@@ -17,7 +17,7 @@
                     <p>Description de la partie : {{ $game->description }}</p>
                     <p><h4>Participants :</h4></p>
                     @foreach($game->participants as $participant)
-                        {{ $participant->user->firstname.' '.$participant->user->lastname.' (@'.$participant->user->pseudo.')' }}
+                        {{ $participant->user->firstname.' '.$participant->user->lastname.' (@'.$participant->user->pseudo.')' }}<br>
                     @endforeach
 
                     <p><a href="{{ route('games.edit', $game->id) }}" class="btn btn-warning"> Paramétres</a></p>
