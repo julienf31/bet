@@ -38,4 +38,9 @@ class User extends Authenticatable
         return $this->hasMany(Bet::class);
     }
 
+    public function parties()
+    {
+        return $this->hasManyThrough(Game::class, Participant::class, 'user_id','id','id','game_id');
+    }
+
 }

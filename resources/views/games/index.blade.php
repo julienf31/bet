@@ -9,7 +9,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Mes parties <span class="badge bg-green"> {{ count($games->games) }}</span></h3>
+                    <h3 class="box-title">Mes parties <span class="badge bg-green"> {{ count($games) }}</span></h3>
 
                     <div class="pull-right">
                         <a href="{{ route('games.create') }}" name="create" class="btn btn-success"><i class="fa fa-plus"> </i> Creer une partie</a>
@@ -27,7 +27,7 @@
                             <th>Création</th>
                             <th>Actions</th>
                         </tr>
-                        @foreach($games->games as $game)
+                        @foreach($games as $game)
                         <tr>
                             <td>{{ $game->id }}</td>
                             <td>{{ $game->name }}</td>

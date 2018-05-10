@@ -18,9 +18,9 @@ class GameController extends BaseController
 {
     public function index()
     {
-        $data['games'] = User::where('id',Auth::user()->id)->with(['games.tournament','games.tournament.country'])->first();
-
-        return view('games.index', $data);
+        //$games = User::where('id',Auth::user()->id)->with(['games.tournament','games.tournament.country'])->first();
+        $games = User::find(Auth::user()->id)->parties;
+        return view('games.index', compact('games'));
     }
 
     public function show($id)
