@@ -32,6 +32,8 @@ Route::get('/tournaments/edit/{id}', array('as' => 'tournaments.edit', 'uses' =>
 Route::post('/tournaments/edit/{id}', array('as' => 'tournaments.edit', 'uses' => 'TournamentController@editTournament'));
 Route::get('/tournaments/new', array('as' => 'tournaments.new', 'uses' => 'ViewController@showNewTournament'));
 Route::post('/tournaments/new', array('as' => 'tournaments.new', 'uses' => 'TournamentController@createNewTournament'));
+Route::get('/tournaments/{id}/teams', array('as' => 'tournaments.teams', 'uses' => 'TournamentController@teams'));
+Route::get('/tournaments/{id}/matches', array('as' => 'tournaments.matches', 'uses' => 'TournamentController@matches'));
 
 
 // routes ok

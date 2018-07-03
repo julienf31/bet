@@ -11,6 +11,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class TournamentController extends BaseController
 {
@@ -46,5 +47,17 @@ class TournamentController extends BaseController
         $tournament->save();
 
         return redirect('tournaments');
+    }
+
+    public function teams($id)
+    {
+        $tournament = Tournament::find($id);
+        return view('tournaments.teams.list', compact('tournament'));
+    }
+
+    public function matches($id)
+    {
+        $tournament = Tournament::find($id);
+        return view('tournaments.matches.list', compact('tournament'));
     }
 }

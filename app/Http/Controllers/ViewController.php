@@ -37,10 +37,10 @@ class ViewController extends BaseController
 
     // VUES TOURNOIS
     public function showTournaments(){
-        $data['tournaments'] = Tournament::with('country:id,code,name')->get();
-        $data['countries'] = Tournament::select('country_id')->distinct('country_id')->get()->count();
-        $data['teams'] = Team::all()->count();
-        return view('tournaments.list', $data);
+        $tournaments = Tournament::with('country:id,code,name')->get();
+        $countries = Tournament::select('country_id')->distinct('country_id')->get()->count();
+        $teams = Team::all()->count();
+        return view('tournaments.list', compact('tournaments','countries','teams'));
     }
 
     public function showTournamentsDetails($tournament_id){

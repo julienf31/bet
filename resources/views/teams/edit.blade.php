@@ -52,7 +52,7 @@
                         </div>
                         <!-- /.box-body -->
                         <div class="box-footer">
-                            <a href="{{ route('teams.list') }}" class="btn btn-danger">Retour</a>
+                            <a href="{{ url()->previous() }}" class="btn btn-danger">Retour</a>
                             <button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"></i> Sauvegarder</button>
                         </div>
                         <!-- /.box-footer -->
