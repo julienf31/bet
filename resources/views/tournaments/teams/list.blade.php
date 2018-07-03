@@ -32,6 +32,10 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="box-footer">
+                    <a href="{{ url()->previous() }}" class="btn btn-warning"> Retour</a>
+
+                </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->

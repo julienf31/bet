@@ -8,6 +8,8 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
+use Toastr;
 use Validator;
 
 
@@ -31,6 +33,7 @@ class LoginController extends BaseController
             if (Auth::attempt(['email' => $email, 'password' => $password])) {
                 return redirect()->intended('home');
             }elseif(Auth::attempt(['pseudo' => $email, 'password' => $password])){
+                Toastr::success(Lang::get('generic.connect_confirm'), $title = Lang::get('generic.connect'), $options = []);
                 return redirect()->intended('home');
             }
             else{
@@ -65,5 +68,11 @@ class LoginController extends BaseController
                 return redirect('login')->withErrors(['loginError' => 'Mauvais identifiants'])->withInput();
             }
         }
+    }
+
+    public function logout(){
+        Auth::logout();
+        Toastr::success(Lang::get('generic.disconnect_confirm'), $title = Lang::get('generic.disconnect'), $options = []);
+        return redirect('home');
     }
 }
