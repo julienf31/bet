@@ -12,7 +12,9 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Storage;
+use \Toastr;
 
 class TeamController extends BaseController
 {
@@ -27,6 +29,8 @@ class TeamController extends BaseController
         $team->city = $team_city;
         $team->country_id = $team_country;
         $team->save();
+
+        Toastr::success(Lang::get('teams.update_confirm'), $title = Lang::get('teams.update'), $options = []);
 
         return redirect('teams');
     }
@@ -60,6 +64,8 @@ class TeamController extends BaseController
             $team->logo = $extension;
         }
         $team->save();
+
+        Toastr::success(Lang::get('teams.create_confirm'), $title = Lang::get('teams.create'), $options = []);
 
         return redirect('teams');
     }
