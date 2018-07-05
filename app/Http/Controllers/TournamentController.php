@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Game;
+use App\Match;
 use App\Team;
 use App\Tournament;
 use App\User;
@@ -100,5 +101,36 @@ class TournamentController extends BaseController
         Toastr::success(Lang::get('tournaments.add_team_confirm'), $title = Lang::get('tournaments.add_team'), $options = []);
 
         return redirect(url()->previous());
+    }
+
+    public function matchesByDay($tournament_id,$day)
+    {
+        $tournament = Tournament::find($tournament_id);
+        $matches = $tournament->matches()->where('days', $day)->get()->toArray();
+
+        return view('tournaments.matches.matches',compact('tournament','matches'));
+    }
+
+    public function updateMatchesByDay($tournament_id,$day,Request $request)
+    {
+        $tournament = Tournament::find($tournament_id);
+        $matches = $request->get('match');
+        $old = $tournament->matches()->where('days', $day)->get();
+
+        foreach ($old as $oldMatches){
+            $tournament->matches()->where('id', $oldMatches->id)->delete();
+        }
+
+        foreach ($matches as $match){
+            $newMatch = new Match();
+            $newMatch->date = now();
+            $newMatch->tournament_id = $tournament_id;
+            $newMatch->home_team_id = $match['home'];
+            $newMatch->visitor_team_id = $match['visitor'];
+            $newMatch->days = $day;
+            $newMatch->save();
+        }
+
+        return redirect(route('tournaments.matches', $tournament->id));
     }
 }
