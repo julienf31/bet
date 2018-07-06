@@ -49,7 +49,8 @@ class BetController extends BaseController
         foreach ($bets as $id => $bet){
             if($bet != null){
                 $b = Bet::where('user_id', Auth::user()->id)->where('game_id', $game)->where('match_id', $id)->first();
-                if(!(count($b) > 0)){
+                $bCount = Bet::where('user_id', Auth::user()->id)->where('game_id', $game)->where('match_id', $id)->get()->count();
+                if(!($bCount > 0)){
                     // create bet
                     $new_bet = new Bet();
                     $new_bet->user_id = Auth::user()->id;
