@@ -228,6 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Toastr' => Kamaln7\Toastr\Facades\Toastr::class,
+        'Carbon' => \Carbon\Carbon::class,
 
     ],
 

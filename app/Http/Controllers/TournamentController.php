@@ -7,6 +7,7 @@ use App\Match;
 use App\Team;
 use App\Tournament;
 use App\User;
+use DateTime;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -117,13 +118,17 @@ class TournamentController extends BaseController
         $matches = $request->get('match');
         $old = $tournament->matches()->where('days', $day)->get();
 
-        foreach ($old as $oldMatches){
+        /*foreach ($old as $oldMatches){
             $tournament->matches()->where('id', $oldMatches->id)->delete();
-        }
+        }*/
 
         foreach ($matches as $match){
-            $newMatch = new Match();
-            $newMatch->date = now();
+            if(isset($match['id'])){
+                $newMatch = Match::find($match['id']);
+            } else {
+                $newMatch = new Match();
+            }
+            $newMatch->date = new DateTime($match['date'].$match['time']);;
             $newMatch->tournament_id = $tournament_id;
             $newMatch->home_team_id = $match['home'];
             $newMatch->visitor_team_id = $match['visitor'];

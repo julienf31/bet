@@ -16,6 +16,7 @@
                     <div class="box-body">
                         @for($i = 1; $i <= $tournament->participants/2; $i++)
                             <div class="com-xs-12">Match #{{ $i }}</div>
+                            <input name="match[{{$i}}][id]" type="hidden" value="{{ (isset($matches[$i-1]))? $matches[$i-1]['id']:'' }}">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="recipient-name" class="control-label">Équipe domicile :</label>
@@ -28,28 +29,24 @@
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>Date et heure : </label>
-
+                                    <label>Date : </label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-calendar"></i>
                                         </div>
-                                        <input name="match[{{$i}}][date]" type="text" class="form-control pull-right date">
+                                        <input name="match[{{$i}}][date]" type="text" class="form-control pull-right date" value="{{ isset($matches[$i-1])? Carbon::parse($matches[$i-1]['date'])->format('d/m/Y'):'' }}">
                                     </div>
-                                    <!-- /.input group -->
                                 </div>
                             </div>
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <label>Date et heure : </label>
-
+                                    <label>Heure : </label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
                                             <i class="fa fa-clock-o"></i>
                                         </div>
-                                        <input name="match[{{$i}}][time]" type="text" class="form-control pull-right time">
+                                        <input name="match[{{$i}}][time]" type="text" class="form-control pull-right time" value="{{ isset($matches[$i-1])? Carbon::parse($matches[$i-1]['date'])->format('H:i'):'' }}">
                                     </div>
-                                    <!-- /.input group -->
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -102,7 +99,10 @@
             //Date range picker with time picker
             $('.date').datepicker({
                 autoclose: true,
-                format: 'dd/mm/yyyy' })
+                format: 'dd/mm/yyyy',
+                language: 'fr'
+            });
+
             $('.time').timepicker({
                 showMeridian: false,
                  })

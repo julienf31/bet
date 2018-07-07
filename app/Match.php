@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model as Model;
 
 class Match extends Model
 {
+    protected $dates = ['date'];
+
     public function hometeam(){
         return $this->belongsTo(Team::class, 'home_team_id');
     }

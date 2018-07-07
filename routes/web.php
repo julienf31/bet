@@ -11,6 +11,10 @@
 |
 */
 
+use Illuminate\Support\Facades\App;
+
+App::setLocale('fr');
+
 Route::get('/', function () {
     return Redirect::route('home');
 });
