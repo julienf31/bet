@@ -26,7 +26,32 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4"></div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Date et heure : </label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <input name="match[{{$i}}][date]" type="text" class="form-control pull-right date">
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Date et heure : </label>
+
+                                    <div class="input-group">
+                                        <div class="input-group-addon">
+                                            <i class="fa fa-clock-o"></i>
+                                        </div>
+                                        <input name="match[{{$i}}][time]" type="text" class="form-control pull-right time">
+                                    </div>
+                                    <!-- /.input group -->
+                                </div>
+                            </div>
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="recipient-name" class="control-label">Équipe visiteuse :</label>
@@ -50,6 +75,9 @@
 @stop
 
 @section('scripts')
+    <script src="{{ asset('plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('plugins/bootstrap-timepicker/js/bootstrap-timepicker.js') }}"></script>
+
     <script>
         function formatState (state) {
             if (!state.id) {
@@ -68,5 +96,17 @@
             })
             $('.select2Type').select2()
         });
+
+
+        $(function () {
+            //Date range picker with time picker
+            $('.date').datepicker({
+                autoclose: true,
+                format: 'dd/mm/yyyy' })
+            $('.time').timepicker({
+                showMeridian: false,
+                 })
+        })
+
     </script>
 @stop

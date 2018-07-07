@@ -133,4 +133,12 @@ class TournamentController extends BaseController
 
         return redirect(route('tournaments.matches', $tournament->id));
     }
+
+    public function showMatchesByDay($tournament_id,$day)
+    {
+        $tournament = Tournament::find($tournament_id);
+        $matches = $tournament->matches()->where('days', $day)->get();
+
+        return view('tournaments.matches.show', compact('tournament', 'matches'));
+    }
 }

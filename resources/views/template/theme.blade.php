@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="{{ asset('plugins/Ionicons/css/ionicons.min.css') }}">
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
+
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-timepicker/css/timepicker.less') }}">
     <link href="{{ asset('plugins/flag-icon-css-master/css/flag-icon.css') }}" rel="stylesheet">
 
     <!-- Theme style -->

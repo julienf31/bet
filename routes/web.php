@@ -36,6 +36,7 @@ Route::get('/tournaments/{id}/teams', array('as' => 'tournaments.teams', 'uses' 
 Route::get('/tournaments/{id}/matches', array('as' => 'tournaments.matches', 'uses' => 'TournamentController@matchesManagement'));
 Route::get('/tournaments/{id}/matches/day/{day}', array('as' => 'tournaments.day.matches', 'uses' => 'TournamentController@matchesByDay'));
 Route::post('/tournaments/{id}/matches/day/{day}', array('as' => 'tournaments.day.matches', 'uses' => 'TournamentController@updateMatchesByDay'));
+Route::get('/tournaments/{id}/matches/day/{day}/show', array('as' => 'tournaments.day.matches.show', 'uses' => 'TournamentController@showMatchesByDay'));
 
 
 // routes ok
