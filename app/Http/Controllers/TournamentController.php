@@ -128,13 +128,15 @@ class TournamentController extends BaseController
             } else {
                 $newMatch = new Match();
             }
-            $newMatch->date = new DateTime($match['date'].$match['time']);;
+            $newMatch->date = new DateTime($match['date'].' '.$match['time']);;
             $newMatch->tournament_id = $tournament_id;
             $newMatch->home_team_id = $match['home'];
             $newMatch->visitor_team_id = $match['visitor'];
             $newMatch->days = $day;
             $newMatch->save();
         }
+
+        Toastr::success(Lang::get('tournaments.edit_match_confirm'), $title = Lang::get('tournaments.edit_match'), $options = []);
 
         return redirect(route('tournaments.matches', $tournament->id));
     }
