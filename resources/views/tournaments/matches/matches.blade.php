@@ -99,8 +99,7 @@
             //Date range picker with time picker
             $('.date').datepicker({
                 autoclose: true,
-                format: 'dd/mm/yyyy',
-                language: 'fr'
+                format: 'd/m/yyyy',
             });
 
             $('.time').timepicker({

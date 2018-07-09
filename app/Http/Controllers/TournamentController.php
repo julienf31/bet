@@ -7,6 +7,7 @@ use App\Match;
 use App\Team;
 use App\Tournament;
 use App\User;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
@@ -128,7 +129,7 @@ class TournamentController extends BaseController
             } else {
                 $newMatch = new Match();
             }
-            $newMatch->date = new DateTime($match['date'].$match['time']);;
+            $newMatch->date = Carbon::createFromFormat('d/m/Y H:i',$match['date'].' '.$match['time']);
             $newMatch->tournament_id = $tournament_id;
             $newMatch->home_team_id = $match['home'];
             $newMatch->visitor_team_id = $match['visitor'];

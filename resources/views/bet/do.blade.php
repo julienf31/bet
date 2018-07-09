@@ -17,10 +17,28 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                        @foreach($matches as $match)
+                        @foreach($matches->sortBy('date') as $match)
+                            @php
+                                $currDate = $match->date;
+                                if(!isset($date)){
+                                    $display = true;
+                                    $date = $currDate;
+                                } else {
+                                    if(!$date->isSameDay($currDate)){
+                                        $display = true;
+                                    } else {
+                                        $display = false;
+                                    }
+                                    $date = $currDate;
+                                }
+                            @endphp
                             <div class="row margin-bottom">
+                                @if($display)
+                                    <div class="col-sm-12 text-center"><h3>{{ $match->date->formatLocalized('%A %d %B %Y') }}</h3></div>
+                                @endif
                                 <div class="col-md-4"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></div>
                                 <div class="col-md-4 text-center">
+                                    {{ $match->date }}
                                     <div class="btn-group match" id="{{$match->id}}">
                                         {{ $betFind = false }}
                                         @foreach($bets as $bet)
@@ -49,7 +67,7 @@
                         @endforeach
                     </div>
                     <div class="box-footer">
-                        <button>Envoyer</button>
+                        <button type="submit" class="btn btn-success pull-right">Envoyer</button>
                     </div>
                     <!-- /.box-body -->
             </div>
