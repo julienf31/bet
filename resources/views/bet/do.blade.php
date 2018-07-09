@@ -13,7 +13,7 @@
 
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Mes parties </h3>
+                        <h3 class="box-title"></h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
@@ -34,7 +34,7 @@
                             @endphp
                             <div class="row margin-bottom">
                                 @if($display)
-                                    <div class="col-sm-12 text-center"><h3>{{ $match->date->formatLocalized('%A %d %B %Y') }}</h3></div>
+                                    <div class="col-sm-12 text-center" style="margin-bottom: 20px;"><h3>{{ $match->date->formatLocalized('%A %d %B %Y') }}</h3></div>
                                 @endif
                                 <div class="col-md-4"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></div>
                                 <div class="col-md-4 text-center">

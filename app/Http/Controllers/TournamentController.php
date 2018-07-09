@@ -150,4 +150,27 @@ class TournamentController extends BaseController
 
         return view('tournaments.matches.show', compact('tournament', 'matches'));
     }
+
+    public function completeMatch($tournament_id,$match_id)
+    {
+        $tournament = Tournament::find($tournament_id);
+        $match = Match::find($match_id);
+
+        return view('tournaments.matches.complete', compact('tournament', 'match'));
+    }
+
+    public function completeMatchStore($tournament_id,$match_id, Request $request)
+    {
+        $tournament = Tournament::find($tournament_id);
+        $match = Match::find($match_id);
+
+        $match->status = 1;
+        $match->home_score = $request->get('home_score');
+        $match->visitor_score = $request->get('visitor_score');
+        $match->save();
+
+        Toastr::success(Lang::get('tournaments.complete_match_confirm'), $title = Lang::get('tournaments.complete_match'), $options = []);
+
+        return redirect(route('tournaments.day.matches.show', [$tournament->id, $match->days]));
+    }
 }

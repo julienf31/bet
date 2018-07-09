@@ -65,6 +65,7 @@ class BetController extends BaseController
             }
         }
 
-        return Redirect::route('bet',$game);
+        Toastr::success('Vos pronos ont été enregistrés', $title = 'Pronostics', $options = []);
+        return Redirect::route('games.show',$game);
     }
 }

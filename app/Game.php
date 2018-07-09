@@ -33,7 +33,7 @@ class Game extends Model
                 $match = $bet->match()->with(['hometeam','visitorteam'])->first();
                 if($match->winner == $bet->bet){
                     //bet success
-                    $part['score'] += 3;
+                    $part['score'] += 1;
                 }
                 else{
                     //bet fail

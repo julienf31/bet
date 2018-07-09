@@ -41,6 +41,8 @@ Route::get('/tournaments/{id}/matches', array('as' => 'tournaments.matches', 'us
 Route::get('/tournaments/{id}/matches/day/{day}', array('as' => 'tournaments.day.matches', 'uses' => 'TournamentController@matchesByDay'));
 Route::post('/tournaments/{id}/matches/day/{day}', array('as' => 'tournaments.day.matches', 'uses' => 'TournamentController@updateMatchesByDay'));
 Route::get('/tournaments/{id}/matches/day/{day}/show', array('as' => 'tournaments.day.matches.show', 'uses' => 'TournamentController@showMatchesByDay'));
+Route::get('/tournaments/{id}/matches/{match_id}/done', array('as' => 'tournaments.matches.complete', 'uses' => 'TournamentController@completeMatch'));
+Route::post('/tournaments/{id}/matches/{match_id}/done', array('as' => 'tournaments.matches.complete', 'uses' => 'TournamentController@completeMatchStore'));
 
 
 // routes ok

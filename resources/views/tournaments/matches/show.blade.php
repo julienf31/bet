@@ -12,16 +12,27 @@
                     <h3 class="box-title">Matchs</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <tbody><tr>
+                            <th class="text-right">Domicile</th>
+                            <th class="text-center">Score</th>
+                            <th>Exterieur</th>
+                            <th>Actions</th>
+                        </tr>
                         @foreach($matches->sortBy('date') as $match)
-                                <div class="row margin-bottom">
-                                    <div class="col-md-4"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></div>
-                                    <div class="col-md-4 text-center">
-                                        {{ $match->date->formatLocalized('%A %d %B %Y %H:%M') }}
-                                    </div>
-                                    <div class="col-md-4"><img class="pull-left" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/></div>
-                                </div>
+                            <tr>
+                                <td class="text-right">{{ $match->hometeam->name }}</td>
+                                <td class="text-center">{{ $match->home_score }} - {{ $match->visitor_score }}</td>
+                                <td>{{ $match->visitorteam->name }}</td>
+                                <td>
+                                    <a href="{{ route('tournaments.matches.complete', [$tournament->id,$match->id]) }}">Marquer terminé</a>
+                                    <a href="">Modifier</a>
+                                </td>
+                            </tr>
                         @endforeach
+                        </tbody>
+                    </table>
                 </div>
                 <div class="box-footer">
                     <a href="{{ route('tournaments.matches', $tournament->id) }}" class="btn btn-warning">Retour</a>
