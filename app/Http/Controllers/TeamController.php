@@ -28,6 +28,14 @@ class TeamController extends BaseController
         $team->name = $team_name;
         $team->city = $team_city;
         $team->country_id = $team_country;
+
+        if($request->hasFile('teamLogo')){
+            $file = $request->file('teamLogo');
+            $extension = $request->file('teamLogo')->guessExtension();
+            $file = $request->file('teamLogo')->storeAs('', $team->id.'.'.$extension  ,'teamLogo');
+            $team->logo = $extension;
+        }
+
         $team->save();
 
         Toastr::success(Lang::get('teams.update_confirm'), $title = Lang::get('teams.update'), $options = []);

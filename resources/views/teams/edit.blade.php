@@ -13,7 +13,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <form method="post" action="" class="form-horizontal">
+                    <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="form-group">
@@ -47,6 +47,13 @@
                                             <option value="{{ $country->id }}" country="{{ $country->code }}" {{ ($country->id == $team->country_id) ? 'selected' : '' }}>{{ $country->name }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="teamLogo" class="col-sm-2 control-label">Logo</label>
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <input type="file" class="custom-file" name="teamLogo">
                                 </div>
                             </div>
                         </div>
