@@ -128,7 +128,7 @@ class TournamentController extends BaseController
             } else {
                 $newMatch = new Match();
             }
-            $newMatch->date = new DateTime($match['date'].' '.$match['time']);;
+            $newMatch->date = DateTime::createFromFormat('d/m/Y H:i',$match['date'].' '.$match['time']);
             $newMatch->tournament_id = $tournament_id;
             $newMatch->home_team_id = $match['home'];
             $newMatch->visitor_team_id = $match['visitor'];
