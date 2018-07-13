@@ -38,7 +38,7 @@
                                 @endif
                                 <div class="col-md-4"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></div>
                                 <div class="col-md-4 text-center">
-                                    {{ $match->date }}
+                                    {{ $match->date->format('H:i') }}<br>
                                     <div class="btn-group match" id="{{$match->id}}">
                                         {{ $betFind = false }}
                                         @foreach($bets as $bet)
