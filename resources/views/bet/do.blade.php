@@ -56,7 +56,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-4"><span class="pull-right">{{ $match->visitorteam->name }}</span><img class="pull-left" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/></div>
+                                <div class="col-md-4"><span class="">{{ $match->visitorteam->name }}</span><img class="pull-left" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/></div>
                             </div>
                             <select name="match[{{$match->id}}]" id="select-match-{{$match->id}}" class="hidden">
                                 <option value="" selected></option>
