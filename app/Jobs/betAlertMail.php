@@ -38,18 +38,28 @@ class betAlertMail implements ShouldQueue
     {
         $games = Game::all();
         foreach($games as $game){
-             if(true){
+             if($game->mail){
                 $users = $game->participants;
                 $day = $game->tournament->currentDay;
-                $matches = Match::where('tournament_id', $game->tournament->id)->where('days', $day)->select('id')->get();
+                $matchesID = Match::where('tournament_id', $game->tournament->id)->where('days', $day)->select('id')->get();
+                $matches = Match::where('tournament_id', $game->tournament->id)->where('days', $day)->get();
                 $nbBet = $game->tournament->participants/2;
+                $firstMatch = $matches->sortBy('date')->first();
+                $mail_status = false;
                 foreach ($users as $user){
                     $u = User::find($user->user_id);
-                    $userBets = Bet::where('user_id', $u->id)->where('game_id', $game->id)->whereIn('match_id', $matches)->count();
+                    $userBets = Bet::where('user_id', $u->id)->where('game_id', $game->id)->whereIn('match_id', $matchesID)->count();
                     if($userBets < $nbBet){
-                        //send mail to complete bets
-                        Mail::to($u)->send(new betAlert($game,$u));
+                        if($firstMatch->date->copy()->subDays('1')->lt(now()) && !$game->mail_status){
+                            //send mail to complete bets
+                            $mail_status = true;
+                            Mail::to($u)->send(new betAlert($game,$u));
+                        }
                     }
+                }
+                if($mail_status){
+                    $game->mail_status = true;
+                    $game->save();
                 }
             }
         }
