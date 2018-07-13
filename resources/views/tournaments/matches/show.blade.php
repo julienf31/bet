@@ -26,8 +26,12 @@
                                 <td class="text-center">{{ $match->home_score }} - {{ $match->visitor_score }}</td>
                                 <td>{{ $match->visitorteam->name }}</td>
                                 <td>
-                                    <a href="{{ route('tournaments.matches.complete', [$tournament->id,$match->id]) }}">Marquer terminé</a>
-                                    <a href="">Modifier</a>
+                                    @if($match->status == 1)
+                                        <a href="{{ route('tournaments.matches.cancelComplete', [$tournament->id,$match->id]) }}" class="btn btn-warning btn-sm">Marquer non terminé</a>
+                                    @else
+                                        <a href="{{ route('tournaments.matches.complete', [$tournament->id,$match->id]) }}" class="btn btn-success btn-sm">Marquer terminé</a>
+                                    @endif
+                                    <a href="" class="btn btn-sm btn-danger">Modifier</a>
                                 </td>
                             </tr>
                         @endforeach
