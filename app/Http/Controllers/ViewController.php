@@ -19,7 +19,8 @@ class ViewController extends BaseController
 {
 
     public function showHome(){
-        return view('home');
+        $games = Auth::user()->games()->get();
+        return view('home', compact('games'));
     }
 
     public function showLogin(){
