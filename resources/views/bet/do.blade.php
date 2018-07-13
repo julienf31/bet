@@ -36,7 +36,7 @@
                                 @if($display)
                                     <div class="col-sm-12 text-center" style="margin-bottom: 20px;"><h3>{{ $match->date->formatLocalized('%A %d %B %Y') }}</h3></div>
                                 @endif
-                                <div class="col-md-4"><span class="pull-right align-middle">{{ $match->hometeam->name }}</span><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></div>
+                                <div class="col-md-4"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span><span class="pull-right align-middle">{{ $match->hometeam->name }}</span></div>
                                 <div class="col-md-4 text-center">
                                     {{ $match->date->format('H:i') }}<br>
                                     <div class="btn-group match" id="{{$match->id}}">
@@ -56,7 +56,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-4"><span class="align-middle">{{ $match->visitorteam->name }}</span><img class="" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/></div>
+                                <div class="col-md-4"><img class="" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/><span class="align-middle">{{ $match->visitorteam->name }}</span></div>
                             </div>
                             <select name="match[{{$match->id}}]" id="select-match-{{$match->id}}" class="hidden">
                                 <option value="" selected></option>
