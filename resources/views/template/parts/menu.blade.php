@@ -4,7 +4,7 @@
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>B</b>bet</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>BTV</b>bet</span>
+        <span class="logo-lg"><img src="{{ asset('img/icons/ball.png') }}" class="img-responsive" style="display: inline;" width="24px"> <b>BTV</b>bet</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -26,8 +26,8 @@
                         <a href="{{ Route('register') }}" class="">Inscription</a>
                     </li>
                 @else
-                    <li class=" {{ (route('login') == Request::url()) ? 'active' : '' }} ">
-                        <a href="{{ Route('home') }}" class="">Profil</a>
+                    <li class=" {{ (route('profile') == Request::url()) ? 'active' : '' }} ">
+                        <a href="{{ Route('profile') }}" class="">Profil</a>
                     </li>
                     <li class=" {{ (route('logout') == Request::url()) ? 'active' : '' }} ">
                         <a href="{{ Route('logout') }}" class="">Déconexion</a>

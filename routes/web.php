@@ -19,7 +19,6 @@ Route::get('/', function () {
     return Redirect::route('home');
 });
 
-Route::get('/home', array('as' => 'home', 'uses' => 'ViewController@showHome'));
 
 Route::get('/login', array('as' => 'login', 'uses' => 'ViewController@showLogin'));
 Route::post('/login', array('as' => 'login', 'uses' => 'LoginController@login'));
@@ -27,10 +26,11 @@ Route::post('/login', array('as' => 'login', 'uses' => 'LoginController@login'))
 Route::get('/register', array('as' => 'register', 'uses' => 'ViewController@showRegister'));
 
 Route::group(['middleware' => ['auth']], function () {
+    Route::get('/home', array('as' => 'home', 'uses' => 'ViewController@showHome'));
 
     Route::get('/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));
 
-    Route::get('/profile', array('as' => 'profile', 'uses' => 'ViewController@showHome'));
+    Route::get('/profile/{id?}', array('as' => 'profile', 'uses' => 'ProfileController@show'));
 
     Route::get('/tournaments', array('as' => 'tournaments.list', 'uses' => 'ViewController@showTournaments'));
     Route::get('/tournaments/details/{id}', array('as' => 'tournaments.details', 'uses' => 'ViewController@showTournamentsDetails'));

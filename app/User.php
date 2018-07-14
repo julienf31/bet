@@ -30,6 +30,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    protected $dates = ['created_at', 'updated_at'];
+
     public function games(){
         return $this->hasMany(Game::class, 'owner');
     }
@@ -43,4 +45,8 @@ class User extends Authenticatable
         return $this->hasManyThrough(Game::class, Participant::class, 'user_id','id','id','game_id');
     }
 
+    public function getFullName()
+    {
+        return $this->firstname.' '.strtoupper($this->lastname);
+    }
 }

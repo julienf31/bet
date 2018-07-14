@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bet;
 use App\Game;
 use App\Match;
 use App\Team;
@@ -171,6 +172,20 @@ class TournamentController extends BaseController
         $match->visitor_score = $request->get('visitor_score');
         $match->save();
 
+        $bets = Bet::where('match_id', $match_id)->get();
+        foreach ($bets as $bet){
+            if($bet->bet == 1 && $match->home_score > $match->visitor_score){
+                $bet->result = true;
+            } elseif ($bet->bet == 2 && $match->home_score < $match->visitor_score){
+                $bet->result = true;
+            } elseif ($bet->bet == 'N' && $match->home_score == $match->visitor_score){
+                $bet->result = true;
+            } else {
+                $bet->result = false;
+            }
+            $bet->save();
+        }
+
         Toastr::success(Lang::get('tournaments.complete_match_confirm'), $title = Lang::get('tournaments.complete_match'), $options = []);
 
         return redirect(route('tournaments.day.matches.show', [$tournament->id, $match->days]));
@@ -185,6 +200,12 @@ class TournamentController extends BaseController
         $match->home_score = null;
         $match->visitor_score = null;
         $match->save();
+
+        $bets = Bet::where('match_id', $match_id)->get();
+        foreach ($bets as $bet){
+            $bet->result = false;
+            $bet->save();
+        }
 
         Toastr::success(Lang::get('tournaments.uncomplete_match_confirm'), $title = Lang::get('tournaments.uncomplete_match'), $options = []);
 
