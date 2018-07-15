@@ -20,7 +20,13 @@ class ViewController extends BaseController
 
     public function showHome(){
         $games = Auth::user()->games()->get();
-        return view('home', compact('games'));
+        $bets = Bet::all();
+
+        $bets_win = Bet::where('result', true)->count();
+        $bets_lost = Bet::where('result', false)->count();
+        $bets_wait = Bet::whereNull('result')->count();
+
+        return view('home', compact('games','bets_win','bets_lost','bets_wait'));
     }
 
     public function showLogin(){

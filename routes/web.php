@@ -14,7 +14,6 @@
 use Illuminate\Support\Facades\App;
 
 App::setLocale('fr');
-
 Route::get('/', function () {
     return Redirect::route('home');
 });
@@ -30,7 +29,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));
 
-    Route::get('/profile/{id?}', array('as' => 'profile', 'uses' => 'ProfileController@show'));
+    Route::get('/profile/{id?}', array('as' => 'profile', 'uses' => 'ProfileController@show'))->where('id', '[0-9]+');
+    Route::get('/profile/edit/{id?}', array('as' => 'profile.edit', 'uses' => 'ProfileController@edit'))->where('id', '[0-9]+');
+    Route::post('/profile/edit/{id?}', array('as' => 'profile.update', 'uses' => 'ProfileController@update'))->where('id', '[0-9]+');
 
     Route::get('/tournaments', array('as' => 'tournaments.list', 'uses' => 'ViewController@showTournaments'));
     Route::get('/tournaments/details/{id}', array('as' => 'tournaments.details', 'uses' => 'ViewController@showTournamentsDetails'));

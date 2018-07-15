@@ -1,7 +1,7 @@
 @extends('template.theme')
 
 @section('title')
-    Profil de : {{ $user->pseudo }}
+    Profil de : {{ $user->id }}
 @stop
 
 @section('content')
@@ -10,6 +10,9 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Informations</h3>
+                    @if(Auth::user() == $user)
+                        <a href="{{ route('profile.edit',null) }}" class="btn btn-warning pull-right">Editer le profil</a>
+                    @endif
                 </div>
                 <div class="box-body">
                     <div class="col-md-6">
@@ -18,7 +21,7 @@
                                 <b>Nom</b> <a class="pull-right"> {{ $user->getFullName() }}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Équipe favorite</b> <a class="pull-right">1,322</a>
+                                <b>Équipe favorite</b> <a class="pull-right"> {!! (isset($user->favoriteTeam))?$user->favoriteTeam->name.' '.$user->favoriteTeam->img():"Pas d'équipe favorite" !!}</a>
                             </li>
                             <li class="list-group-item">
                                 @php

@@ -18,4 +18,8 @@ class Team extends Model
     public function matches(){
         return $this->hasMany(Match::class);
     }
+
+    public function img($size = null){
+        return '<img class="img-responsive" src="'.asset('img/logos/teams/'.$this->id.'.'.$this->logo).'" width="18px" style="display:inline">';
+    }
 }

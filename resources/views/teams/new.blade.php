@@ -71,23 +71,23 @@
 @stop
 
 @section('scripts')
-<script>
-    function formatState (state) {
-        if (!state.id) {
-            return state.text;
-        }
-        var $state = $(
-            '<span><span class="flag-icon flag-icon-'+state.element.getAttribute('country').toLowerCase()+'"></span> &nbsp;&nbsp;'+state.text+'</span>'
-        );
-        return $state;
-    };
+    <script>
+        function formatState (state) {
+            if (!state.id) {
+                return state.text;
+            }
+            var $state = $(
+                '<span><span class="flag-icon flag-icon-'+state.element.getAttribute('country').toLowerCase()+'"></span> &nbsp;&nbsp;'+state.text+'</span>'
+            );
+            return $state;
+        };
 
-    $(function () {
-        //Initialize Select2 Elements
-        $('.select2').select2({
-            templateResult: formatState
-        })
-        $('.select2Type').select2()
-    });
-</script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2({
+                templateResult: formatState
+            })
+            $('.select2Type').select2()
+        });
+    </script>
 @stop

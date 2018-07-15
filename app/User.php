@@ -32,6 +32,8 @@ class User extends Authenticatable
 
     protected $dates = ['created_at', 'updated_at'];
 
+    protected $nullable = ['favorite_team'];
+
     public function games(){
         return $this->hasMany(Game::class, 'owner');
     }
@@ -43,6 +45,11 @@ class User extends Authenticatable
     public function parties()
     {
         return $this->hasManyThrough(Game::class, Participant::class, 'user_id','id','id','game_id');
+    }
+
+    public function favoriteTeam()
+    {
+        return $this->belongsTo(Team::class,'favorite_team');
     }
 
     public function getFullName()

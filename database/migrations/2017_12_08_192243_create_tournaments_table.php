@@ -16,6 +16,7 @@ class CreateTournamentsTable extends Migration
         Schema::create('tournaments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('logo');
             $table->integer('country_id')->unsigned();
             $table->string('year');
             $table->enum('type', array('league', 'tournament'));

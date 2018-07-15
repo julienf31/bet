@@ -26,10 +26,12 @@ class CreateUsersTable extends Migration
             $table->boolean('active');
             $table->boolean('banned');
             $table->string('country')->default('fr');
+            $table->integer('favorite_team')->nullable()->unsigned();
             $table->rememberToken();
             $table->timestamps();
 
             $table->foreign('group_id')->references('id')->on('groups');
+            $table->foreign('favorite_team')->references('id')->on('teams');
         });
     }
 

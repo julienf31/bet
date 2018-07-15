@@ -1,6 +1,6 @@
 <header class="main-header">
     <!-- Logo -->
-    <a href="home" class="logo">
+    <a href="{{ route('home') }}" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>B</b>bet</span>
         <!-- logo for regular state and mobile devices -->
@@ -26,6 +26,9 @@
                         <a href="{{ Route('register') }}" class="">Inscription</a>
                     </li>
                 @else
+                    <li class="">
+                        <a href="">{!! Auth::user()->pseudo !!} {!! (isset(Auth::user()->favorite_team))? Auth::user()->favoriteTeam->img():'' !!}</a>
+                    </li>
                     <li class=" {{ (route('profile') == Request::url()) ? 'active' : '' }} ">
                         <a href="{{ Route('profile') }}" class="">Profil</a>
                     </li>
