@@ -57,7 +57,6 @@
                                 <li><a href="#">utilisateur 2<span class="pull-right text-orange">2nd</span></a></li>
                                 <li><a href="#">utilisateur 3<span class="pull-right text-red">3rd</span></a></li>
                             </ul>
-
                         </div>
                         <div class="col-md-6">
                             <canvas id="betsChart"></canvas>

@@ -19,7 +19,7 @@ class ViewController extends BaseController
 {
 
     public function showHome(){
-        $games = Auth::user()->games()->get();
+        $games = Auth::user()->parties()->get();
         $bets = Bet::all();
 
         $bets_win = Bet::where('result', true)->count();
