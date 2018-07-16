@@ -34,8 +34,8 @@
 
                                         <h4 class="media-heading user_name"><small>{!! ($game->privacy)? '<i class="fa fa-lock fa-fw"></i>':'<i class="fa fa-unlock fa-fw"></i>' !!}</small> {{ $game->name }}</h4>
                                         {{ $game->description }}
-
                                         <p><small><a href="{{ route('games.show', $game->id) }}">Accéder</a> - <a href="{{ route('games.edit', $game->id) }}">Paramétres</a></small></p>
+                                        <a href="{{ route('bet',$game->id) }}" class="btn btn-success">Parier</a>
                                     </div>
                                 </div>
                             @endforeach
@@ -55,11 +55,11 @@
                             <ul class="nav nav-pills nav-stacked">
                                 @foreach($best->sortByDesc('bets_count') as $key => $player)
                                     @if($key == 0)
-                                        <li><a href="#">{{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} &nbsp;<span class="text-green">1<sup>er</sup></span></span></a></li>
+                                        <li><a href="#"><span class="text-green">1<sup>er</sup></span> - &nbsp; {{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }}</span></a></li>
                                     @elseif($key == 1)
-                                        <li><a href="#">{{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} &nbsp;<span class="text-orange">2<sup>éme</sup></span></span></a></li>
+                                        <li><a href="#"><span class="text-orange">2<sup>éme</sup></span> - &nbsp; {{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} </span></a></li>
                                     @elseif($key == 2)
-                                        <li><a href="#">{{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} &nbsp;<span class="text-red">3<sup>éme</sup></span></span></a></li>
+                                        <li><a href="#"><span class="text-red">3<sup>éme</sup></span> - &nbsp; {{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} </span></a></li>
                                     @endif
                                 @endforeach
                             </ul>

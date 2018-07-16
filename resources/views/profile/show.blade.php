@@ -1,7 +1,7 @@
 @extends('template.theme')
 
 @section('title')
-    Profil de : {{ $user->id }}
+    Profil de : {{ $user->pseudo }}
 @stop
 
 @section('content')

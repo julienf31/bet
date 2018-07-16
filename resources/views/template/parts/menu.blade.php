@@ -48,54 +48,65 @@
 
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">MENU</li>
-            <!-- HOME -->
-            <li {{ (Request::is('home')) ? 'class=active' : '' }}>
-                <a href="{{ route('home') }}">
-                    <i class="fa fa-home"></i> <span>Accueil</span>
-                </a>
-            </li>
-            <!-- TOURNAMENTS -->
-            <li class=" {{ (Request::is('tournaments')) ? 'active menu-open' : '' }} treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Tournois</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li {{ (Request::is('tournaments')) ? 'class=active' : '' }}><a href="{{ route('tournaments.list') }}"><i class="fa fa-circle-o"></i> Liste des tournois</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> Mes tournois</a></li>
-                </ul>
-            </li>
-            <!-- TEAMS -->
-            <li class=" {{ (Request::is('teams')) ? 'active menu-open' : '' }} treeview">
-                <a href="#">
-                    <i class="fa fa-dashboard"></i> <span>Équipes</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li {{ (Request::is('teams')) ? 'class=active' : '' }}><a href="{{ route('teams.list') }}"><i class="fa fa-circle-o"></i> Liste des équipes</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> Mes tournois</a></li>
-                </ul>
-            </li>
             @if(Auth::user())
-            <!-- GAMES -->
-            <li class=" {{ (Request::is('games')) ? 'active menu-open' : '' }} treeview">
-                <a href="#">
-                    <i class="fa fa-gamepad"></i> <span>Parties</span>
-                    <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li {{ (Request::is('games')) ? 'class=active' : '' }}><a href="{{ route('games.index') }}"><i class="fa fa-circle-o"></i>Mes parties</a></li>
-                    <li><a href=""><i class="fa fa-circle-o"></i> Historique</a></li>
-                </ul>
-            </li>
-                @endif
+                <li class="header">MENU</li>
+                <!-- HOME -->
+                <li {{ (Request::is('home')) ? 'class=active' : '' }}>
+                    <a href="{{ route('home') }}">
+                        <i class="fa fa-home"></i> <span>Accueil</span>
+                    </a>
+                </li>
+                <!-- TOURNAMENTS -->
+                <li class=" {{ (Request::is('tournaments')) ? 'active menu-open' : '' }} treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>Tournois</span>
+                        <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li {{ (Request::is('tournaments')) ? 'class=active' : '' }}><a href="{{ route('tournaments.list') }}"><i class="fa fa-circle-o"></i> Liste des tournois</a></li>
+                    </ul>
+                </li>
+                <!-- TEAMS -->
+                <li class=" {{ (Request::is('teams')) ? 'active menu-open' : '' }} treeview">
+                    <a href="#">
+                        <i class="fa fa-dashboard"></i> <span>Équipes</span>
+                        <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li {{ (Request::is('teams')) ? 'class=active' : '' }}><a href="{{ route('teams.list') }}"><i class="fa fa-circle-o"></i> Liste des équipes</a></li>
+                        <li><a href=""><i class="fa fa-circle-o"></i> Mes tournois</a></li>
+                    </ul>
+                </li>
+                <!-- GAMES -->
+                <li class=" {{ (Request::is('games')) ? 'active menu-open' : '' }} treeview">
+                    <a href="#">
+                        <i class="fa fa-gamepad"></i> <span>Parties</span>
+                        <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li {{ (Request::is('games')) ? 'class=active' : '' }}><a href="{{ route('games.index') }}"><i class="fa fa-circle-o"></i>Mes parties</a></li>
+                        <li {{ (Request::is('games.search')) ? 'class=active' : '' }}><a href="{{ route('games.search') }}"><i class="fa fa-circle-o"></i>Rechercher une partie</a></li>
+                    </ul>
+                </li>
+                <!-- USERS -->
+                <li class=" {{ (Request::is('profiles')) ? 'active menu-open' : '' }} treeview">
+                    <a href="#">
+                        <i class="fa fa-user"></i> <span>Utilisateurs</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li {{ (Request::is('profiles')) ? 'class=active' : '' }}><a href="{{ route('profile.index') }}"><i class="fa fa-circle-o"></i>Liste des utilisateurs</a></li>
+                    </ul>
+                </li>
+            @endif
         </ul>
     </section>
     <!-- /.sidebar -->

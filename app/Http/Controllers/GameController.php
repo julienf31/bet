@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bet;
 use App\Game;
 use App\User;
 use App\Tournament;
@@ -18,20 +19,29 @@ class GameController extends BaseController
 {
     public function index()
     {
-        //$games = User::where('id',Auth::user()->id)->with(['games.tournament','games.tournament.country'])->first();
         $games = User::find(Auth::user()->id)->parties;
+
         return view('games.index', compact('games'));
+    }
+
+    public function search()
+    {
+        $games = Game::where('privacy',0)->get();
+
+        return view('games.search', compact('games'));
     }
 
     public function show($id)
     {
-        $data['game'] = Game::with('participants.user')->where('id',$id)->first();
-        $data['tournament'] = Tournament::find($data['game']->tournament_id);
-        $data['nextmatchs'] = Tournament::find($data['game']->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$data['tournament']->currentDay)->get();
-        $data['lastmatchs'] = Tournament::find($data['game']->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$data['tournament']->currentDay-1)->get();
-        $data['rank'] = $data['game']->ranking();
+        $game = Game::with('participants.user')->where('id',$id)->first();
+        $tournament = Tournament::find($game->tournament_id);
+        $nextmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay)->get();
+        $nextmatchsID = Tournament::find($game->tournament_id)->matches()->where('days',$tournament->currentDay)->select('id')->get()->toArray();
+        $lastmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay-1)->get();
+        $rank = $game->ranking();
+        $bets = Auth::user()->bets()->whereIn('match_id', $nextmatchsID)->select(['match_id','bet'])->get()->toArray();
 
-        return view('games.show', $data);
+        return view('games.show', compact('game','tournament', 'nextmatchs','lastmatchs','rank','bets'));
     }
 
     public function create()
@@ -125,7 +135,6 @@ class GameController extends BaseController
 
     public function getRanking($game_id,Request $request)
     {
-        //$game = $request->get('game');
         $game = Game::find(1)->ranking();
         var_dump($game);
         die();

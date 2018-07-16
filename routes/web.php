@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));
 
+    Route::get('/profiles', array('as' => 'profile.index', 'uses' => 'ProfileController@index'));
     Route::get('/profile/{id?}', array('as' => 'profile', 'uses' => 'ProfileController@show'))->where('id', '[0-9]+');
     Route::get('/profile/edit/{id?}', array('as' => 'profile.edit', 'uses' => 'ProfileController@edit'))->where('id', '[0-9]+');
     Route::post('/profile/edit/{id?}', array('as' => 'profile.update', 'uses' => 'ProfileController@update'))->where('id', '[0-9]+');
@@ -49,6 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/tournaments/{id}/matches/{match_id}/done/cancel', array('as' => 'tournaments.matches.cancelComplete', 'uses' => 'TournamentController@cancelCompleteMatch'));
 
     Route::get('/games', array('as' => 'games.index', 'uses' => 'GameController@index'));
+    Route::get('/games/search', array('as' => 'games.search', 'uses' => 'GameController@search'));
     Route::get('/games/new', array('as' => 'games.create', 'uses' => 'GameController@create'));
     Route::post('/games/new', array('as' => 'games.create', 'uses' => 'GameController@store'));
     Route::get('/games/details/{id}', array('as' => 'games.show', 'uses' => 'GameController@show'));
