@@ -9,6 +9,7 @@ use App\Team;
 use App\Tournament;
 use App\User;
 use App\Bet;
+use function foo\func;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -26,7 +27,11 @@ class ViewController extends BaseController
         $bets_lost = Bet::where('result', false)->count();
         $bets_wait = Bet::whereNull('result')->count();
 
-        return view('home', compact('games','bets_win','bets_lost','bets_wait'));
+        $best = User::withCount(['bets' => function($query){
+            $query->where('result',1);
+        }])->get();
+
+        return view('home', compact('games','bets_win','bets_lost','bets_wait','best'));
     }
 
     public function showLogin(){

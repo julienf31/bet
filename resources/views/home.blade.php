@@ -53,9 +53,15 @@
                         <div class="col-md-6">
                             Meilleur utilisateur
                             <ul class="nav nav-pills nav-stacked">
-                                <li><a href="#">utilisateur<span class="pull-right text-green">1st</span></a></li>
-                                <li><a href="#">utilisateur 2<span class="pull-right text-orange">2nd</span></a></li>
-                                <li><a href="#">utilisateur 3<span class="pull-right text-red">3rd</span></a></li>
+                                @foreach($best->sortByDesc('bets_count') as $key => $player)
+                                    @if($key == 0)
+                                        <li><a href="#">{{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} &nbsp;<span class="text-green">1<sup>er</sup></span></span></a></li>
+                                    @elseif($key == 1)
+                                        <li><a href="#">{{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} &nbsp;<span class="text-orange">2<sup>éme</sup></span></span></a></li>
+                                    @elseif($key == 2)
+                                        <li><a href="#">{{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} &nbsp;<span class="text-red">3<sup>éme</sup></span></span></a></li>
+                                    @endif
+                                @endforeach
                             </ul>
                         </div>
                         <div class="col-md-6">
