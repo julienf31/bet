@@ -31,8 +31,7 @@ class TeamController extends BaseController
 
         if($request->hasFile('teamLogo')){
             $file = $request->file('teamLogo');
-            var_dump($file);
-            die();
+   
             $extension = $request->file('teamLogo')->guessExtension();
             Storage::delete($team->id.'.'.$extension);
             $file = $request->file('teamLogo')->storeAs('', $team->id.'.'.$extension  ,'teamLogo');
