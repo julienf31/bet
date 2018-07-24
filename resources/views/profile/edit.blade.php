@@ -34,7 +34,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6"></div>
+                        <div class="col-md-6">
+                            @if(Auth::user()->hasRole('admin'))
+                                <div class="form-group">
+                                    <label for="team" class="">Role</label>
+                                    <div class="">
+                                        <select class="form-control select2Theme" name="role" style="width: 100%;">
+                                            <option value="user" {{ ($user->role == 'user') ? 'selected' : '' }}>Utilisateur</option>
+                                            <option value="admin" {{ ($user->role == 'admin') ? 'selected' : '' }}>Administrateur</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,12 +104,12 @@
 
 @section('scripts')
     <script>
-        function formatState (state) {
+        function formatState(state) {
             if (!state.id) {
                 return state.text;
             }
             var $state = $(
-                '<span><span class="flag-icon flag-icon-'+state.element.getAttribute('country').toLowerCase()+'"></span> &nbsp;&nbsp;'+state.text+'</span>'
+                '<span><span class="flag-icon flag-icon-' + state.element.getAttribute('country').toLowerCase() + '"></span> &nbsp;&nbsp;' + state.text + '</span>'
             );
             return $state;
         };

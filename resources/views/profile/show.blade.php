@@ -10,8 +10,8 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Informations</h3>
-                    @if(Auth::user() == $user)
-                        <a href="{{ route('profile.edit',null) }}" class="btn btn-warning pull-right">Editer le profil</a>
+                    @if(Auth::user() == $user || Auth::user()->hasRole('admin'))
+                        <a href="{{ route('profile.edit', ((Auth::user()->hasRole('admin'))? $user->id:null)) }}" class="btn btn-warning pull-right">Editer le profil</a>
                     @endif
                 </div>
                 <div class="box-body">

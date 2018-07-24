@@ -48,9 +48,10 @@ class ProfileController extends Controller
         }
 
         $user->favorite_team = $request->get('team');
+        $user->role = $request->get('role');
         $user->theme = $request->get('theme');
         $user->save();
 
-        return redirect(route('profile'));
+        return redirect(route('profile',$user_id));
     }
 }

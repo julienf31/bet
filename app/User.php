@@ -56,4 +56,13 @@ class User extends Authenticatable
     {
         return $this->firstname.' '.strtoupper($this->lastname);
     }
+
+    public function hasRole($role)
+    {
+        if($this->role == $role){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

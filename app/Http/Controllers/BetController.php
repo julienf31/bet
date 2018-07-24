@@ -23,22 +23,27 @@ class BetController extends BaseController
 {
     public function show($game_id)
     {
-        $data['game'] = Game::find($game_id);
-        $data['tournament'] = Game::find($game_id)->tournament;
-        $data['matches'] = Tournament::find($data['tournament']->id)->matches()->where('days', $data['tournament']->currentDay)->get();
-        $matches = Tournament::find($data['tournament']->id)->matches()->where('days', $data['tournament']->currentDay)->select('id')->get()->toArray();
-        $data['bets'] = Bet::where('user_id', Auth::user()->id)->whereIn('match_id', $matches)->where('game_id', $data['game']->id)->get()->toArray();
+        $game = Game::find($game_id);
+        $tournament = Game::find($game_id)->tournament;
+        $matches = Tournament::find($tournament->id)->matches()->where('days', $tournament->currentDay)->get();
+        $bets = Bet::where('user_id', Auth::user()->id)->whereIn('match_id', array_column($matches->toArray(),'id'))->where('game_id', $game->id)->get()->toArray();
 
-        $firstMatch = Tournament::find($data['tournament']->id)->matches()->where('days', $data['tournament']->currentDay)->select('date')->orderBy('date')->first();
-        $firstMatch = Carbon::parse($firstMatch->date);
+
+        $firstMatch = Tournament::find($tournament->id)->matches()->where('days', $tournament->currentDay)->select('date')->orderBy('date')->first();
+        if (isset($firstMatch)) {
+            $firstMatch = Carbon::parse($firstMatch->date);
+        }
         $now = Carbon::create();
 
         //check if first match is in less than one hour
-        if($firstMatch->lt($now->addHours(+1))){
+        if (!isset($firstMatch)) {
+            Toastr::error('Paris indisponible', $title = 'Erreur', $options = []);
+            return redirect()->route('games.show', $game_id);
+        } elseif ($firstMatch->lt($now->addHours(+1))) {
             Toastr::error('Les paris pour cette journée ne sont plus disponible !', $title = 'Erreur', $options = []);
             return redirect()->route('games.show', $game_id);
-        }else{
-            return view('bet.do', $data);
+        } else {
+            return view('bet.do', compact('game', 'tournament', 'matches', 'bets'));
         }
     }
 
@@ -46,11 +51,11 @@ class BetController extends BaseController
     {
         $bets = $request->get('match');
         $game = $request->get('game');
-        foreach ($bets as $id => $bet){
-            if($bet != null){
+        foreach ($bets as $id => $bet) {
+            if ($bet != null) {
                 $b = Bet::where('user_id', Auth::user()->id)->where('game_id', $game)->where('match_id', $id)->first();
                 $bCount = Bet::where('user_id', Auth::user()->id)->where('game_id', $game)->where('match_id', $id)->get()->count();
-                if(!($bCount > 0)){
+                if (!($bCount > 0)) {
                     // create bet
                     $new_bet = new Bet();
                     $new_bet->user_id = Auth::user()->id;
@@ -58,7 +63,7 @@ class BetController extends BaseController
                     $new_bet->match_id = $id;
                     $new_bet->bet = $bet;
                     $new_bet->save();
-                }else{
+                } else {
                     $b->bet = $bet;
                     $b->save();
                 }
@@ -66,6 +71,6 @@ class BetController extends BaseController
         }
 
         Toastr::success('Vos pronos ont été enregistrés', $title = 'Pronostics', $options = []);
-        return Redirect::route('games.show',$game);
+        return Redirect::route('games.show', $game);
     }
 }

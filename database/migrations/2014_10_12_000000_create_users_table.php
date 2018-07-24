@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->boolean('banned');
             $table->string('country')->default('fr');
             $table->integer('favorite_team')->nullable()->unsigned();
+            $table->string('role')->default('user');
             $table->rememberToken();
             $table->timestamps();
 
