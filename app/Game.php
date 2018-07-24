@@ -33,25 +33,29 @@ class Game extends Model
             $bets = User::find($participant->user_id)->bets()->where('game_id', $this->id)->get();
             $part['name'] = $user->firstname;
             $part['score'] = 0;
-            //echo "Paris de : ".$participant->id."<br>";
             foreach ($bets as $bet){
-                $match = $bet->match()->with(['hometeam','visitorteam'])->first();
-                if($match->winner == $bet->bet){
-                    //bet success
+                $match = $bet->match()->first();
+                if($bet->result){
                     $part['score'] += 1;
                 }
                 else{
                     //bet fail
                 }
-                //echo $bet->bet.' -> '.$match->hometeam->name.' '.$match->home_score.' - '.$match->visitor_score.' '.$match->visitorteam->name."<br>";
             }
             array_push($rank,$part);
-            //echo "<br>";
-
         }
         return array_reverse(array_sort($rank, function ($value){
             return $value['score'];
         }));
 
+    }
+
+    public function status()
+    {
+        switch ($this->tournament->status) {
+            case 1: return "<span class=\"label label-warning\">En attente</span>";
+            case 2: return "<span class=\"label label-success\">En cours</span>";
+            case 3: return "<span class=\"label label-danger\">Terminée</span>";
+        }
     }
 }

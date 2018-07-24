@@ -203,7 +203,7 @@ class TournamentController extends BaseController
 
         $bets = Bet::where('match_id', $match_id)->get();
         foreach ($bets as $bet){
-            $bet->result = false;
+            $bet->result = null;
             $bet->save();
         }
 

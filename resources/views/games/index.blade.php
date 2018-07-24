@@ -32,7 +32,7 @@
                             <td>{{ $game->id }}</td>
                             <td>{{ $game->name }}</td>
                             <td><span class="flag-icon flag-icon-{{ strtolower($game->tournament->country->code) }}"></span> {{ $game->tournament->name }}</td>
-                            <td><span class="label label-danger">Denied</span></td>
+                            <td>{!! $game->tournament->status() !!}</td>
                             <td>{{ $game->description }}</td>
                             <td>{{ $game->created_at }}</td>
                             <td>

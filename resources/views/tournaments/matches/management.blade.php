@@ -24,7 +24,7 @@
                                 <td>{{ $day['number'] }}</td>
                                 <td {{ ($day['matches'] < $tournament->participants/2)? 'class=text-danger':'class=text-success' }}>{{ $day['matches'] }}</td>
                                 <td>
-                                    <a href="{{ route('tournaments.day.matches.show', [$tournament->id,$day['number']]) }}">Voir</a>
+                                    <a href="{{ route('tournaments.day.matches.show', [$tournament->id,$day['number']]) }}">Voir</a> -
                                     <a href="{{ route('tournaments.day.matches', [$tournament->id,$day['number']]) }}">Editer</a>
                                 </td>
                             </tr>

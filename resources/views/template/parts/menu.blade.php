@@ -56,31 +56,33 @@
                         <i class="fa fa-home"></i> <span>Accueil</span>
                     </a>
                 </li>
-                <!-- TOURNAMENTS -->
-                <li class=" {{ (Request::is('tournaments')) ? 'active menu-open' : '' }} treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Tournois</span>
-                        <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li {{ (Request::is('tournaments')) ? 'class=active' : '' }}><a href="{{ route('tournaments.list') }}"><i class="fa fa-circle-o"></i> Liste des tournois</a></li>
-                    </ul>
-                </li>
-                <!-- TEAMS -->
-                <li class=" {{ (Request::is('teams')) ? 'active menu-open' : '' }} treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Équipes</span>
-                        <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li {{ (Request::is('teams')) ? 'class=active' : '' }}><a href="{{ route('teams.list') }}"><i class="fa fa-circle-o"></i> Liste des équipes</a></li>
-                        <li><a href=""><i class="fa fa-circle-o"></i> Mes tournois</a></li>
-                    </ul>
-                </li>
+                @if(Auth::user()->hasRole('admin'))
+                    <!-- TOURNAMENTS -->
+                    <li class=" {{ (Request::is('tournaments')) ? 'active menu-open' : '' }} treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Tournois</span>
+                            <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li {{ (Request::is('tournaments')) ? 'class=active' : '' }}><a href="{{ route('tournaments.list') }}"><i class="fa fa-circle-o"></i> Liste des tournois</a></li>
+                        </ul>
+                    </li>
+                    <!-- TEAMS -->
+                    <li class=" {{ (Request::is('teams')) ? 'active menu-open' : '' }} treeview">
+                        <a href="#">
+                            <i class="fa fa-dashboard"></i> <span>Équipes</span>
+                            <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li {{ (Request::is('teams')) ? 'class=active' : '' }}><a href="{{ route('teams.list') }}"><i class="fa fa-circle-o"></i> Liste des équipes</a></li>
+                            <li><a href=""><i class="fa fa-circle-o"></i> Mes tournois</a></li>
+                        </ul>
+                    </li>
+                @endif
                 <!-- GAMES -->
                 <li class=" {{ (Request::is('games')) ? 'active menu-open' : '' }} treeview">
                     <a href="#">
