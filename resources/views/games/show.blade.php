@@ -11,47 +11,40 @@
                 <div class="box-header">
                     <h3 class="box-title">Informations</h3>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
                     <p>Nom de la partie : {{ $game->name }}</p>
                     <p>Description de la partie : {{ $game->description }}</p>
                     <p><h4>Participants :</h4></p>
                     @foreach($game->participants as $participant)
-                        {{ $participant->user->firstname.' '.$participant->user->lastname.' (@'.$participant->user->pseudo.')' }}<br>
+                        <p>{{ $participant->user->firstname.' '.$participant->user->lastname.' (@'.$participant->user->pseudo.')' }}</p>
                     @endforeach
-
+                    @if(Auth::user()->hasRole('admin') && Auth::user()->inGame($game->id))
+                        <p>Demandes en attente : {{ $game->users_request()->count() }}</p>
+                    @endif
                     <p><a href="{{ route('games.edit', $game->id) }}" class="btn btn-warning"> Paramétres</a></p>
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
         </div>
         <div class="col-sm-12 col-md-4">
             <div class="box box-info">
                 <div class="box-header">
                     <h3 class="box-title">Classement</h3>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
-                    <table class="tab-pane">
-                        <thead>
-                        <th>nom</th>
-                        <th>score</th>
-                        </thead>
-                        <tbody>
+                    <table class="table tab-pane">
+                        <tr>
+                            <th>Pseudo</th>
+                            <th>Score</th>
+                        </tr>
                         @foreach($rank as $r)
                             <tr>
                                 <td>{{ $r['name'] }}</td>
                                 <td>{{ $r['score'] }}</td>
                             </tr>
                         @endforeach
-
-                        </tbody>
                     </table>
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
         </div>
         <div class="col-sm-12 col-md-6">
             <div class="box">
@@ -76,7 +69,6 @@
                     @endif
                 </div>
             </div>
-
         </div>
         <div class="col-sm-12 col-md-6">
             <div class="box">

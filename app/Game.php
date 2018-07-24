@@ -19,6 +19,11 @@ class Game extends Model
         return $this->hasMany(Participant::class);
     }
 
+    public function users_request()
+    {
+        return $this->hasMany(GameRequest::class);
+    }
+
     public function ranking()
     {
         $rank = array();

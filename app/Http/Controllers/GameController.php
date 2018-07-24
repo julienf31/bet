@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bet;
 use App\Game;
+use App\GameRequest;
 use App\User;
 use App\Tournament;
 use App\Participant;
@@ -14,6 +15,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Toastr;
 
 class GameController extends BaseController
 {
@@ -33,6 +35,10 @@ class GameController extends BaseController
 
     public function show($id)
     {
+        if(!Auth::user()->inGame($id)){
+            Toastr::warning("Vous n'avez pas accés à cette partie");
+            return redirect()->route('games.search');
+        }
         $game = Game::with('participants.user')->where('id',$id)->first();
         $tournament = Tournament::find($game->tournament_id);
         $nextmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay)->get();
@@ -133,10 +139,24 @@ class GameController extends BaseController
         return redirect()->route('games.show', $game->id);
     }
 
-    public function getRanking($game_id,Request $request)
+    public function accessRequest($game_id)
     {
-        $game = Game::find(1)->ranking();
-        var_dump($game);
-        die();
+        $game = Game::find($game_id);
+        $user = Auth::user();
+
+        if(GameRequest::where('user_id', $user->id)->where('game_id', $game->id)->exists()){
+            Toastr::warning('games.request.already');
+            return redirect()->route('games.search');
+        } else {
+            $game_request = new GameRequest();
+            $game_request->game_id = $game->id;
+            $game_request->user_id = $user->id;
+            $game_request->message = 'coucou';
+
+            $game_request->save();
+
+            Toastr::success('games.request.confirm');
+            return redirect()->route('games.search');
+        }
     }
 }

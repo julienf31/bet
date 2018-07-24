@@ -26,7 +26,7 @@
 
                                 <h4 class="media-heading user_name"><small>{!! ($game->privacy)? '<i class="fa fa-lock fa-fw"></i>':'<i class="fa fa-unlock fa-fw"></i>' !!}</small> {{ $game->name }}</h4>
                                 {{ $game->description }}
-                                <p><small><a href="{{ route('games.show', $game->id) }}">Accéder</a></small></p>
+                                <p><small><a href="{{ route('games.show', $game->id) }}">Accéder</a> @if(!Auth::user()->inGame($game->id) && !$game->privacy) - <a href="{{ route('games.access.request', $game->id) }}">Demander l'accés</a> @endif</small></p>
                             </div>
                         </div>
                     @endforeach

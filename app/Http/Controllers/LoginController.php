@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Lang;
 use Toastr;
 use Validator;
@@ -31,6 +33,7 @@ class LoginController extends BaseController
             return back()->withErrors($validator)->withInput();
         }else{
             if (Auth::attempt(['email' => $email, 'password' => $password])) {
+                Toastr::success(Lang::get('generic.connect_confirm'), $title = Lang::get('generic.connect'), $options = []);
                 return redirect()->intended('home');
             }elseif(Auth::attempt(['pseudo' => $email, 'password' => $password])){
                 Toastr::success(Lang::get('generic.connect_confirm'), $title = Lang::get('generic.connect'), $options = []);
@@ -44,29 +47,37 @@ class LoginController extends BaseController
 
     public function register(Request $request){
 
-        $fisrtname = $request->get('firstname');
+        $firstname = $request->get('firstname');
         $lastname = $request->get('lastname');
+        $pseudo = $request->get('pseudo');
         $email = $request->get('email');
         $password = $request->get('password');
-        $passwordConfirm = $request->get('passwordConfirm');
+        $passwordConfirm = $request->get('password_confirmation');
 
         $validator = Validator::make($request->all(),array(
-            'email'                 => 'required|email|max:255',
+            'email'                 => 'required|unique:users,email|email|max:255',
+            'pseudo'                 => 'required|unique:users,pseudo|min:3|max:30',
             'password'              => 'required|min:6|max:20|confirmed',
-            'passwordConfirm'              => 'required|min:6|max:20',
+            'password_confirmation'              => 'required|min:6|max:20',
         ));
 
 
         if ($validator->fails()) {
+            Toastr::error(Lang::get('generic.connect_confirm'), $title = Lang::get('generic.connect'), $options = []);
             return back()->withErrors($validator)->withInput();
         }else{
-            if (Auth::attempt(['email' => $email, 'password' => $password])) {
-                // Authentication passed...
-                return redirect()->intended('home');
-            }
-            else{
-                return redirect('login')->withErrors(['loginError' => 'Mauvais identifiants'])->withInput();
-            }
+            $user = new User();
+            $user->firstname = $firstname;
+            $user->lastname = $lastname;
+            $user->email = $email;
+            $user->pseudo = $pseudo;
+            $user->theme = 'blue';
+            $user->password = Hash::make($password);
+            $user->group_id = 2;
+            $user->save();
+
+            Toastr::success(Lang::get('generic.register_confirm'), $title = Lang::get('generic.register'), $options = []);
+            return redirect('home');
         }
     }
 

@@ -23,6 +23,7 @@ Route::get('/login', array('as' => 'login', 'uses' => 'ViewController@showLogin'
 Route::post('/login', array('as' => 'login', 'uses' => 'LoginController@login'));
 
 Route::get('/register', array('as' => 'register', 'uses' => 'ViewController@showRegister'));
+Route::post('/register', array('as' => 'register', 'uses' => 'LoginController@register'));
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', array('as' => 'home', 'uses' => 'ViewController@showHome'));
@@ -56,6 +57,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/games/details/{id}', array('as' => 'games.show', 'uses' => 'GameController@show'));
     Route::get('/games/edit/{id}', array('as' => 'games.edit', 'uses' => 'GameController@edit'));
     Route::post('/games/edit/{id}', array('as' => 'games.update', 'uses' => 'GameController@update'));
+    Route::get('/games/access/{id}', array('as' => 'games.access.request', 'uses' => 'GameController@accessRequest'));
 
     Route::get('/teams', array('as' => 'teams.list', 'uses' => 'ViewController@showTeams'));
     Route::get('/teams/edit/{id}', array('as' => 'teams.edit', 'uses' => 'ViewController@showTeamsEdit'));

@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->belongsTo(Team::class,'favorite_team');
     }
 
+    public function games_request()
+    {
+        return $this->hasMany(GameRequest::class);
+    }
+
     public function getFullName()
     {
         return $this->firstname.' '.strtoupper($this->lastname);
@@ -60,6 +65,15 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         if($this->role == $role){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function inGame($game_id)
+    {
+        if($this->parties->contains($game_id) || $this->games->contains($game_id)){
             return true;
         } else {
             return false;
