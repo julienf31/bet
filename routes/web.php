@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/report', array('as' => 'report', 'uses' => 'ReportController@show'));
     Route::post('/report', array('as' => 'report', 'uses' => 'ReportController@post'));
     Route::get('/reports', array('as' => 'report.index', 'uses' => 'ReportController@index'));
+    Route::get('/report/{id}/seen', array('as' => 'report.seen', 'uses' => 'ReportController@seen'));
 });
 
 

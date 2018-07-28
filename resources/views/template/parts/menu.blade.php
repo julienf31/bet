@@ -26,6 +26,27 @@
                         <a href="{{ Route('register') }}" class="">Inscription</a>
                     </li>
                 @else
+                    @if(Auth::user()->hasRole('admin'))
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning">{{ $notif }}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have {{ $notif }} notification(s)</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="{{ route('report.index') }}">
+                                                <i class="fa fa-warning text-yellow"></i> Voir les rapports
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
                     <li class="">
                         <a href="">{!! Auth::user()->pseudo !!} {!! (isset(Auth::user()->favorite_team))? Auth::user()->favoriteTeam->img():'' !!}</a>
                     </li>
@@ -108,12 +129,28 @@
                         <li {{ (Request::is('profiles')) ? 'class=active' : '' }}><a href="{{ route('profile.index') }}"><i class="fa fa-circle-o"></i>Liste des utilisateurs</a></li>
                     </ul>
                 </li>
-                <!-- HOME -->
-                <li {{ (Request::is('report')) ? 'class=active' : '' }}>
-                    <a href="{{ route('report') }}">
-                        <i class="fa fa-life-bouy"></i> <span>Signaler un bug</span>
-                    </a>
-                </li>
+                @if(Auth::user()->hasRole('admin'))
+                    <!-- BUGS -->
+                    <li class=" {{ (Request::is('report') || Request::is('reports')) ? 'active menu-open' : '' }} treeview">
+                        <a href="#">
+                            <i class="fa fa-life-bouy"></i> <span>Bug manager</span>
+                            <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li {{ (Request::is('report')) ? 'class=active' : '' }}><a href="{{ route('report') }}"><i class="fa fa-circle-o"></i>Signaler un bug</a></li>
+                            <li {{ (Request::is('reports')) ? 'class=active' : '' }}><a href="{{ route('report.index') }}"><i class="fa fa-circle-o"></i>Liste des bugs</a></li>
+                        </ul>
+                    </li>
+                @else
+                    <!-- BUGS -->
+                    <li {{ (Request::is('report')) ? 'class=active' : '' }}>
+                        <a href="{{ route('report') }}">
+                            <i class="fa fa-life-bouy"></i> <span>Signaler un bug</span>
+                        </a>
+                    </li>
+                @endif
             @endif
         </ul>
     </section>

@@ -35,4 +35,13 @@ class ReportController extends Controller
 
         return view('report.index', compact('reports'));
     }
+
+    public function seen($report_id)
+    {
+        $report = Report::find($report_id);
+        $report->seen = !$report->seen;
+        $report->save();
+
+        return redirect(route('report.index'));
+    }
 }
