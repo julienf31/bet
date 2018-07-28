@@ -108,6 +108,12 @@
                         <li {{ (Request::is('profiles')) ? 'class=active' : '' }}><a href="{{ route('profile.index') }}"><i class="fa fa-circle-o"></i>Liste des utilisateurs</a></li>
                     </ul>
                 </li>
+                <!-- HOME -->
+                <li {{ (Request::is('report')) ? 'class=active' : '' }}>
+                    <a href="{{ route('report') }}">
+                        <i class="fa fa-life-bouy"></i> <span>Signaler un bug</span>
+                    </a>
+                </li>
             @endif
         </ul>
     </section>

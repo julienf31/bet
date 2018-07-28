@@ -77,6 +77,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/bet/{game_id}', array('as' => 'bet', 'uses' => 'BetController@show'));
     Route::post('/bet/{game_id}', array('as' => 'bet.save', 'uses' => 'BetController@doBet'));
 
+    Route::get('/report', array('as' => 'report', 'uses' => 'ReportController@show'));
+    Route::post('/report', array('as' => 'report', 'uses' => 'ReportController@post'));
+    Route::get('/reports', array('as' => 'report.index', 'uses' => 'ReportController@index'));
 });
 
 

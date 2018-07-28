@@ -31,6 +31,7 @@ class CreateUsersTable extends Migration
             $table->boolean('send_mail')->default(true);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('group_id')->references('id')->on('groups');
             $table->foreign('favorite_team')->references('id')->on('teams');
