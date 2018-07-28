@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('country')->default('fr');
             $table->integer('favorite_team')->nullable()->unsigned();
             $table->string('role')->default('user');
+            $table->boolean('send_mail')->default(true);
             $table->rememberToken();
             $table->timestamps();
 

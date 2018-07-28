@@ -53,7 +53,9 @@ class betAlertMail implements ShouldQueue
                         if($firstMatch->date->copy()->subDays('1')->lt(now()) && !$game->mail_status){
                             //send mail to complete bets
                             $mail_status = true;
-                            Mail::to($u)->send(new betAlert($game,$u));
+                            if($user->send_mail){
+                                Mail::to($u)->send(new betAlert($game,$u));
+                            }
                         }
                     }
                 }

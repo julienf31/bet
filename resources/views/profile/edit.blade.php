@@ -11,27 +11,65 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
-                        <h3 class="box-title">Informations de connexion</h3>
+                        <h3 class="box-title">Compte</h3>
                     </div>
                     <div class="box-body">
                         <div class="col-md-6">
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('firstname') ? ' has-error' : '' }}">
+                                <label>Prénom</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <input name="firstname" type="text" class="form-control" value="{{ $user->firstname }}">
+                                </div>
+                                @if ($errors->has('firstame'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('firstame') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group {{ $errors->has('lastname') ? ' has-error' : '' }}">
+                                <label>Nom</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
+                                    <input name="lastname" type="text" class="form-control" value="{{ $user->lastname }}">
+                                </div>
+                                @if ($errors->has('lastname'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('lastname') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group {{ $errors->has('pseudo') ? ' has-error' : '' }}">
                                 <label>Pseudo</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-user"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $user->pseudo }}">
+                                    <input name="pseudo" type="text" class="form-control" value="{{ $user->pseudo }}">
                                 </div>
+                                @if ($errors->has('pseudo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('pseudo') }}</strong>
+                                    </span>
+                                @endif
                             </div>
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label>Mail</label>
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <i class="fa fa-envelope"></i>
                                     </div>
-                                    <input type="text" class="form-control" value="{{ $user->email }}" disabled>
+                                    <input type="text" class="form-control" name="email" value="{{ $user->email }}">
                                 </div>
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -57,6 +95,14 @@
                     </div>
                     <div class="box-body">
                         <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="team" class="">Emails de rappels</label>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="send_mail" type="checkbox" {{ ($user->send_mail)? 'checked':'' }}> Recevoir des emails de rappels
+                                    </label>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="team" class="">Équipe favorite</label>
                                 <div class="">
