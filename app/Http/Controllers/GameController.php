@@ -159,4 +159,38 @@ class GameController extends BaseController
             return redirect()->route('games.search');
         }
     }
+
+    public function approveList($game_id)
+    {
+        $game = Game::find($game_id);
+        $requests = GameRequest::where('game_id', $game->id)->get();
+
+        return view('games.requests.index', compact('game', 'requests'));
+    }
+
+    public function acceptRequest($request_id)
+    {
+        $request = GameRequest::find($request_id);
+        $user = User::find($request->user_id);
+        $game = Game::find($request->game_id);
+
+        $participant = new Participant();
+        $participant->user_id = $user->id;
+        $participant->game_id = $game->id;
+        $participant->save();
+
+        $request->delete();
+
+        return redirect(route('games.access.request.list', $game->id));
+    }
+
+    public function declineRequest($request_id)
+    {
+        $request = GameRequest::find($request_id);
+        $game = Game::find($request->game_id);
+
+        $request->delete();
+
+        return redirect(route('games.access.request.list', $game->id));
+    }
 }

@@ -47,18 +47,19 @@ class LoginController extends BaseController
 
     public function register(Request $request){
 
-        $firstname = $request->get('firstname');
-        $lastname = $request->get('lastname');
-        $pseudo = $request->get('pseudo');
-        $email = $request->get('email');
+        $firstname = ucfirst(strtolower($request->get('firstname')));
+        $lastname = strtoupper($request->get('lastname'));
+        $pseudo = strtolower($request->get('pseudo'));
+        $email = strtolower($request->get('email'));
         $password = $request->get('password');
-        $passwordConfirm = $request->get('password_confirmation');
 
         $validator = Validator::make($request->all(),array(
-            'email'                 => 'required|unique:users,email|email|max:255',
-            'pseudo'                 => 'required|unique:users,pseudo|min:3|max:30',
-            'password'              => 'required|min:6|max:20|confirmed',
-            'password_confirmation'              => 'required|min:6|max:20',
+            'firstname'                 => 'required|max:255',
+            'lastname'                  => 'required|max:255',
+            'email'                     => 'required|unique:users,email|email|max:255',
+            'pseudo'                    => 'required|unique:users,pseudo|min:3|max:30',
+            'password'                  => 'required|min:6|max:20|confirmed',
+            'password_confirmation'     => 'required|min:6|max:20',
         ));
 
 

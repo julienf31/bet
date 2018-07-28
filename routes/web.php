@@ -58,6 +58,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/games/edit/{id}', array('as' => 'games.edit', 'uses' => 'GameController@edit'));
     Route::post('/games/edit/{id}', array('as' => 'games.update', 'uses' => 'GameController@update'));
     Route::get('/games/access/{id}', array('as' => 'games.access.request', 'uses' => 'GameController@accessRequest'));
+    Route::get('/games/approve/{id}', array('as' => 'games.access.request.list', 'uses' => 'GameController@approveList'));
+    Route::get('/games/request/{id}/accept', array('as' => 'games.access.request.accept', 'uses' => 'GameController@acceptRequest'));
+    Route::get('/games/request/{id}/deny', array('as' => 'games.access.request.deny', 'uses' => 'GameController@declineRequest'));
 
     Route::get('/teams', array('as' => 'teams.list', 'uses' => 'ViewController@showTeams'));
     Route::get('/teams/edit/{id}', array('as' => 'teams.edit', 'uses' => 'ViewController@showTeamsEdit'));

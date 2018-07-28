@@ -49,13 +49,4 @@ class Game extends Model
         }));
 
     }
-
-    public function status()
-    {
-        switch ($this->tournament->status) {
-            case 1: return "<span class=\"label label-warning\">En attente</span>";
-            case 2: return "<span class=\"label label-success\">En cours</span>";
-            case 3: return "<span class=\"label label-danger\">Terminée</span>";
-        }
-    }
 }

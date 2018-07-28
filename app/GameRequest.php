@@ -3,18 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class GameRequest extends Model
 {
+    use SoftDeletes;
+
     protected $table = "games_request";
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function games()
+    public function game()
     {
-        return $this->belongsToMany(Game::class);
+        return $this->belongsTo(Game::class);
     }
 }

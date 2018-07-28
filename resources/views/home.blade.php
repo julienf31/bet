@@ -7,11 +7,11 @@
 
 @section('content')
     @if(!isset(Auth::user()->favorite_team))
-    <div class="alert alert-info alert-dismissible">
-        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-        <h4><i class="icon fa fa-info"></i>Équipe favorite</h4>
-        <p>Vous n'avez pas encore définis d'équipe favorite, rendez vous dans votre profil pour en selectionner une.</p>
-    </div>
+        <div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-info"></i>Équipe favorite</h4>
+            <p>Vous n'avez pas encore définis d'équipe favorite, rendez vous dans votre profil pour en selectionner une.</p>
+        </div>
     @endif
     <div class="row">
         <div class="col-xs-12">

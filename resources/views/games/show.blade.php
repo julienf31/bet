@@ -5,6 +5,13 @@
 @stop
 
 @section('content')
+    @if(((Auth::user()->hasRole('admin') && Auth::user()->inGame($game->id)) || Auth::user()->games->contains($game->id)) && $game->users_request()->count() > 0)
+        <div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-info"></i>Demandes d'approbation en attente :  {{ $game->users_request()->count() }}</h4>
+            <p>Il y a des demandes d'adésions en attente : <a href="{{ route('games.access.request.list', $game->id) }}">cliquez ici pour les approuver</a></p>
+        </div>
+    @endif
     <div class="row">
         <div class="col-sm-12 col-md-8">
             <div class="box">
@@ -15,12 +22,9 @@
                     <p>Nom de la partie : {{ $game->name }}</p>
                     <p>Description de la partie : {{ $game->description }}</p>
                     <p><h4>Participants :</h4></p>
-                    @foreach($game->participants as $participant)
-                        <p>{{ $participant->user->firstname.' '.$participant->user->lastname.' (@'.$participant->user->pseudo.')' }}</p>
+                    @foreach($game->participants->sortBy('user.firstname') as $participant)
+                        <a href="{{ route('profile',$participant->user->id) }}" class="">{{ $participant->user->firstname.' '.$participant->user->lastname.' (@'.$participant->user->pseudo.')' }}</a><br>
                     @endforeach
-                    @if(Auth::user()->hasRole('admin') && Auth::user()->inGame($game->id))
-                        <p>Demandes en attente : {{ $game->users_request()->count() }}</p>
-                    @endif
                     <p><a href="{{ route('games.edit', $game->id) }}" class="btn btn-warning"> Paramétres</a></p>
                 </div>
             </div>
