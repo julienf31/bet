@@ -77,10 +77,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/bet/{game_id}', array('as' => 'bet', 'uses' => 'BetController@show'));
     Route::post('/bet/{game_id}', array('as' => 'bet.save', 'uses' => 'BetController@doBet'));
 
-    Route::get('/report', array('as' => 'report', 'uses' => 'ReportController@show'));
+    Route::get('/report', array('as' => 'report', 'uses' => 'ReportController@create'));
     Route::post('/report', array('as' => 'report', 'uses' => 'ReportController@post'));
     Route::get('/reports', array('as' => 'report.index', 'uses' => 'ReportController@index'));
     Route::get('/report/{id}/seen', array('as' => 'report.seen', 'uses' => 'ReportController@seen'));
+    Route::get('/report/{id}', array('as' => 'report.show', 'uses' => 'ReportController@show'));
 });
 
 

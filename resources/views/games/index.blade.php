@@ -16,31 +16,27 @@
                     </div>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body table-responsive no-padding">
-                    <table class="table table-hover">
-                        <tbody><tr>
-                            <th>ID</th>
-                            <th>Nom</th>
-                            <th>Compétition</th>
-                            <th>Status</th>
-                            <th>Description</th>
-                            <th>Création</th>
-                            <th>Actions</th>
-                        </tr>
-                        @foreach($games as $game)
-                        <tr>
-                            <td>{{ $game->id }}</td>
-                            <td>{{ $game->name }}</td>
-                            <td><span class="flag-icon flag-icon-{{ strtolower($game->tournament->country->code) }}"></span> {{ $game->tournament->name }}</td>
-                            <td>{!! $game->tournament->status() !!}</td>
-                            <td>{{ $game->description }}</td>
-                            <td>{{ $game->created_at }}</td>
-                            <td>
-                                <a href="{{ route('games.show', $game->id) }}"> <i class="fa fa-info"></i> </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                        </tbody></table>
+                <div class="box-body">
+                    <div class="row">
+                        @if(count($games) == 0)
+                            Pas de parties en cours
+                        @else
+                            @foreach($games as $game)
+                                <div class="col-sm-12">
+                                    <hr>
+                                    <p class="pull-right"><small>{{ $game->participants->count() }} <i class="fa fa-user"></i> </small></p>
+                                    <div class="media-body">
+                                        <img src="{{ asset('img/logos/tournaments/'.$game->tournament->logo) }}" class="img-responsive pull-left" style="display: inline-block;" width="100px">
+
+                                        <h4 class="media-heading user_name"><small>{!! ($game->privacy)? '<i class="fa fa-lock fa-fw"></i>':'<i class="fa fa-unlock fa-fw"></i>' !!}</small> {{ $game->name }}</h4>
+                                        {{ $game->description }}
+                                        <p><small><a href="{{ route('games.show', $game->id) }}">Accéder</a> - <a href="{{ route('games.edit', $game->id) }}">Paramétres</a></small></p>
+                                        <a href="{{ route('bet',$game->id) }}" class="btn btn-success">Parier</a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>

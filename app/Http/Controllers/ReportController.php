@@ -9,9 +9,9 @@ use Toastr;
 
 class ReportController extends Controller
 {
-    public function show()
+    public function create()
     {
-        return view('report.show');
+        return view('report.create');
     }
 
     public function post(Request $request)
@@ -43,5 +43,12 @@ class ReportController extends Controller
         $report->save();
 
         return redirect(route('report.index'));
+    }
+
+    public function show($report_id)
+    {
+        $report = Report::find($report_id);
+
+        return view('report.show', compact('report'));
     }
 }

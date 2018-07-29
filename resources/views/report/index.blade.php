@@ -26,18 +26,14 @@
                         @foreach($reports->sortBy('id')->sortBy('seen') as $report)
                             <tr class="{{ $report->color() }}">
                                 <td>{{ $report->id }}</td>
-                                <td class="text-info">{!! ($report->seen)? '<i class="fa fa-circle-o"></i>':'<i class="fa fa-circle"></i>' !!}</td>
+                                <td class="text-info"><a href="{{ route('report.seen',$report->id) }}">{!! ($report->seen)? '<i class="fa fa-circle-o"></i>':'<i class="fa fa-circle"></i>' !!}</a></td>
                                 <td>{{ $report->type() }}</td>
                                 <td><a href="{{ route('profile',$report->user->id) }}">{{ $report->user->pseudo }}</a></td>
                                 <td>{{ $report->ip }}</td>
                                 <td>{{ $report->version }}</td>
                                 <td>{{ str_limit($report->message, 33) }}</td>
                                 <td>
-                                    @if($report->seen)
-                                        <a href="{{ route('report.seen',$report->id) }}"><i class="fa fa-eye-slash"></i> </a>
-                                    @else
-                                        <a href="{{ route('report.seen',$report->id) }}"><i class="fa fa-eye"></i> </a>
-                                    @endif
+                                    <a href="{{ route('report.show',$report->id) }}"><i class="fa fa-eye"></i> </a>
                                 </td>
                             </tr>
                         @endforeach
