@@ -4,6 +4,10 @@
     Pronostiquer
 @stop
 
+@section('subtitle')
+    {{ $game->name }} - {{ $tournament->name }}
+@stop
+
 @section('content')
     <div class="row">
         <div class="col-xs-12">
@@ -15,48 +19,86 @@
                     <div class="box-header">
                         <h3 class="box-title"></h3>
                     </div>
-                    <!-- /.box-header -->
                     <div class="box-body">
                         @foreach($matches->sortBy('date') as $match)
                             @php
-                                $currDate = $match->date;
-                                if(!isset($date)){
-                                    $display = true;
-                                    $date = $currDate;
-                                } else {
-                                    if(!$date->isSameDay($currDate)){
+                                Carbon::setLocale('fr');
+                                setlocale(LC_TIME,'fr_FR');
+                                    $currDay = $match->days;
+                                    $currDate = $match->date;
+
+                                    if(!isset($date)){
                                         $display = true;
+                                        $date = $currDate;
                                     } else {
-                                        $display = false;
+                                        if(!$date->isSameDay($currDate)){
+                                            $display = true;
+                                        } else {
+                                            $display = false;
+                                        }
+                                        $date = $currDate;
                                     }
-                                    $date = $currDate;
-                                }
+
+                                    if(!isset($day)){
+                                        $display_day = true;
+                                        $day = $match->days;
+                                    } else {
+                                        if($day != $currDay){
+                                                $display_day = true;
+                                            } else {
+                                                $display_day = false;
+                                            }
+                                            $day = $currDay;
+                                    }
+
                             @endphp
                             <div class="row margin-bottom align-items-center">
-                                @if($display)
-                                    <div class="col-sm-12 text-center" style="margin-bottom: 20px;"><h3>{{ $match->date->formatLocalized('%A %d %B %Y') }}</h3></div>
+                                @if($display_day)
+                                    <div class="col-sm-12" style="margin-bottom: 20px">
+                                        <h3 class="d-inline-block">Journée {{ $day }} <small class="pull-right" style="margin-right: 10px;"><i class="fa fa-clock-o fa-fw"></i> dans {{ Carbon::now()->diffForHumans($match->date,TRUE) }}</small></h3>
+
+                                        <hr class="text-blue border-info">
+                                    </div>
                                 @endif
-                                <div class="col-md-4"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span><span class="pull-right align-middle">{{ $match->hometeam->name }}</span></div>
-                                <div class="col-md-4 text-center">
-                                    {{ $match->date->format('H:i') }}<br>
-                                    <div class="btn-group match" id="{{$match->id}}">
-                                        {{ $betFind = false }}
-                                        @foreach($bets as $bet)
-                                            @if($bet['match_id'] == $match->id)
-                                                @php($betFind = true)
-                                                <button name="1" type="button" class="btn btn-default {{ ($bet['bet'] == 1) ? 'active':'' }}">1</button>
-                                                <button name="N" type="button" class="btn btn-default {{ ($bet['bet'] == 'N') ? 'active':'' }}">N</button>
-                                                <button name="2" type="button" class="btn btn-default {{ ($bet['bet'] == 2) ? 'active':'' }}">2</button>
-                                            @endif
-                                        @endforeach
-                                        @if(!$betFind)
-                                            <button name="1" type="button" class="btn btn-default">1</button>
-                                            <button name="N" type="button" class="btn btn-default">N</button>
-                                            <button name="2" type="button" class="btn btn-default">2</button>
-                                        @endif
+                                @if($display)
+                                    <div class="col-sm-12 text-center" style="margin-bottom: 20px;">
+                                        <h3>{{ $match->date->formatLocalized('%A %d %B %Y') }}</h3></div>
+                                @endif
+                                <div class="col-xs-12">
+                                    <div class="row row-eq-height">
+                                        <div class="col-md-4"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span><span class="pull-right align-middle">{{ $match->hometeam->name }}</span></div>
+                                        <div class="col-md-4 text-center">
+                                            <span class="text-bold"
+                                                  style="margin-bottom: 10px;">{{ $match->date->format('H:i') }}</span><br>
+                                            <div class="btn-group match" id="{{$match->id}}">
+                                                {{ $betFind = false }}
+                                                @foreach($bets as $bet)
+                                                    @if($bet['match_id'] == $match->id)
+                                                        @php($betFind = true)
+                                                        <button name="1" type="button"
+                                                                class="btn btn-default {{ ($bet['bet'] == 1) ? 'active':'' }}">
+                                                            1
+                                                        </button>
+                                                        <button name="N" type="button"
+                                                                class="btn btn-default {{ ($bet['bet'] == 'N') ? 'active':'' }}">
+                                                            N
+                                                        </button>
+                                                        <button name="2" type="button"
+                                                                class="btn btn-default {{ ($bet['bet'] == 2) ? 'active':'' }}">
+                                                            2
+                                                        </button>
+                                                    @endif
+                                                @endforeach
+                                                @if(!$betFind)
+                                                    <button name="1" type="button" class="btn btn-default">1</button>
+                                                    <button name="N" type="button" class="btn btn-default">N</button>
+                                                    <button name="2" type="button" class="btn btn-default">2</button>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4"><img class="" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/><span class="align-middle">{{ $match->visitorteam->name }}</span></div>
                                     </div>
                                 </div>
-                                <div class="col-md-4"><img class="" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/><span class="align-middle">{{ $match->visitorteam->name }}</span></div>
                             </div>
                             <select name="match[{{$match->id}}]" id="select-match-{{$match->id}}" class="hidden">
                                 <option value="" selected></option>
@@ -69,10 +111,8 @@
                     <div class="box-footer">
                         <button type="submit" class="btn btn-success pull-right">Envoyer</button>
                     </div>
-                    <!-- /.box-body -->
-            </div>
+                </div>
             </form>
-            <!-- /.box -->
         </div>
     </div>
 @stop
