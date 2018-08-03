@@ -61,10 +61,32 @@
                     @if(count($nextmatchs) == 0)
                         Pas de matchs
                     @else
-                    Journée : {{ $tournament['currentDay'] }}
                     <table class="table table-hover">
                         <tbody>
                         @foreach($nextmatchs->sortBy('date') as $match)
+                            @php
+                                Carbon::setLocale('fr');
+                                setlocale(LC_TIME,'fr_FR');
+                                    $currDay = $match->days;
+
+                                    if(!isset($day)){
+                                        $display_day = true;
+                                        $day = $match->days;
+                                    } else {
+                                        if($day != $currDay){
+                                                $display_day = true;
+                                            } else {
+                                                $display_day = false;
+                                            }
+                                            $day = $currDay;
+                                    }
+
+                            @endphp
+                            @if($display_day)
+                                <tr>
+                                    <td colspan="3">Journée : {{ $day }}</td>
+                                </tr>
+                            @endif
                             <tr>
                                 <td><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></td>
                                 <td width="20px">{{ (in_array($match->id, array_column($bets,'match_id'))? '('.$bets[array_search($match->id, array_column($bets,'match_id'))]['bet'].')':'-') }}</td>
