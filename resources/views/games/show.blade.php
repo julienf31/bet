@@ -25,7 +25,9 @@
                     @foreach($game->participants->sortBy('user.firstname') as $participant)
                         <a href="{{ route('profile',$participant->user->id) }}" class="">{{ $participant->user->firstname.' '.$participant->user->lastname.' (@'.$participant->user->pseudo.')' }}</a><br>
                     @endforeach
-                    <p><a href="{{ route('games.edit', $game->id) }}" class="btn btn-warning"> Paramétres</a></p>
+                    @if(Auth::user()->hasRole('admin') || Auth::user()->games->contains($game->id))
+                        <p><a href="{{ route('games.edit', $game->id) }}" class="btn btn-warning"> Paramétres</a></p>
+                    @endif
                 </div>
             </div>
         </div>
