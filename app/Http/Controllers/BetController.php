@@ -25,26 +25,12 @@ class BetController extends BaseController
     {
         $game = Game::find($game_id);
         $tournament = Game::find($game_id)->tournament;
-        $matches = Tournament::find($tournament->id)->matches()->where('days', $tournament->currentDay)->get();
+        $now = Carbon::create();
+        $matches = Tournament::find($tournament->id)->matches()->where('days', '>=',$tournament->currentDay)->where('date','>=', $now->addHours(+1))->get();
         $bets = Bet::where('user_id', Auth::user()->id)->whereIn('match_id', array_column($matches->toArray(),'id'))->where('game_id', $game->id)->get()->toArray();
 
+        return view('bet.do', compact('game', 'tournament', 'matches', 'bets'));
 
-        $firstMatch = Tournament::find($tournament->id)->matches()->where('days', $tournament->currentDay)->select('date')->orderBy('date')->first();
-        if (isset($firstMatch)) {
-            $firstMatch = Carbon::parse($firstMatch->date);
-        }
-        $now = Carbon::create();
-
-        //check if first match is in less than one hour
-        if (!isset($firstMatch)) {
-            Toastr::error('Paris indisponible', $title = 'Erreur', $options = []);
-            return redirect()->route('games.show', $game_id);
-        } elseif ($firstMatch->lt($now->addHours(+1))) {
-            Toastr::error('Les paris pour cette journée ne sont plus disponible !', $title = 'Erreur', $options = []);
-            return redirect()->route('games.show', $game_id);
-        } else {
-            return view('bet.do', compact('game', 'tournament', 'matches', 'bets'));
-        }
     }
 
     public function doBet(Request $request)

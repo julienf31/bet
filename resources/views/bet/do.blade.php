@@ -19,7 +19,9 @@
                     <div class="box-body">
                         @foreach($matches->sortBy('date') as $match)
                             @php
+                                $currDay = $match->days;
                                 $currDate = $match->date;
+
                                 if(!isset($date)){
                                     $display = true;
                                     $date = $currDate;
@@ -31,11 +33,29 @@
                                     }
                                     $date = $currDate;
                                 }
+
+                                if(!isset($day)){
+                                    $display_day = true;
+                                    $day = $match->days;
+                                } else {
+                                    if($day != $currDay){
+                                            $display_day = true;
+                                        } else {
+                                            $display_day = false;
+                                        }
+                                        $day = $currDay;
+                                }
+
                             @endphp
                             <div class="row margin-bottom align-items-center">
+                                @if($display_day)
+                                    <div class="col-sm-12" style="margin-bottom: 20px"><h3>Journée {{ $day }}</h3>
+                                    <hr class="text-blue border-info"></div>
+                                @endif
                                 @if($display)
                                     <div class="col-sm-12 text-center" style="margin-bottom: 20px;"><h3>{{ $match->date->formatLocalized('%A %d %B %Y') }}</h3></div>
                                 @endif
+
                                 <div class="col-md-4"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span><span class="pull-right align-middle">{{ $match->hometeam->name }}</span></div>
                                 <div class="col-md-4 text-center">
                                     {{ $match->date->format('H:i') }}<br>
