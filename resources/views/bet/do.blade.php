@@ -64,10 +64,10 @@
                                     <div class="col-sm-12 text-center" style="margin-bottom: 20px;">
                                         <h3>{{ $match->date->formatLocalized('%A %d %B %Y') }}</h3></div>
                                 @endif
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 text-center">
                                     <div class="row row-eq-height">
-                                        <div class="col-md-4"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span><span class="pull-right align-middle">{{ $match->hometeam->name }}</span></div>
-                                        <div class="col-md-4 text-center">
+                                        <div class="col-sm-12 col-md-4" style="line-height: 64px"><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 64px; padding: 10px"/><span class="pull-right align-middle visible-md visible-lg">{{ $match->hometeam->name }}</span></div>
+                                        <div class="col-sm-12 col-md-4 text-center">
                                             <span class="text-bold"
                                                   style="margin-bottom: 10px;">{{ $match->date->format('H:i') }}</span><br>
                                             <div class="btn-group match" id="{{$match->id}}">
@@ -76,15 +76,15 @@
                                                     @if($bet['match_id'] == $match->id)
                                                         @php($betFind = true)
                                                         <button name="1" type="button"
-                                                                class="btn btn-default {{ ($bet['bet'] == 1) ? 'active':'' }}">
+                                                                class="btn btn-default {{ ($bet['bet'] == 1) ? 'btn-success':'' }}">
                                                             1
                                                         </button>
                                                         <button name="N" type="button"
-                                                                class="btn btn-default {{ ($bet['bet'] == 'N') ? 'active':'' }}">
+                                                                class="btn btn-default {{ ($bet['bet'] == 'N') ? 'btn-success':'' }}">
                                                             N
                                                         </button>
                                                         <button name="2" type="button"
-                                                                class="btn btn-default {{ ($bet['bet'] == 2) ? 'active':'' }}">
+                                                                class="btn btn-default {{ ($bet['bet'] == 2) ? 'btn-success':'' }}">
                                                             2
                                                         </button>
                                                     @endif
@@ -96,7 +96,7 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="col-md-4"><img class="" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/><span class="align-middle">{{ $match->visitorteam->name }}</span></div>
+                                        <div class="col-sm-12 col-md-4 text-left" style="line-height: 64px"><img src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 64px; padding: 10px"/><span class="align-middle visible-md-inline-block visible-lg-inline-block">{{ $match->visitorteam->name }}</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -124,9 +124,9 @@
             var id = $match.attr('id');
             var selection = $(this).attr('name');
             $match.children('button').each(function(){
-                $(this).removeClass('active');
+                $(this).removeClass('btn-success');
             });
-            $(this).addClass('active');
+            $(this).addClass('btn-success');
 
             // save to select
             var $select = $("#select-match-" + id);
