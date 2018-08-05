@@ -22,10 +22,10 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
+<body class="hold-transition login-page" style="background-image: url({{ asset('img/background/football.jpg') }}); background-repeat: no-repeat; -webkit-background-size: cover;background-size: cover;">
+<div class="login-box" style="background-color: rgba(11,11,11,0.8);padding: 30px;">
     <div class="login-logo">
-        <a href="{{ route('login') }}"><b>BTV</b>Bet</a>
+        <a href="{{ route('login') }}" style="color: whitesmoke;"><b>BTV</b>Bet</a>
     </div>
     <div class="login-box-body">
         <p class="login-box-msg">Rentrez vos identifiants pour vous authentifier</p>
@@ -58,8 +58,8 @@
 
         <a href="#">J'ai oublié mon mot de passe</a><br>
         <a href="{{ Route('register') }}" class="text-center">Pas inscrit ? Créer un compte</a>
-
     </div>
+    <p class="text-center margin" style="color: whitesmoke;">Version {{ config('app.version') }}</p>
 </div>
 
 <script src="{{ asset('plugins/jquery/dist/jquery.min.js') }}"></script>
