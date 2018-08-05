@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Analytics;
 use App\Bet;
 use App\Game;
 use App\GameRequest;
-use App\User;
-use App\Tournament;
+use App\Match;
 use App\Participant;
-use Analytics;
-use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Tournament;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Toastr;
 
@@ -41,8 +39,8 @@ class GameController extends BaseController
         }
         $game = Game::with('participants.user')->where('id',$id)->first();
         $tournament = Tournament::find($game->tournament_id);
-        $nextmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay)->get();
-        $nextmatchsID = Tournament::find($game->tournament_id)->matches()->where('days',$tournament->currentDay)->select('id')->get()->toArray();
+        $nextmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days', '>=', $tournament->currentDay)->limit(3*$tournament->participants/2)->get();
+        $nextmatchsID = Tournament::find($game->tournament_id)->matches()->where('days', '>=', $tournament->currentDay)->limit(3*$tournament->participants/2)->select('id')->get()->toArray();
         $lastmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay-1)->get();
         $rank = $game->ranking();
         $bets = Auth::user()->bets()->whereIn('match_id', $nextmatchsID)->select(['match_id','bet'])->get()->toArray();
@@ -192,5 +190,21 @@ class GameController extends BaseController
         $request->delete();
 
         return redirect(route('games.access.request.list', $game->id));
+    }
+
+    public function results(Game $game)
+    {
+        $currentDay = $game->tournament->currentDay;
+        $users = $game->participants;
+        $bets = Bet::where('game_id', $game->id)->get();
+        $matchs = Match::where('tournament_id', $game->tournament->id)->get();
+
+        if($game->tournament->currentDay == 1){
+            $results_available = false;
+        } else {
+            $results_available = true;
+        }
+
+        return view('games.results', compact('users', 'bets', 'game', 'results_available','matchs'));
     }
 }

@@ -35,7 +35,13 @@ class ViewController extends BaseController
     }
 
     public function showLogin(){
-        return view('login');
+        if(Auth::guest())
+        {
+            return view('login');
+        }
+        else {
+            return redirect(route('home'));
+        }
     }
 
 

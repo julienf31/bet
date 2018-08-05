@@ -40,7 +40,8 @@ class LoginController extends BaseController
                 return redirect()->intended('home');
             }
             else{
-                return redirect('login')->withErrors(['loginError' => 'Mauvais identifiants'])->withInput();
+                Toastr::error('Mauvais identifiants','Erreur');
+                return redirect('login')->withInput();
             }
         }
     }

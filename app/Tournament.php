@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model as Model;
 
 class Tournament extends Model
 {
+    /*
+     * Status du tournois:
+     *      1 - En attente
+     *      2 - En cours
+     *      3 - Terminé
+     */
+
     public function country(){
         return $this->belongsTo(Country::class);
     }
@@ -28,7 +35,7 @@ class Tournament extends Model
         switch ($this->status) {
             case 1: return "<span class=\"label label-warning\">En attente</span>";
             case 2: return "<span class=\"label label-success\">En cours</span>";
-            case 3: return "<span class=\"label label-danger\">Terminée</span>";
+            case 3: return "<span class=\"label label-danger\">Terminé</span>";
         }
     }
 }
