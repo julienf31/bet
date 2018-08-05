@@ -23,6 +23,6 @@ class Match extends Model
 
     public function getIcons()
     {
-        return '<img src="'.asset('img/logos/teams/'.$this->hometeam->id.'.'.$this->hometeam->logo).'" class="img-responsive" style="display: inline-block; height: 30px;"/><img src="'.asset('img/logos/teams/'.$this->visitorteam->id.'.'.$this->visitorteam->logo).'" class="img-responsive" style="display: inline-block; height: 30px;"/>';
+        return '<img src="'.asset('img/logos/teams/'.$this->hometeam->id.'.'.$this->hometeam->logo).'" class="img-responsive" style="display: inline-block; height: 30px; margin-right: 10px;"/> <span style="line-height: 30px">'.$this->home_score.' - '.$this->visitor_score.'</span> <img src="'.asset('img/logos/teams/'.$this->visitorteam->id.'.'.$this->visitorteam->logo).'" class="img-responsive" style="display: inline-block; height: 30px;margin-left:10px;"/>';
     }
 }
