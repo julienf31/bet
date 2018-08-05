@@ -26,7 +26,7 @@ class BetController extends BaseController
         $game = Game::find($game_id);
         $tournament = Game::find($game_id)->tournament;
         $now = Carbon::create();
-        $matches = Tournament::find($tournament->id)->matches()->where('days', '>=',$tournament->currentDay)->where('days', '<',$tournament->currentDay+3)->where('date','>=', $now->addHours(+1))->get();
+        $matches = Tournament::find($tournament->id)->matches()->where('days', '>=',$tournament->currentDay)->where('days', '<',$tournament->currentDay+$game->daysAhead)->where('date','>=', $now->addHours(+1))->get();
         $bets = Bet::where('user_id', Auth::user()->id)->whereIn('match_id', array_column($matches->toArray(),'id'))->where('game_id', $game->id)->get()->toArray();
 
         return view('bet.do', compact('game', 'tournament', 'matches', 'bets'));

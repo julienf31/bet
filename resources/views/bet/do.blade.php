@@ -109,7 +109,8 @@
                         @endforeach
                     </div>
                     <div class="box-footer">
-                        <button type="submit" class="btn btn-success pull-right">Envoyer</button>
+                        <a href="{{ route('games.show', $game->id) }}" class="btn btn-warning btn-flat">Retour</a>
+                        <button type="submit" class="btn btn-success btn-flat pull-right">Envoyer</button>
                     </div>
                 </div>
             </form>
