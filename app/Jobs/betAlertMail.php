@@ -49,9 +49,9 @@ class betAlertMail implements ShouldQueue
                 foreach ($users as $user){
                     $u = User::find($user->user_id);
                     $userBets = Bet::where('user_id', $u->id)->where('game_id', $game->id)->whereIn('match_id', $matchesID)->count();
-                    echo "user $user";
+                    echo "user $user->user->pseudo <br>";
                     if($userBets < $nbBet){
-                        echo "missing bets";
+                        echo "missing bets <br>";
                         if($firstMatch->date->copy()->addDays('1')->lt(now()) && !$game->mail_status){
                             echo "date : $firstMatch->date->copy()->addDays('1')";
                             //send mail to complete bets
