@@ -57,7 +57,7 @@ class betAlertMail implements ShouldQueue
                             //send mail to complete bets
                             $mail_status = true;
                             if($user->send_mail){
-                                Mail::to($u)->send(new betAlert($game,$u));
+                                Mail::to($u->user)->send(new betAlert($game,$u));
                             }
                         }
                     }
