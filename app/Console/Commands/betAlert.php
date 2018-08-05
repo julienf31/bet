@@ -61,7 +61,7 @@ class betAlert extends Command
                     $this->info($user->user->pseudo);
                     if($userBets < $nbBet){
                         $this->info("missing bets ");
-                        if($firstMatch->date->copy()->addDays('1')->gt(now()) && !$game->mail_status){
+                        if($firstMatch->date->copy()->addDays('1')->lt(now()) && !$game->mail_status){
                             $this->info("date :".$firstMatch->date->copy()->addDays('1'));
                             //send mail to complete bets
                             $mail_status = true;
