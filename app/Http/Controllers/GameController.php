@@ -39,11 +39,16 @@ class GameController extends BaseController
         }
         $game = Game::with('participants.user')->where('id',$id)->first();
         $tournament = Tournament::find($game->tournament_id);
-        $nextmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days', '>=', $tournament->currentDay)->limit(3*$tournament->participants/2)->get();
-        $nextmatchsID = Tournament::find($game->tournament_id)->matches()->where('days', '>=', $tournament->currentDay)->limit(3*$tournament->participants/2)->select('id')->get()->toArray();
+        $nextmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days', '>=', $tournament->currentDay)->limit($game->daysAhead*$tournament->participants/2)->get();
+        $nextmatchsID = Tournament::find($game->tournament_id)->matches()->where('days', '>=', $tournament->currentDay)->limit($game->daysAhead*$tournament->participants/2)->select('id')->get()->toArray();
         $lastmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay-1)->get();
         $rank = $game->ranking();
         $bets = Auth::user()->bets()->whereIn('match_id', $nextmatchsID)->select(['match_id','bet'])->get()->toArray();
+
+        if($tournament->status == 3){
+            $nextmatchs = null;
+            $lastmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay)->get();
+        }
 
         return view('games.show', compact('game','tournament', 'nextmatchs','lastmatchs','rank','bets'));
     }
@@ -79,6 +84,7 @@ class GameController extends BaseController
         }else{
             $game->privacy = 0;
         }
+        $game->daysAhead = $request->get('daysAhead');
         $game->save();
 
         $participants = $request->get('participants');

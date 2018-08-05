@@ -4,6 +4,10 @@
     Detail de la partie : {{ $game->name }}
 @stop
 
+@section('subtitle')
+    {{ $game->tournament->name }}
+@stop
+
 @section('content')
     @if(((Auth::user()->hasRole('admin') && Auth::user()->inGame($game->id)) || Auth::user()->games->contains($game->id)) && $game->users_request()->count() > 0)
         <div class="alert alert-info alert-dismissible">
@@ -39,12 +43,20 @@
                 <div class="box-body">
                     <table class="table tab-pane">
                         <tr>
+                            <th style="width: 20px;"></th>
                             <th>Pseudo</th>
                             <th>Score</th>
                         </tr>
-                        @foreach($rank as $r)
+                        @foreach($rank as $i => $r)
                             <tr>
-                                <td>{{ $r['name'] }}</td>
+                                <td>
+                                    {!! ($i == 0)? '<i class="fa fa-star text-yellow"></i>':(($i == 1)? '<i class="fa fa-star text-gray"></i>':(($i == 2)? '<i class="fa fa-star text-brown"></i>':'')) !!}
+                                </td>
+                                <td>
+                                    <a href="{{ route('profile', $r['id']) }}" data-toggle="tooltip" title="{{ $r['pseudo'] }}">
+                                    {{ $r['name'] }} {{ strtoupper(substr($r['lastname'],0,1)) }}.
+                                    </a>
+                                </td>
                                 <td>{{ $r['score'] }}</td>
                             </tr>
                         @endforeach
@@ -58,10 +70,12 @@
                     <h3 class="box-title">Prochains Matchs </h3><a href="{{ route('bet',$game->id) }}" class="btn btn-success btn-flat pull-right"> Parier </a>
                 </div>
                 <div class="box-body">
-                    @if(count($nextmatchs) == 0)
-                        Pas de matchs
+                    @if(!isset($nextmatchs) || count($nextmatchs) == 0)
+                        <div class="col-sm-12 text-center">
+                            <span class="text-bold">Pas de matchs à venir</span>
+                        </div>
                     @else
-                    <table class="table table-hover">
+                    <table class="table table-hover table-responsive">
                         <tbody>
                         @foreach($nextmatchs->sortBy('date') as $match)
                             @php
@@ -84,13 +98,15 @@
                             @endphp
                             @if($display_day)
                                 <tr>
-                                    <td colspan="3">Journée : {{ $day }}</td>
+                                    <td colspan="">Journée : {{ $day }}</td>
                                 </tr>
                             @endif
                             <tr>
-                                <td><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></td>
-                                <td width="20px">{{ (in_array($match->id, array_column($bets,'match_id'))? '('.$bets[array_search($match->id, array_column($bets,'match_id'))]['bet'].')':'-') }}</td>
-                                <td><img class="pull-left" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/></td>
+                                <td class="text-center">
+                                    <img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive " style="display: inline-block; height: 30px;margin-right: 10px;"/>
+                                    <span style="display: inline-block;"> {{ (in_array($match->id, array_column($bets,'match_id'))? '('.$bets[array_search($match->id, array_column($bets,'match_id'))]['bet'].')':'-') }}</span>
+                                    <img class="" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px; margin-left: 10px;"/>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody></table>
@@ -105,18 +121,18 @@
                 </div>
                 <div class="box-body">
                     @if(count($lastmatchs) == 0)
-                        Pas de matchs
+                        <span class="text-center">Pas de matchs</span>
                     @else
-                    Journée : {{ $tournament['currentDay']-1 }}
+                    Journée : {{ ($tournament->status == 3)? $tournament['currentDay']:$tournament['currentDay']-1 }}
                     <table class="table table-hover">
                         <tbody>
                         @foreach($lastmatchs as $match)
-                            <tr>
-                                <td><img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive pull-right" style="display: inline-block; height: 30px;"/><span class="flag-icon flag-icon-"></span></td>
-                                <td>{{ $match->home_score }}</td>
-                                <td>-</td>
-                                <td>{{ $match->visitor_score }}</td>
-                                <td><img class="pull-left" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px;"/></td>
+                            <tr class="text-center">
+                                <td>
+                                    <img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px; margin-right: 10px;"/>
+                                    <span style="display: inline-block;"> {{ $match->home_score }} - {{ $match->visitor_score }}</span>
+                                    <img class="img-responsive" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" style="display: inline-block; height: 30px; margin-left: 10px"/>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody></table>
@@ -126,4 +142,8 @@
 
         </div>
     </div>
+@stop
+
+@section('scripts')
+    @parent
 @stop

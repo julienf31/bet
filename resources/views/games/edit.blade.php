@@ -11,21 +11,18 @@
                 <div class="box-header">
                     <h3 class="box-title">Paramétres </h3>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body">
                     <form method="post" action="" class="form-horizontal">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="gameName" class="col-sm-2 control-label">Nom de la partie</label>
-
                                 <div class="col-sm-6 col-lg-4">
                                     <input type="text" class="form-control" name="name" placeholder="Nom de l'équipe" value="{{ $game->name }}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="teamCity" class="col-sm-2 control-label">Description de la partie</label>
-
                                 <div class="col-sm-6 col-lg-4">
                                     <input type="text" class="form-control" name="description" placeholder="Ville" value="{{ $game->description }}">
                                 </div>
@@ -49,18 +46,20 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="days" class="col-sm-2 control-label">Nombre de journées d'avances</label>
+                                <div class="col-sm-6 col-lg-4">
+                                    <input type="number" class="form-control" name="daysAhead" placeholder="Nombre de journées d'avance" value="{{ $game->daysAhead }}" step="1" min="1" max="10">
+                                </div>
+                            </div>
                         </div>
-                        <!-- /.box-body -->
                         <div class="box-footer">
-                            <a href="{{ url()->previous() }}" class="btn btn-danger">Retour</a>
-                            <button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"></i> Sauvegarder</button>
+                            <a href="{{ url()->previous() }}" class="btn btn-danger btn-flat">Retour</a>
+                            <button type="submit" class="btn btn-success pull-right btn-flat"><i class="fa fa-save"></i> Sauvegarder</button>
                         </div>
-                        <!-- /.box-footer -->
                     </form>
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
         </div>
     </div>
 @stop
