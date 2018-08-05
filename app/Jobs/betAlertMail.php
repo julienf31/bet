@@ -52,7 +52,7 @@ class betAlertMail implements ShouldQueue
                     echo "user $user->user->pseudo <br>";
                     if($userBets < $nbBet){
                         echo "missing bets <br>";
-                        if($firstMatch->date->copy()->addDays('1')->lt(now()) && !$game->mail_status){
+                        if($firstMatch->date->copy()->addDays('1')->gt(now()) && !$game->mail_status){
                             echo "date : $firstMatch->date->copy()->addDays('1')";
                             //send mail to complete bets
                             $mail_status = true;
