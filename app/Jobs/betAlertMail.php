@@ -50,7 +50,7 @@ class betAlertMail implements ShouldQueue
                     $u = User::find($user->user_id);
                     $userBets = Bet::where('user_id', $u->id)->where('game_id', $game->id)->whereIn('match_id', $matchesID)->count();
                     if($userBets < $nbBet){
-                        if($firstMatch->date->copy()->subDays('1')->lt(now()) && !$game->mail_status){
+                        if($firstMatch->date->copy()->addDays('1')->lt(now()) && !$game->mail_status){
                             //send mail to complete bets
                             $mail_status = true;
                             if($user->send_mail){

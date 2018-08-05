@@ -14,6 +14,7 @@
                 </div>
                 <div class="box-body">
                     <div class="col-md-12">
+                        <p>Les résultats des pronostics journées par journées</p>
                         @if($results_available)
                             <div class="nav-tabs-custom">
                                 <ul class="nav nav-tabs">

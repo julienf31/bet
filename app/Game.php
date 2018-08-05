@@ -32,6 +32,9 @@ class Game extends Model
             $user = User::where('id',$participant->user_id)->first();
             $bets = User::find($participant->user_id)->bets()->where('game_id', $this->id)->get();
             $part['name'] = $user->firstname;
+            $part['lastname'] = $user->lastname;
+            $part['pseudo'] = $user->pseudo;
+            $part['id'] = $user->id;
             $part['score'] = 0;
             foreach ($bets as $bet){
                 $match = $bet->match()->first();
