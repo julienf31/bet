@@ -11,7 +11,6 @@
                 <div class="box-header">
                     <h3 class="box-title">Informations de l'équipe</h3>
                 </div>
-                <!-- /.box-header -->
                 <form method="post" action="" class="form-horizontal" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="box-body">
@@ -56,21 +55,18 @@
                             </div>
                         </div>
                     </div>
-                    <!-- /.box-body -->
                     <div class="box-footer">
                         <a href="{{ url()->previous() }}" class="btn btn-danger">Retour</a>
                         <button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"></i> Sauvegarder</button>
                     </div>
-                    <!-- /.box-footer -->
                 </form>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
         </div>
     </div>
 @stop
 
 @section('scripts')
+    @parent
     <script>
         function formatState (state) {
             if (!state.id) {

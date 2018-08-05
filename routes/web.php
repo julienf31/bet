@@ -83,6 +83,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/reports', array('as' => 'report.index', 'uses' => 'ReportController@index'));
     Route::get('/report/{id}/seen', array('as' => 'report.seen', 'uses' => 'ReportController@seen'));
     Route::get('/report/{id}', array('as' => 'report.show', 'uses' => 'ReportController@show'));
+
+    Route::get('/changelogs', array('as' => 'changelog.index', 'uses' => 'ChangelogController@index'));
+    Route::get('/changelog/{id}', array('as' => 'changelog.show', 'uses' => 'ChangelogController@show'))->where('id', '[0-9]+');;
+    Route::get('/changelog/new/{id?}', array('as' => 'changelog.create', 'uses' => 'ChangelogController@create'));
+    Route::post('/changelog/new/{id?}', array('as' => 'changelog.store', 'uses' => 'ChangelogController@store'));
+
+    Route::get('/versions', array('as' => 'version.index', 'uses' => 'VersionController@index'));
+    Route::get('/version/{id}', array('as' => 'version.show', 'uses' => 'VersionController@show'));
+    Route::get('/version/new', array('as' => 'version.create', 'uses' => 'VersionController@create'));
+    Route::post('/version/new', array('as' => 'version.create', 'uses' => 'VersionController@store'));
 });
 
 

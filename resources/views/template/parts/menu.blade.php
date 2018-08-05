@@ -1,14 +1,9 @@
 <header class="main-header">
-    <!-- Logo -->
     <a href="{{ route('home') }}" class="logo">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>B</b>bet</span>
-        <!-- logo for regular state and mobile devices -->
         <span class="logo-lg"><img src="{{ asset('img/icons/ball.png') }}" class="img-responsive" style="display: inline;" width="24px"> <b>BTV</b>bet</span>
     </a>
-    <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
-        <!-- Sidebar toggle button-->
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
@@ -35,7 +30,6 @@
                             <ul class="dropdown-menu">
                                 <li class="header">You have {{ $notif }} notification(s)</li>
                                 <li>
-                                    <!-- inner menu: contains the actual data -->
                                     <ul class="menu">
                                         <li>
                                             <a href="{{ route('report.index') }}">
@@ -62,12 +56,8 @@
     </nav>
 </header>
 
-<!-- Left side column. contains the sidebar -->
 <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
-        <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             @if(Auth::user())
                 <li class="header">MENU</li>
@@ -143,6 +133,19 @@
                             <li {{ (Request::is('reports')) ? 'class=active' : '' }}><a href="{{ route('report.index') }}"><i class="fa fa-circle-o"></i>Liste des bugs</a></li>
                         </ul>
                     </li>
+                    <!-- VERSIONS -->
+                    <li class=" {{ (Request::is('changelogs') || Request::is('versions')) ? 'active menu-open' : '' }} treeview">
+                        <a href="#">
+                            <i class="fa fa-clipboard"></i> <span>Versions manager</span>
+                            <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li {{ (Request::is('versions')) ? 'class=active' : '' }}><a href="{{ route('version.index') }}"><i class="fa fa-circle-o"></i>Versions</a></li>
+                            <li {{ (Request::is('changelogs')) ? 'class=active' : '' }}><a href="{{ route('changelog.index') }}"><i class="fa fa-circle-o"></i>Changelog</a></li>
+                        </ul>
+                    </li>
                 @else
                     <!-- BUGS -->
                     <li {{ (Request::is('report')) ? 'class=active' : '' }}>
@@ -150,9 +153,14 @@
                             <i class="fa fa-life-bouy"></i> <span>Signaler un bug</span>
                         </a>
                     </li>
+                    <!-- VERSIONS -->
+                    <li {{ (Request::is('changelogs')) ? 'class=active' : '' }}>
+                        <a href="{{ route('changelog.index') }}">
+                            <i class="fa fa-clipboard"></i> <span>Changelog</span>
+                        </a>
+                    </li>
                 @endif
             @endif
         </ul>
     </section>
-    <!-- /.sidebar -->
 </aside>
