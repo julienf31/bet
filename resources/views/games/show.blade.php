@@ -26,7 +26,7 @@
                         <a href="{{ route('profile',$participant->user->id) }}" class="">{{ $participant->user->firstname.' '.$participant->user->lastname.' (@'.$participant->user->pseudo.')' }}</a><br>
                     @endforeach
                     @if(Auth::user()->hasRole('admin') || Auth::user()->games->contains($game->id))
-                        <p><a href="{{ route('games.edit', $game->id) }}" class="btn btn-warning"> Paramétres</a></p>
+                        <p><a href="{{ route('games.edit', $game->id) }}" class="btn btn-warning btn-flat"> Paramétres</a></p>
                     @endif
                 </div>
             </div>
@@ -55,7 +55,7 @@
         <div class="col-sm-12 col-md-6">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Prochains Matchs </h3><a href="{{ route('bet',$game->id) }}" class="btn btn-success pull-right"> PARIER !</a>
+                    <h3 class="box-title">Prochains Matchs </h3><a href="{{ route('bet',$game->id) }}" class="btn btn-success btn-flat pull-right"> Parier </a>
                 </div>
                 <div class="box-body">
                     @if(count($nextmatchs) == 0)
@@ -101,7 +101,7 @@
         <div class="col-sm-12 col-md-6">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Derniers Matchs </h3>
+                    <h3 class="box-title">Derniers Matchs </h3><a href="{{ route('games.results',$game) }}" class="btn btn-info btn-flat pull-right"> Voir les résultats </a>
                 </div>
                 <div class="box-body">
                     @if(count($lastmatchs) == 0)

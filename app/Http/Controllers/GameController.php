@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Analytics;
 use App\Bet;
 use App\Game;
 use App\GameRequest;
-use App\User;
-use App\Tournament;
+use App\Match;
 use App\Participant;
-use Analytics;
-use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Tournament;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Toastr;
 
@@ -192,5 +190,21 @@ class GameController extends BaseController
         $request->delete();
 
         return redirect(route('games.access.request.list', $game->id));
+    }
+
+    public function results(Game $game)
+    {
+        $currentDay = $game->tournament->currentDay;
+        $users = $game->participants;
+        $bets = Bet::where('game_id', $game->id)->get();
+        $matchs = Match::where('tournament_id', $game->tournament->id)->get();
+
+        if($game->tournament->currentDay == 1){
+            $results_available = false;
+        } else {
+            $results_available = true;
+        }
+
+        return view('games.results', compact('users', 'bets', 'game', 'results_available','matchs'));
     }
 }

@@ -18,4 +18,14 @@ class Bet extends Model
     public function match(){
         return $this->belongsTo(Match::class);
     }
+
+    public function getStatusColor()
+    {
+        switch ($this->result){
+            case 1:
+                return 'bg-success';
+            case 2:
+                return 'bg-danger';
+        }
+    }
 }

@@ -61,6 +61,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/games/approve/{id}', array('as' => 'games.access.request.list', 'uses' => 'GameController@approveList'));
     Route::get('/games/request/{id}/accept', array('as' => 'games.access.request.accept', 'uses' => 'GameController@acceptRequest'));
     Route::get('/games/request/{id}/deny', array('as' => 'games.access.request.deny', 'uses' => 'GameController@declineRequest'));
+    Route::get('/games/{game}/results', array('as' => 'games.results', 'uses' => 'GameController@results'));
 
     Route::get('/teams', array('as' => 'teams.list', 'uses' => 'ViewController@showTeams'));
     Route::get('/teams/edit/{id}', array('as' => 'teams.edit', 'uses' => 'ViewController@showTeamsEdit'));
