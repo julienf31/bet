@@ -9,7 +9,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Nous contacter</h3>
+                    <h3 class="box-title">Détail du signalement #{{ $report->id }}</h3>
                 </div>
                 <div class="box-body">
                     <div class="row">
@@ -25,7 +25,17 @@
                             </ul>
                         </div>
                     </div>
-
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4 class="text-bold">Message :</h4>
+                            <p>{!! $report->message !!}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <a href="{{ route('report.index') }}" class="btn btn-warning btn-flat">Retour</a>
+                    <a href="{{ route('report.complete', $report) }}" class="btn btn-success btn-flat pull-right">Marquer {{ ($report->status)? 'non':'' }} résolu</a>
+                    <a href="{{ route('report.destroy', $report) }}" class="btn btn-danger btn-flat pull-right margin-r-5">Supprimer</a>
                 </div>
             </div>
         </div>

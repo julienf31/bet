@@ -83,6 +83,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/reports', array('as' => 'report.index', 'uses' => 'ReportController@index'));
     Route::get('/report/{id}/seen', array('as' => 'report.seen', 'uses' => 'ReportController@seen'));
     Route::get('/report/{id}', array('as' => 'report.show', 'uses' => 'ReportController@show'));
+    Route::get('/report/{report}/delete', array('as' => 'report.destroy', 'uses' => 'ReportController@destroy'));
+    Route::get('/report/{report}/complete', array('as' => 'report.complete', 'uses' => 'ReportController@complete'));
 
     Route::get('/changelogs', array('as' => 'changelog.index', 'uses' => 'ChangelogController@index'));
     Route::get('/changelog/{id}', array('as' => 'changelog.show', 'uses' => 'ChangelogController@show'))->where('id', '[0-9]+');;

@@ -153,12 +153,6 @@
                             <i class="fa fa-life-bouy"></i> <span>Signaler un bug</span>
                         </a>
                     </li>
-                    <!-- VERSIONS -->
-                    <li {{ (Request::is('changelogs')) ? 'class=active' : '' }}>
-                        <a href="{{ route('changelog.index') }}">
-                            <i class="fa fa-clipboard"></i> <span>Changelog</span>
-                        </a>
-                    </li>
                 @endif
             @endif
         </ul>
