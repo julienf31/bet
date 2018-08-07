@@ -20,13 +20,13 @@
                     @foreach($games as $game)
                         <div class="col-sm-12">
                             <hr>
-                            <p class="pull-right"><small>{{ $game->participants->count() }} <i class="fa fa-user"></i> </small></p>
+                            <p class="pull-right"><small>{{ $game->participants->count() }}{{ (isset($game->max_participants))? '/'.$game->max_participants:'' }} <i class="fa fa-user"></i> </small></p>
                             <div class="media-body">
                                 <img src="{{ asset('img/logos/tournaments/'.$game->tournament->logo) }}" class="img-responsive pull-left" style="display: inline-block;" width="100px">
 
                                 <h4 class="media-heading user_name"><small>{!! ($game->privacy)? '<i class="fa fa-lock fa-fw"></i>':'<i class="fa fa-unlock fa-fw"></i>' !!}</small> {{ $game->name }}</h4>
                                 {{ $game->description }}
-                                <p><small><a href="{{ route('games.show', $game->id) }}">Accéder</a> @if(!Auth::user()->inGame($game->id) && !$game->privacy) - <a href="{{ route('games.access.request', $game->id) }}">Demander l'accés</a> @endif</small></p>
+                                <p><small>@if(Auth::user()->games->contains($game->id))<a href="{{ route('games.show', $game->id) }}">Accéder</a>@endif @if(!Auth::user()->inGame($game->id) && !$game->privacy && (!isset($game->max_participants) || count($game->participants) < $game->max_participants))  <a href="{{ route('games.access.request', $game->id) }}">Demander l'accés</a> @endif</small></p>
                             </div>
                         </div>
                     @endforeach

@@ -24,6 +24,7 @@ class CreateGamesTable extends Migration
             $table->integer('tournament_id')->unsigned();
             $table->integer('winner')->nullable();
             $table->integer('daysAhead')->default(1);
+            $table->integer('max_participants')->nullable();
             $table->timestamps();
 
             $table->foreign('owner')->references('id')->on('users');

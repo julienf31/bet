@@ -23,7 +23,10 @@
                     <h3>Mes parties</h3>
                     <div class="row">
                         @if(count($games) == 0)
-                            Pas de parties en cours
+                            <div class="col-xs-12 text-center text-bold">
+                                <p>Pas de parties en cours</p>
+                                <p><a href="{{ route('games.search') }}">Rechercher une partie</a></p>
+                            </div>
                         @else
                             @foreach($games as $game)
                                 <div class="col-sm-12">
@@ -34,7 +37,7 @@
 
                                         <h4 class="media-heading user_name"><small>{!! ($game->privacy)? '<i class="fa fa-lock fa-fw"></i>':'<i class="fa fa-unlock fa-fw"></i>' !!}</small> {{ $game->name }}</h4>
                                         {{ $game->description }}
-                                        <p><small><a href="{{ route('games.show', $game->id) }}">Accéder</a> @if(Auth::user()->hasRole('admin') || Auth::user()->games->contains($game->id)) - <a href="{{ route('games.edit', $game->id) }}">Paramétres</a> @endif</small></p>
+                                        <p><small>@if(Auth::user()->games->contains($game->id))<a href="{{ route('games.show', $game->id) }}">Accéder</a>@endif @if(Auth::user()->hasRole('admin') || Auth::user()->games->contains($game->id)) - <a href="{{ route('games.edit', $game->id) }}">Paramétres</a> @endif</small></p>
                                         <a href="{{ route('bet',$game->id) }}" class="btn btn-success">Parier</a>
                                     </div>
                                 </div>
