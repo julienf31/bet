@@ -20,7 +20,7 @@ class ReportController extends Controller
 
         $report->user_id = Auth::user()->id;
         $report->type = $request->get('type');
-        $report->message = $request->get('message');
+        $report->message = strip_tags(nl2br($request->get('message')),'<br>');
         $report->ip = $request->ip();
         $report->version = config('app.version');
         $report->save();
@@ -50,5 +50,20 @@ class ReportController extends Controller
         $report = Report::find($report_id);
 
         return view('report.show', compact('report'));
+    }
+
+    public function complete(Report $report)
+    {
+        $report->status = !$report->status;
+        $report->save();
+
+        return redirect(route('report.index'));
+    }
+
+    public function destroy(Report $report)
+    {
+        $report->delete();
+
+        return redirect(route('report.index'));
     }
 }
