@@ -24,7 +24,7 @@
                             @foreach($games as $game)
                                 <div class="col-sm-12">
                                     <hr>
-                                    <p class="pull-right"><small>{{ $game->participants->count() }} <i class="fa fa-user"></i> </small></p>
+                                    <p class="pull-right"><small>{{ $game->participants->count() }}{{ (isset($game->max_participants))? '/'.$game->max_participants:'' }} <i class="fa fa-user"></i> </small></p>
                                     <div class="media-body">
                                         <img src="{{ asset('img/logos/tournaments/'.$game->tournament->logo) }}" class="img-responsive pull-left" style="display: inline-block;" width="100px">
 
