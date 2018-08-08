@@ -65,7 +65,7 @@ class LoginController extends BaseController
 
 
         if ($validator->fails()) {
-            Toastr::error(Lang::get('generic.connect_confirm'), $title = Lang::get('generic.connect'), $options = []);
+            Toastr::error(Lang::get('generic.register_error_confirm'), $title = Lang::get('generic.register_error'), $options = []);
             return back()->withErrors($validator)->withInput();
         }else{
             $user = new User();

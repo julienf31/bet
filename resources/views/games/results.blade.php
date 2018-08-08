@@ -36,9 +36,15 @@
                                                     <tr>
                                                         <td>{!! $match->getIcons() !!}</td>
                                                         @foreach($users as $participant)
-                                                            <td class="{{ $participant->user->bets->where('match_id', $match->id)->first()->getStatusColor() }}">
-                                                                {{ $participant->user->bets->where('match_id', $match->id)->first()->bet }}
+                                                            @if(isset($participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->exist))
+                                                            <td class="{{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->getStatusColor() }}">
+                                                                {{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->bet }}
                                                             </td>
+                                                            @else
+                                                                <td class="bg-danger">
+                                                                    Non joué
+                                                                </td>
+                                                            @endif
                                                         @endforeach
                                                     </tr>
                                                 @endforeach
