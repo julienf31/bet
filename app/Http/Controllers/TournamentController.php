@@ -186,6 +186,15 @@ class TournamentController extends BaseController
             $bet->save();
         }
 
+        if(!$tournament->matches()->where('status', 0)->first()){
+            if($tournament->currentDay < $tournament->days){
+                $tournament->currentDay = $tournament->currentDay +1;
+            } else {
+                $tournament->status = 3;
+            }
+            $tournament->save();
+        }
+
         Toastr::success(Lang::get('tournaments.complete_match_confirm'), $title = Lang::get('tournaments.complete_match'), $options = []);
 
         return redirect(route('tournaments.day.matches.show', [$tournament->id, $match->days]));

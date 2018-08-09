@@ -32,11 +32,11 @@
                                                         <th>{{ $participant->user->pseudo }}</th>
                                                     @endforeach
                                                 </tr>
-                                                @foreach($matchs->where('days', $i) as $match)
+                                                @foreach($matchs->where('days', $i)->sortBy('date') as $match)
                                                     <tr>
                                                         <td>{!! $match->getIcons() !!}</td>
                                                         @foreach($users as $participant)
-                                                            @if(isset($participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->exist))
+                                                            @if($participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first() != null)
                                                             <td class="{{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->getStatusColor() }}">
                                                                 {{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->bet }}
                                                             </td>
