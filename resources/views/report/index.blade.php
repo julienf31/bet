@@ -66,7 +66,7 @@
                                         <td><a href="{{ route('profile',$report->user->id) }}">{{ $report->user->pseudo }}</a></td>
                                         <td>{{ $report->ip }}</td>
                                         <td>{{ $report->version }}</td>
-                                        <td>{{ str_limit($report->message, 33) }}</td>
+                                        <td>{{ strip_tags(str_limit($report->message, 33)) }}</td>
                                         <td>
                                             <a href="{{ route('report.show',$report->id) }}"><i class="fa fa-eye"></i> </a>
                                         </td>
