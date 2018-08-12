@@ -55,7 +55,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             Meilleur utilisateur
-                            <ul class="nav nav-pills nav-stacked">
+                            <div class="alert alert-danger">
+                                <b>Classement désactivé</b><br> Le classement est désactivé en attendant un correctif
+                            </div>
+                            <ul class="nav nav-pills nav-stacked" style="display: none">
                                 @foreach($best->sortByDesc('bets_count') as $key => $player)
                                     @if($key == 0)
                                         <li><a href="#"><span class="text-green">1<sup>er</sup></span> - &nbsp; {{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }}</span></a></li>
