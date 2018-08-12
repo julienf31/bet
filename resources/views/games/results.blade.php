@@ -29,7 +29,7 @@
                                                 <tr>
                                                     <th>Match</th>
                                                     @foreach($users as $participant)
-                                                        <th>{{ $participant->user->pseudo }}</th>
+                                                        <th class="text-center">{{ $participant->user->pseudo }}</th>
                                                     @endforeach
                                                 </tr>
                                                 @foreach($matchs->where('days', $i)->sortBy('date') as $match)
@@ -37,11 +37,11 @@
                                                         <td>{!! $match->getIcons() !!}</td>
                                                         @foreach($users as $participant)
                                                             @if($participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first() != null)
-                                                            <td class="{{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->getStatusColor() }}">
+                                                            <td class="{{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->getStatusColor() }} text-center">
                                                                 {{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->bet }}
                                                             </td>
                                                             @else
-                                                                <td class="bg-danger">
+                                                                <td class="bg-danger text-center">
                                                                     Non joué
                                                                 </td>
                                                             @endif
