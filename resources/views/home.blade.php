@@ -55,17 +55,20 @@
                     <div class="row">
                         <div class="col-md-6">
                             Meilleur utilisateur
-                            <div class="alert alert-danger">
-                                <b>Classement désactivé</b><br> Le classement est désactivé en attendant un correctif
-                            </div>
-                            <ul class="nav nav-pills nav-stacked" style="display: none">
-                                @foreach($best->sortByDesc('bets_count') as $key => $player)
-                                    @if($key == 0)
-                                        <li><a href="#"><span class="text-green">1<sup>er</sup></span> - &nbsp; {{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }}</span></a></li>
-                                    @elseif($key == 1)
-                                        <li><a href="#"><span class="text-orange">2<sup>éme</sup></span> - &nbsp; {{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} </span></a></li>
-                                    @elseif($key == 2)
-                                        <li><a href="#"><span class="text-red">3<sup>éme</sup></span> - &nbsp; {{ $player->pseudo }}<span class="pull-right text-light">score : {{ $player->bets_count }} </span></a></li>
+                            <ul class="nav nav-pills nav-stacked">
+                                @php
+                                    $number = 0;
+                                @endphp
+                                @foreach($best as $player)
+                                    @php
+                                        $number++;
+                                    @endphp
+                                    @if($number == 1)
+                                        <li><a href="#"><span class="text-green">1<sup>er</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }}</span></a></li>
+                                    @elseif($number == 2)
+                                        <li><a href="#"><span class="text-orange">2<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }} </span></a></li>
+                                    @elseif($number == 3)
+                                        <li><a href="#"><span class="text-red">3<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }} </span></a></li>
                                     @endif
                                 @endforeach
                             </ul>
