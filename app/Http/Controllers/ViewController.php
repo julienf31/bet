@@ -27,9 +27,25 @@ class ViewController extends BaseController
         $bets_lost = Bet::where('result', false)->count();
         $bets_wait = Bet::whereNull('result')->count();
 
-        $best = User::withCount(['bets' => function($query){
+        $best = User::where('banned',0)->withCount(['bets' => function($query){
             $query->where('result',1);
-        }])->get();
+        }])->get()->toArray();
+
+        $bests = collect($best)->sortByDesc('bets_count');
+
+        $best = array();
+        foreach ($bests as $bests_c){
+            $bets_success = Bet::where('user_id', $bests_c['id'])->where('result',1)->count();
+            $user = User::where('id',$bests_c['id'])->first();
+            if(count($user->bets)>0){
+                $score = round(($user->bets()->where('result',true)->count()*100)/($user->bets()->where('result',true)->count() + $user->bets()->where('result',false)->count()));
+            } else {
+                $score = 1;
+            }
+            $best[] = array_merge($bests_c, ['score' => $score.' %'] );
+        }
+
+        $best = collect($best)->sortByDesc('score')->take(3);
 
         return view('home', compact('games','bets_win','bets_lost','bets_wait','best'));
     }
