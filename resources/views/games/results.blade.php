@@ -55,7 +55,7 @@
                                                     @endphp
                                                     @foreach($users as $participant)
                                                         <th>
-                                                            {{ $participant->user->bets->whereIn('match_id', array_column($matches,'id'))->where('result',1)->count() }}
+                                                            {{ $participant->user->bets->whereIn('match_id', array_column($matches,'id'))->where('game_id',$game->id)->where('result',1)->count() }}
                                                         </th>
                                                     @endforeach
                                                 </tr>
