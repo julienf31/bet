@@ -37,7 +37,7 @@ class ViewController extends BaseController
         foreach ($bests as $bests_c){
             $bets_success = Bet::where('user_id', $bests_c['id'])->where('result',1)->count();
             $user = User::where('id',$bests_c['id'])->first();
-            if(count($user->bets->where('result',true))>0 || count($user->bets->where('result',false))>0){
+            if($user->bets->where('result',true)->count() != 0 && $user->bets->where('result',false)->count() != 0){
                 $score = round(($user->bets()->where('result',true)->count()*100)/($user->bets()->where('result',true)->count() + $user->bets()->where('result',false)->count()));
             } else {
                 $score = 0;
