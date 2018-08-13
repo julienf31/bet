@@ -31,6 +31,21 @@
                             </li>
                         </ul>
                     </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-unbordered">
+                            <li class="list-group-item">
+                                <b>Pseudo</b> <a class="pull-right"> {{ $user->pseudo }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Derniére connexion</b> <a class="pull-right"> {{ ($user->last_login == null)? 'Aucune connexion':'il y a '.$user->last_login->diffForHumans(now(),true) }}</a>
+                            </li>
+                            @if(Auth::user()->hasRole('admin'))
+                                <li class="list-group-item">
+                                    <b>Derniére IP</b> <a class="pull-right"> {{ ($user->last_login_ip == null)? 'Aucune ip':$user->last_login_ip }}</a>
+                                </li>
+                            @endif
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,7 +58,7 @@
                     <div class="col-md-6">
                         <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
-                                <b>Parties</b> <a class="pull-right"> {{ $user->games()->count() }}</a>
+                                <b>Parties</b> <a class="pull-right"> {{ $user->parties()->count() }}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Pronostics</b> <a class="pull-right">{{ $user->bets()->count() }}</a>

@@ -30,6 +30,8 @@ class CreateUsersTable extends Migration
             $table->string('role')->default('user');
             $table->boolean('send_mail')->default(true);
             $table->rememberToken();
+            $table->timestamp('last_login')->nullable();
+            $table->ipAddress('last_login_ip')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
