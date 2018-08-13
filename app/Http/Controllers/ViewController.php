@@ -37,10 +37,10 @@ class ViewController extends BaseController
         foreach ($bests as $bests_c){
             $bets_success = Bet::where('user_id', $bests_c['id'])->where('result',1)->count();
             $user = User::where('id',$bests_c['id'])->first();
-            if(count($user->bets)>0){
+            if(count($user->bets->where('result',true))>0 || count($user->bets->where('result',false))>0){
                 $score = round(($user->bets()->where('result',true)->count()*100)/($user->bets()->where('result',true)->count() + $user->bets()->where('result',false)->count()));
             } else {
-                $score = 1;
+                $score = 0;
             }
             $best[] = array_merge($bests_c, ['score' => $score.' %'] );
         }
