@@ -91,6 +91,62 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header">
+                        <h3 class="box-title">Mot de passe</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <div class="form-group {{ $errors->has('oldPassword') ? ' has-error' : '' }}">
+                                <label>Ancien mot de passe</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-lock"></i>
+                                    </div>
+                                    <input name="oldPassword" type="password" class="form-control">
+                                </div>
+                                @if ($errors->has('oldPassword'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('oldPassword') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group {{ $errors->has('newPassword') ? ' has-error' : '' }}">
+                                <label>Nouveau mot de passe</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-lock"></i>
+                                    </div>
+                                    <input name="newPassword" type="password" class="form-control">
+                                </div>
+                                @if ($errors->has('newPassword'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('newPassword') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group {{ $errors->has('newPasswordConfirm') ? ' has-error' : '' }}">
+                                <label>Confirmation du nouveau mot de passe</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-lock"></i>
+                                    </div>
+                                    <input name="newPasswordConfirm" type="password" class="form-control">
+                                </div>
+                                @if ($errors->has('newPasswordConfirm'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('newPasswordConfirm') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <p>Pour changer votre mot de passe actuel, veuillez le confirmer puis saisir le nouveau</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
                         <h3 class="box-title">Informations</h3>
                     </div>
                     <div class="box-body">

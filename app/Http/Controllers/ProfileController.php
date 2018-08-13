@@ -6,6 +6,7 @@ use App\Team;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 use Toastr;
 use Lang;
@@ -80,6 +81,28 @@ class ProfileController extends Controller
             $user->save();
         }
 
+        if($request->get('oldPassword')){
+            $validator = Validator::make($request->all(),array(
+                'oldPassword'                 => 'required|min:6|max:255',
+                'newPassword'                 => 'required|min:6|max:255',
+                'newPasswordConfirm'          => 'required_with:newPassword|same:newPassword|min:6|max:255',
+            ));
+
+            if ($validator->fails()) {
+                Toastr::error(Lang::get('error'), $title = Lang::get('error'), $options = []);
+                return back()->withErrors($validator)->withInput();
+            } else {
+                if(Hash::check($request->get('oldPassword'), $user->password)){
+                    $user->password = Hash::make($request->get('newPassword'));
+                    $user->save();
+                } else {
+                    Toastr::error('Mauvais mot de passe', $title = Lang::get('error'), $options = []);
+                    return back();
+                }
+
+            }
+        }
+        Toastr::success(Lang::get('success'), $title = Lang::get('success'), $options = []);
         return redirect(route('profile',$user_id));
     }
 }
