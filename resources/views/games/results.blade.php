@@ -54,7 +54,7 @@
                                                         $matches = $matchs->where('days', $i)->toArray();
                                                     @endphp
                                                     @foreach($users as $participant)
-                                                        <th>
+                                                        <th class="text-center">
                                                             {{ $participant->user->bets->whereIn('match_id', array_column($matches,'id'))->where('game_id',$game->id)->where('result',1)->count() }}
                                                         </th>
                                                     @endforeach
