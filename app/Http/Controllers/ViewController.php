@@ -51,6 +51,9 @@ class ViewController extends BaseController
     }
 
     public function showLogin(){
+        if (Auth::viaRemember()) {
+            echo 'remember ok';
+        }
         if(Auth::guest())
         {
             return view('login');
