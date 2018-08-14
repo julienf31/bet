@@ -32,7 +32,7 @@ class LoginController extends BaseController
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }else{
-            if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            if (Auth::attempt(['email' => $email, 'password' => $password]), true) {
                 Toastr::success(Lang::get('generic.connect_confirm'), $title = Lang::get('generic.connect'), $options = []);
                 return redirect()->intended('home');
             }elseif(Auth::attempt(['pseudo' => $email, 'password' => $password])){
