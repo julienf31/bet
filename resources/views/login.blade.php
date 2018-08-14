@@ -49,6 +49,9 @@
                         </span>
                 @endif
             </div>
+            <div class="form-group">
+                <input type="checkbox" name="remember" checked style="margin-right: 5px;"> Se souvenir de moi
+            </div>
             <div class="row">
                 <div class="col-xs-12 ">
                     <button type="submit" class="btn btn-success btn-flat pull-right">Connexion</button>
