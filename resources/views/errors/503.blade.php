@@ -27,41 +27,8 @@
     <div class="login-logo">
         <a href="{{ route('login') }}" style="color: whitesmoke;"><b>BTV</b>Bet</a>
     </div>
-    <div class="login-box-body">
-        <p class="login-box-msg">Rentrez vos identifiants pour vous authentifier</p>
-        <form action="" method="post">
-            {{ csrf_field() }}
-            <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                <input type="text" class="form-control" name="email" placeholder="Email ou pseudo" value="{{ old('email') }}" autofocus>
-                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                @if ($errors->has('email'))
-                    <span class="help-block">
-                            <strong>{{ $errors->first('email') }}</strong>
-                        </span>
-                @endif
-            </div>
-            <div class="form-group has-feedback {{ $errors->has('password') ? ' has-error' : '' }}">
-                <input type="password" class="form-control" name="password" placeholder="Password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                @if ($errors->has('password'))
-                    <span class="help-block">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                @endif
-            </div>
-            <div class="form-group">
-                <input type="checkbox" name="remember" checked style="margin-right: 5px;"> Se souvenir de moi
-            </div>
-            <div class="row">
-                <div class="col-xs-12 ">
-                    <button type="submit" class="btn btn-success btn-flat pull-right">Connexion</button>
-                </div>
-            </div>
-        </form>
-
-        <a href="#">J'ai oublié mon mot de passe</a><br>
-        <a href="{{ Route('register') }}" class="text-center">Pas inscrit ? Créer un compte</a>
-    </div>
+    <h1 class="login-logo" style="color: whitesmoke;">Maintenance en cours</h1>
+    <p class="text-center text-bold" style="color: whitesmoke;">Une mise à jour du site est en cours, merci de réessayer plus tard</p>
     <p class="text-center margin" style="color: whitesmoke;">Version {{ config('app.version') }}</p>
 </div>
 

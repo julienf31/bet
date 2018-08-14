@@ -28,14 +28,22 @@ class LoginController extends BaseController
                 'password'              => 'required|min:6|max:20',
         ));
 
+        $remember = $request->get('remember');
+
+        if($remember){
+            $remember = 1;
+        }else{
+            $remember = 0;
+        }
+
 
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }else{
-            if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
                 Toastr::success(Lang::get('generic.connect_confirm'), $title = Lang::get('generic.connect'), $options = []);
                 return redirect()->intended('home');
-            }elseif(Auth::attempt(['pseudo' => $email, 'password' => $password])){
+            }elseif(Auth::attempt(['pseudo' => $email, 'password' => $password], $remember)){
                 Toastr::success(Lang::get('generic.connect_confirm'), $title = Lang::get('generic.connect'), $options = []);
                 return redirect()->intended('home');
             }
