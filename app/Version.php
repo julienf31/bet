@@ -12,4 +12,15 @@ class Version extends Model
     {
         return $this->hasMany(Changelog::class);
     }
+
+    public function getType()
+    {
+        switch ($this->type) {
+            case 'dev':
+                return '<span class="badge bg-aqua">Développement</span>';
+            case 'fix':
+                return '<span class="badge bg-yellow-active">Correctif</span>';
+
+        }
+    }
 }

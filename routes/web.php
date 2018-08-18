@@ -91,10 +91,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/changelog/new/{id?}', array('as' => 'changelog.create', 'uses' => 'ChangelogController@create'));
     Route::post('/changelog/new/{id?}', array('as' => 'changelog.store', 'uses' => 'ChangelogController@store'));
 
-    Route::get('/versions', array('as' => 'version.index', 'uses' => 'VersionController@index'));
-    Route::get('/version/{id}', array('as' => 'version.show', 'uses' => 'VersionController@show'));
-    Route::get('/version/new', array('as' => 'version.create', 'uses' => 'VersionController@create'));
-    Route::post('/version/new', array('as' => 'version.create', 'uses' => 'VersionController@store'));
+    //Route::get('/versions', array('as' => 'version.index', 'uses' => 'VersionController@index'));
+    //Route::get('/version/{id}', array('as' => 'version.show', 'uses' => 'VersionController@show'));
+    //Route::get('/version/new', array('as' => 'version.create', 'uses' => 'VersionController@create'));
+    //Route::post('/version/new', array('as' => 'version.create', 'uses' => 'VersionController@store'));
+
+    Route::resource('versions','VersionController');
 });
 
 
