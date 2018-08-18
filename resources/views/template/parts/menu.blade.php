@@ -142,7 +142,7 @@
                         </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li {{ (Request::is('versions')) ? 'class=active' : '' }}><a href="{{ route('version.index') }}"><i class="fa fa-circle-o"></i>Versions</a></li>
+                            <li {{ (Request::is('versions')) ? 'class=active' : '' }}><a href="{{ route('versions.index') }}"><i class="fa fa-circle-o"></i>Versions</a></li>
                             <li {{ (Request::is('changelogs')) ? 'class=active' : '' }}><a href="{{ route('changelog.index') }}"><i class="fa fa-circle-o"></i>Changelog</a></li>
                         </ul>
                     </li>

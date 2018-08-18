@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Version;
+use Carbon\Carbon;
+use Validator;
+use Toastr;
 use Illuminate\Http\Request;
 
 class VersionController extends Controller
@@ -14,7 +17,9 @@ class VersionController extends Controller
      */
     public function index()
     {
-        //
+        $versions = Version::all();
+
+        return view('versions.index', compact('versions'));
     }
 
     /**
@@ -24,7 +29,7 @@ class VersionController extends Controller
      */
     public function create()
     {
-        //
+        return view('versions.create');
     }
 
     /**
@@ -35,7 +40,33 @@ class VersionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $version = $request->get('version');
+        $title = $request->get('title');
+        $description = $request->get('description');
+        $date = $request->get('date');
+        $type = $request->get('type');
+
+        $validator = Validator::make($request->all(),array(
+            'version'             => 'required',
+            'title'             => 'required',
+            'description'       => 'required',
+            'date'              => 'required',
+        ));
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        } else {
+            $version = new Version();
+            $version->version = $version;
+            $version->title = $title;
+            $version->description = $description;
+            $version->published_at = Carbon::createFromFormat('d/m/Y',$date);
+            $version->type = $type;
+            $version->save();
+
+            Toastr::success('Version ajoutée');
+            return redirect(route('versions.index'));
+        }
     }
 
     /**
