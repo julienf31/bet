@@ -24,8 +24,8 @@
                                 </ul>
                                 <div class="tab-content">
                                     @for($i = 1;($game->tournament->status == 3)? $i <= $game->tournament->currentDay:$i < $game->tournament->currentDay; $i++)
-                                        <div class="tab-pane {{ ($i == 1)? 'active':'' }}" id="tab_{{$i}}">
-                                            <table class="table table-responsive">
+                                        <div class="tab-pane table-responsive {{ ($i == 1)? 'active':'' }}" id="tab_{{$i}}">
+                                            <table class="table">
                                                 <tr>
                                                     <th>Match</th>
                                                     @foreach($users as $participant)
