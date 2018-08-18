@@ -186,7 +186,7 @@ class TournamentController extends BaseController
             $bet->save();
         }
 
-        if(!$tournament->matches()->where('days', $tournament->currentDay)->where('status', 0)->first()){
+        if($tournament->matches()->where('days', $tournament->currentDay)->where('status', 0)->count()>0){
             if($tournament->currentDay < $tournament->days){
                 $tournament->currentDay = $tournament->currentDay +1;
             } else {
