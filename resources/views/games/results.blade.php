@@ -18,23 +18,23 @@
                         @if($results_available)
                             <div class="nav-tabs-custom">
                                 <ul class="nav nav-tabs">
-                                    @for($i = 1; ($game->tournament->status == 3)? $i <= $game->tournament->currentDay:$i < $game->tournament->currentDay; $i++)
-                                        <li class="{{ ($i == 1)? 'active':'' }}"><a href="#tab_{{$i}}" data-toggle="tab" aria-expanded="false">Journée {{ $i }}</a></li>
+                                    @for(($game->tournament->status == 3)? $i = $game->tournament->currentDay:$i = $game->tournament->currentDay-1; $i >= 1; $i--)
+                                        <li class="{{ ($i == $game->tournament->currentDay-1)? 'active':'' }}"><a href="#tab_{{$i}}" data-toggle="tab" aria-expanded="false">Journée {{ $i }}</a></li>
                                     @endfor
                                 </ul>
                                 <div class="tab-content">
-                                    @for($i = 1;($game->tournament->status == 3)? $i <= $game->tournament->currentDay:$i < $game->tournament->currentDay; $i++)
-                                        <div class="tab-pane table-responsive {{ ($i == 1)? 'active':'' }}" id="tab_{{$i}}">
+                                    @for(($game->tournament->status == 3)? $i = $game->tournament->currentDay:$i = $game->tournament->currentDay-1; $i >= 1; $i--)
+                                        <div class="tab-pane table-responsive {{ ($i == $game->tournament->currentDay-1)? 'active':'' }}" id="tab_{{$i}}">
                                             <table class="table">
                                                 <tr>
                                                     <th>Match</th>
                                                     @foreach($users as $participant)
-                                                        <th class="text-center">{{ $participant->user->pseudo }}</th>
+                                                        <th class="text-center">{{ $participant->user->getSmallName() }}</th>
                                                     @endforeach
                                                 </tr>
                                                 @foreach($matchs->where('days', $i)->sortBy('date') as $match)
                                                     <tr>
-                                                        <td>{!! $match->getIcons() !!}</td>
+                                                        <td style="min-width: 150px;" class="text-center">{!! $match->getIcons() !!}</td>
                                                         @foreach($users as $participant)
                                                             @if($participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first() != null)
                                                             <td class="{{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->getStatusColor() }} text-center">

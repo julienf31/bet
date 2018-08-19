@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->firstname.' '.strtoupper($this->lastname);
     }
 
+    public function getSmallName()
+    {
+        return $this->firstname.' '.substr(strtoupper($this->lastname),0,1).'.';
+    }
+
     public function hasRole($role)
     {
         if($this->role == $role){
