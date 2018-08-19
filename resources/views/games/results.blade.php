@@ -18,13 +18,13 @@
                         @if($results_available)
                             <div class="nav-tabs-custom">
                                 <ul class="nav nav-tabs">
-                                    @for($i = $game->tournament->currentDay; $i >= 1; $i--)
-                                        <li class="{{ ($i == $game->tournament->currentDay)? 'active':'' }}"><a href="#tab_{{$i}}" data-toggle="tab" aria-expanded="false">Journée {{ $i }}</a></li>
+                                    @for(($game->tournament->status == 3)? $i = $game->tournament->currentDay:$i = $game->tournament->currentDay-1; $i >= 1; $i--)
+                                        <li class="{{ ($i == $game->tournament->currentDay-1)? 'active':'' }}"><a href="#tab_{{$i}}" data-toggle="tab" aria-expanded="false">Journée {{ $i }}</a></li>
                                     @endfor
                                 </ul>
                                 <div class="tab-content">
-                                    @for($i = $game->tournament->currentDay; $i >= 1; $i--)
-                                        <div class="tab-pane table-responsive {{ ($i == $game->tournament->currentDay)? 'active':'' }}" id="tab_{{$i}}">
+                                    @for(($game->tournament->status == 3)? $i = $game->tournament->currentDay:$i = $game->tournament->currentDay-1; $i >= 1; $i--)
+                                        <div class="tab-pane table-responsive {{ ($i == $game->tournament->currentDay-1)? 'active':'' }}" id="tab_{{$i}}">
                                             <table class="table">
                                                 <tr>
                                                     <th>Match</th>
