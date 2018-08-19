@@ -170,8 +170,16 @@ class TournamentController extends BaseController
         $match->status = 1;
         $match->home_score = $request->get('home_score');
         $match->visitor_score = $request->get('visitor_score');
-        $match->save();
 
+        if($match->home_score > $match->visitor_score){
+            $match->winner = 1;
+        } elseif ($match->home_score < $match->visitor_score) {
+            $match->winner = 2;
+        } else {
+            $match->winner = 'N';
+        }
+
+        $match->save();
         $bets = Bet::where('match_id', $match_id)->get();
         foreach ($bets as $bet){
             if($bet->bet == 1 && $match->home_score > $match->visitor_score){
