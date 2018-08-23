@@ -45,7 +45,7 @@ class ViewController extends BaseController
             $best[] = array_merge($bests_c, ['score' => $score.' %'] );
         }
 
-        $best = collect($best)->sortByDesc('score')->take(3);
+        $best = collect($best)->sortByDesc('score')->take(5);
 
         return view('home', compact('games','bets_win','bets_lost','bets_wait','best'));
     }

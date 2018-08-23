@@ -41,26 +41,11 @@
                     <h3 class="box-title">Classement</h3>
                 </div>
                 <div class="box-body">
-                    <table class="table tab-pane">
-                        <tr>
-                            <th style="width: 20px;"></th>
-                            <th>Pseudo</th>
-                            <th>Score</th>
-                        </tr>
-                        @foreach($rank as $i => $r)
-                            <tr>
-                                <td>
-                                    {!! ($i == 0)? '<i class="fa fa-star text-yellow"></i>':(($i == 1)? '<i class="fa fa-star text-gray"></i>':(($i == 2)? '<i class="fa fa-star text-brown"></i>':'')) !!}
-                                </td>
-                                <td>
-                                    <a href="{{ route('profile', $r['id']) }}" data-toggle="tooltip" title="{{ $r['pseudo'] }}">
-                                    {{ $r['name'] }} {{ strtoupper(substr($r['lastname'],0,1)) }}.
-                                    </a>
-                                </td>
-                                <td>{{ $r['score'] }}</td>
-                            </tr>
-                        @endforeach
-                    </table>
+                    <div id="leaderboard">
+                        <div class="text-center" style="min-height: 100px; vertical-align: center;">
+                            <i class="fa fa-pulse fa-spinner mt-3 fa-3x" style="line-height: 100px"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -146,4 +131,22 @@
 
 @section('scripts')
     @parent
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                method: 'get',
+                url: '{{ route('games.getRank', $game->id) }}',
+                dataType: "text",
+                success: function (data) {
+                    $('#leaderboard').html(data);
+                }
+            }).fail(function (data) {
+                alert('error')
+                console.log(data)
+                $('#leaderboard').replaceWith(data);
+
+            });
+        })
+    </script>
 @stop

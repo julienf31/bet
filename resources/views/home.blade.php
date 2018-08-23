@@ -69,6 +69,8 @@
                                         <li><a href="#"><span class="text-orange">2<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }} </span></a></li>
                                     @elseif($number == 3)
                                         <li><a href="#"><span class="text-red">3<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }} </span></a></li>
+                                    @else
+                                        <li><a href="#"><span class="">{{$number}}<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }} </span></a></li>
                                     @endif
                                 @endforeach
                             </ul>

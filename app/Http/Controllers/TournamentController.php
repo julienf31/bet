@@ -194,9 +194,14 @@ class TournamentController extends BaseController
             $bet->save();
         }
 
-        if($tournament->matches()->where('days', $tournament->currentDay)->where('status', 0)->count()>0){
+        if($tournament->matches()->where('days', $tournament->currentDay)->where('status', null)->count() == 0){
             if($tournament->currentDay < $tournament->days){
                 $tournament->currentDay = $tournament->currentDay +1;
+                $games = Game::where('tournament_id',$tournament->id)->get();
+                foreach ($games as $game){
+                    $game->mail_status = 0;
+                    $game->save();
+                }
             } else {
                 $tournament->status = 3;
             }
@@ -213,7 +218,8 @@ class TournamentController extends BaseController
         $tournament = Tournament::find($tournament_id);
         $match = Match::find($match_id);
 
-        $match->status = 0;
+        $match->status = null;
+        $match->winner = null;
         $match->home_score = null;
         $match->visitor_score = null;
         $match->save();

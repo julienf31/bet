@@ -63,6 +63,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/games/request/{id}/deny', array('as' => 'games.access.request.deny', 'uses' => 'GameController@declineRequest'));
     Route::get('/games/{game}/results', array('as' => 'games.results', 'uses' => 'GameController@results'));
 
+    Route::get('/games/ranking/{id}', array('as' => 'games.getRank', 'uses' => 'GameController@getRanking'));
+
+
     Route::get('/teams', array('as' => 'teams.list', 'uses' => 'ViewController@showTeams'));
     Route::get('/teams/edit/{id}', array('as' => 'teams.edit', 'uses' => 'ViewController@showTeamsEdit'));
     Route::post('/teams/edit/{id}', array('as' => 'teams.edit', 'uses' => 'TeamController@editTeam'));

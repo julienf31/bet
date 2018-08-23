@@ -53,6 +53,13 @@ class GameController extends BaseController
         return view('games.show', compact('game','tournament', 'nextmatchs','lastmatchs','rank','bets'));
     }
 
+    public function getRanking($game_id)
+    {
+        $game = Game::where('id',$game_id)->first();
+
+        return $game->getStyledRank();
+    }
+
     public function create()
     {
         $data['tournaments'] = Tournament::with('country:id,code')->get();
