@@ -42,7 +42,7 @@ class GameController extends BaseController
         $nextmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days', '>=', $tournament->currentDay)->limit($game->daysAhead*$tournament->participants/2)->get();
         $nextmatchsID = Tournament::find($game->tournament_id)->matches()->where('days', '>=', $tournament->currentDay)->limit($game->daysAhead*$tournament->participants/2)->select('id')->get()->toArray();
         $lastmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay-1)->get();
-        $rank = $game->ranking();
+        //$rank = $game->ranking();
         $bets = Auth::user()->bets()->whereIn('match_id', $nextmatchsID)->where('game_id', $game->id)->select(['match_id','bet'])->get()->toArray();
 
         if($tournament->status == 3){
