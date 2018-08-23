@@ -21,7 +21,7 @@ class ViewController extends BaseController
 
     public function showHome(){
         $games = Auth::user()->parties()->get();
-        $bets = Bet::all();
+        //$bets = Bet::all();
 
         $bets_win = Bet::where('result', true)->count();
         $bets_lost = Bet::where('result', false)->count();
@@ -51,10 +51,6 @@ class ViewController extends BaseController
     }
 
     public function showLogin(){
-        if (Auth::viaRemember()) {
-            echo 'remember ok';
-            die();
-        }
         if(Auth::guest())
         {
             return view('login');

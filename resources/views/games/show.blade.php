@@ -89,7 +89,7 @@
                             <tr>
                                 <td class="text-center">
                                     <img src="{{ asset('img/logos/teams/'.$match->hometeam->id.'.'.$match->hometeam->logo) }}" class="img-responsive " style="display: inline-block; height: 30px;margin-right: 10px;"/>
-                                    <span class="{{ ($match->status == 1)? (($bets[array_search($match->id, array_column($bets,'match_id'))]['bet'] == $match->winner)? 'text-success':'text-danger'):'text-warning' }}" style="display: inline-block;"> {{ (in_array($match->id, array_column($bets,'match_id'))? '('.$bets[array_search($match->id, array_column($bets,'match_id'))]['bet'].')':'-') }}</span>
+                                    <span class="{{ ($match->status == 1 && in_array($match->id, array_column($bets,'match_id')))? (($bets[array_search($match->id, array_column($bets,'match_id'))]['bet'] == $match->winner)? 'text-success':'text-danger'):'text-warning' }}" style="display: inline-block;"> {{ (in_array($match->id, array_column($bets,'match_id'))? '('.$bets[array_search($match->id, array_column($bets,'match_id'))]['bet'].')':'-') }}</span>
                                     <img class="" src="{{ asset('img/logos/teams/'.$match->visitorteam->id.'.'.$match->visitorteam->logo) }}" class="img-responsive" style="display: inline-block; height: 30px; margin-left: 10px;"/>
                                 </td>
                             </tr>

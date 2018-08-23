@@ -32,15 +32,14 @@ class Game extends Model
         $rank = array();
         foreach ($this->participants as $participant) {
             $part = array();
-            $user = User::where('id', $participant->user_id)->first();
-            $bets = User::find($participant->user_id)->bets()->where('game_id', $this->id)->get();
+            $user = $participant->user()->first();
+            $bets = $user->bets()->where('game_id', $this->id)->get();
             $part['name'] = $user->firstname;
             $part['lastname'] = $user->lastname;
             $part['pseudo'] = $user->pseudo;
             $part['id'] = $user->id;
             $part['score'] = 0;
             foreach ($bets as $bet) {
-                $match = $bet->match()->first();
                 if ($bet->result) {
                     $part['score'] += 1;
                 } else {

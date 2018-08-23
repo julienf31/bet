@@ -33,21 +33,22 @@ class GameController extends BaseController
 
     public function show($id)
     {
-        if(!Auth::user()->inGame($id)){
+        $user = Auth::user();
+        if(!$user->inGame($id)){
             Toastr::warning("Vous n'avez pas accés à cette partie");
             return redirect()->route('games.search');
         }
         $game = Game::with('participants.user')->where('id',$id)->first();
-        $tournament = Tournament::find($game->tournament_id);
-        $nextmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days', '>=', $tournament->currentDay)->limit($game->daysAhead*$tournament->participants/2)->get();
-        $nextmatchsID = Tournament::find($game->tournament_id)->matches()->where('days', '>=', $tournament->currentDay)->limit($game->daysAhead*$tournament->participants/2)->select('id')->get()->toArray();
-        $lastmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay-1)->get();
+        $tournament = $game->tournament()->first();
+        $nextmatchs = $tournament->matches()->with(['hometeam', 'visitorteam'])->where('days', '>=', $tournament->currentDay)->limit($game->daysAhead*$tournament->participants/2)->get();
+        $nextmatchsID = $tournament->matches()->where('days', '>=', $tournament->currentDay)->limit($game->daysAhead*$tournament->participants/2)->select('id')->get()->toArray();
+        $lastmatchs = $tournament->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay-1)->get();
         //$rank = $game->ranking();
-        $bets = Auth::user()->bets()->whereIn('match_id', $nextmatchsID)->where('game_id', $game->id)->select(['match_id','bet'])->get()->toArray();
+        $bets = $user->bets()->whereIn('match_id', $nextmatchsID)->where('game_id', $game->id)->select(['match_id','bet'])->get()->toArray();
 
         if($tournament->status == 3){
             $nextmatchs = null;
-            $lastmatchs = Tournament::find($game->tournament_id)->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay)->get();
+            $lastmatchs = $tournament->matches()->with(['hometeam', 'visitorteam'])->where('days',$tournament->currentDay)->get();
         }
 
         return view('games.show', compact('game','tournament', 'nextmatchs','lastmatchs','rank','bets'));
