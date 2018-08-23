@@ -38,7 +38,7 @@
                                         <h4 class="media-heading user_name"><small>{!! ($game->privacy)? '<i class="fa fa-lock fa-fw"></i>':'<i class="fa fa-unlock fa-fw"></i>' !!}</small> {{ $game->name }}</h4>
                                         {{ $game->description }}
                                         <p><small>@if(Auth::user()->games->contains($game->id))<a href="{{ route('games.show', $game->id) }}">Accéder</a>@endif @if(Auth::user()->hasRole('admin') || Auth::user()->games->contains($game->id)) - <a href="{{ route('games.edit', $game->id) }}">Paramétres</a> @endif</small></p>
-                                        <a href="{{ route('bet',$game->id) }}" class="btn btn-success">Parier</a>
+                                        <a href="{{ route('bet',$game->id) }}" class="btn btn-success btn-flat">Parier</a>
                                     </div>
                                 </div>
                             @endforeach
