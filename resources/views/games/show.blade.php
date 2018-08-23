@@ -140,6 +140,7 @@
                 dataType: "text",
                 success: function (data) {
                     $('#leaderboard').html(data);
+                    //$('#leaderboard .pseudo').popover('show');
                 }
             }).fail(function (data) {
                 alert('error')
