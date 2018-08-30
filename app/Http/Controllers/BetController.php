@@ -46,7 +46,7 @@ class BetController extends BaseController
         $now = Carbon::create();
         $tournament = Game::find($game_id)->tournament;
         $matches = Tournament::find($tournament->id)->matches()->where('days', '>=',$tournament->currentDay)->where('days', '<',$tournament->currentDay+$game->daysAhead)->where('date','>=', $now->addHours(+1))->get();
-        $bets_done = Bet::where('game_id', $game_id)->whereIn('match_id', array_column($matches->toArray(),'id'))->get();
+        $bets_done = Bet::where('game_id', $game_id)->where('user_id', Auth::user()->id)->whereIn('match_id', array_column($matches->toArray(),'id'))->get();
         $bets = $bets_done;
         Log::info('duplication');
         foreach ($matches as $match){
