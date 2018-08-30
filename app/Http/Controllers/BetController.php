@@ -59,10 +59,12 @@ class BetController extends BaseController
             }
             if(!$done){
                 $oldBet = Bet::where('match_id', $match->id)->where('user_id', Auth::user()->id)->first();
-                $newBet = $oldBet->replicate();
-                $newBet->game_id = $game->id;
-                $newBet->save();
-                Log::info("match $match->id dupliqué");
+                if(null !== $oldBet){
+                    $newBet = $oldBet->replicate();
+                    $newBet->game_id = $game->id;
+                    $newBet->save();
+                    Log::info("match $match->id dupliqué");
+                }
             }
         }
 
