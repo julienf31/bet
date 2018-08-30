@@ -14,7 +14,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-xs-6">
-                            <p class="text-justify">L'application étant toujours en cours de dévellopement, vous pouvez nous faire remonter les bugsn, ou proposer des fonctionalités / améliorations via le formulaire ci dessous.</p>
+                            <p class="text-justify">L'application étant toujours en cours de dévellopement, vous pouvez nous faire remonter les bugs, ou proposer des fonctionalités / améliorations via le formulaire ci dessous.</p>
                         </div>
                         <div class="col-xs-6">
                             <ul class="list-group list-unstyled">
