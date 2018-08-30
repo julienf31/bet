@@ -15,6 +15,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 use Kamaln7\Toastr\Facades\Toastr;
@@ -47,11 +48,13 @@ class BetController extends BaseController
         $matches = Tournament::find($tournament->id)->matches()->where('days', '>=',$tournament->currentDay)->where('days', '<',$tournament->currentDay+$game->daysAhead)->where('date','>=', $now->addHours(+1))->get();
         $bets_done = Bet::where('game_id', $game_id)->whereIn('match_id', array_column($matches->toArray(),'id'))->get();
         $bets = $bets_done;
+        Log::info('duplication');
         foreach ($matches as $match){
             $done = false;
             foreach ($bets as $bet){
                 if($bet->match_id == $match->id){
                     $done = true;
+                    Log::info("match $match->id fait");
                 }
             }
             if(!$done){
@@ -59,6 +62,7 @@ class BetController extends BaseController
                 $newBet = $oldBet->replicate();
                 $newBet->game_id = $game->id;
                 $newBet->save();
+                Log::info("match $match->id dupliqué");
             }
         }
 
