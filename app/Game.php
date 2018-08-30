@@ -3,10 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model as Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Game extends Model
 {
+    use SoftDeletes;
+    protected $dates = ['created_at','updated_at','deleted_at'];
+
     public function user()
     {
         return $this->belongsTo(User::class);

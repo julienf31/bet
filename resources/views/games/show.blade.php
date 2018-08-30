@@ -29,9 +29,42 @@
                     @foreach($game->participants->sortBy('user.firstname') as $participant)
                         <a href="{{ route('profile',$participant->user->id) }}" class="">{{ $participant->user->firstname.' '.$participant->user->lastname.' (@'.$participant->user->pseudo.')' }}</a><br>
                     @endforeach
-                    @if(Auth::user()->hasRole('admin') || Auth::user()->games->contains($game->id))
-                        <p><a href="{{ route('games.edit', $game->id) }}" class="btn btn-warning btn-flat"> Paramétres</a></p>
-                    @endif
+                    <div class="row">
+                        <div class="col-sm-6">
+                            @if(Auth::user()->hasRole('admin') || Auth::user()->games->contains($game->id))
+                                <p><a href="{{ route('games.edit', $game->id) }}" class="btn btn-warning btn-flat"> Paramétres</a></p>
+                            @endif
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-danger btn-flat pull-right" data-toggle="modal" data-target="#exitModal">Quitter la partie</button>
+
+                            <div class="modal fade" id="exitModal" tabindex="-1" role="dialog" aria-labelledby="exitModal" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Confirmation requise</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="alert alert-danger">
+                                                <h4>Attention</h4>
+                                                <p>Êtes vous sur de vouloir quitter cette partie ? cette action est irrévocable et vous pedrez votre progression au sein de la partie</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="{{ route('games.exit', $game->id) }}" method="post">
+                                                {{ csrf_field() }}
+                                                <button type="button" class="btn btn-secondary btn-flat" data-dismiss="modal">Fermer</button>
+                                                <button type="submit" class="btn btn-danger btn-flat">Confirmer</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

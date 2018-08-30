@@ -62,9 +62,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/games/request/{id}/accept', array('as' => 'games.access.request.accept', 'uses' => 'GameController@acceptRequest'));
     Route::get('/games/request/{id}/deny', array('as' => 'games.access.request.deny', 'uses' => 'GameController@declineRequest'));
     Route::get('/games/{game}/results', array('as' => 'games.results', 'uses' => 'GameController@results'));
-
     Route::get('/games/ranking/{id}', array('as' => 'games.getRank', 'uses' => 'GameController@getRanking'));
-
+    Route::post('/games/{id}/exit', array('as' => 'games.exit', 'uses' => 'GameController@exitGame'));
 
     Route::get('/teams', array('as' => 'teams.list', 'uses' => 'ViewController@showTeams'));
     Route::get('/teams/edit/{id}', array('as' => 'teams.edit', 'uses' => 'ViewController@showTeamsEdit'));
@@ -80,6 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/bet/{game_id}', array('as' => 'bet', 'uses' => 'BetController@show'));
     Route::post('/bet/{game_id}', array('as' => 'bet.save', 'uses' => 'BetController@doBet'));
+    Route::get('/bet/{game_id}/copy', array('as' => 'bet.copy', 'uses' => 'BetController@copy'));
 
     Route::get('/report', array('as' => 'report', 'uses' => 'ReportController@create'));
     Route::post('/report', array('as' => 'report', 'uses' => 'ReportController@post'));

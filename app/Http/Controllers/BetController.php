@@ -28,9 +28,41 @@ class BetController extends BaseController
         $now = Carbon::create();
         $matches = Tournament::find($tournament->id)->matches()->where('days', '>=',$tournament->currentDay)->where('days', '<',$tournament->currentDay+$game->daysAhead)->where('date','>=', $now->addHours(+1))->get();
         $bets = Bet::where('user_id', Auth::user()->id)->whereIn('match_id', array_column($matches->toArray(),'id'))->where('game_id', $game->id)->get()->toArray();
+        $bets_o = Bet::where('user_id', Auth::user()->id)->whereIn('match_id', array_column($matches->toArray(),'id'))->where('game_id','!=', $game->id)->get()->toArray();
 
-        return view('bet.do', compact('game', 'tournament', 'matches', 'bets'));
+        if(count($bets_o) > count($bets)){
+            $multiple = true;
+        } else {
+            $multiple = false;
+        }
 
+        return view('bet.do', compact('game', 'tournament', 'matches', 'bets','multiple'));
+    }
+
+    public function copy($game_id)
+    {
+        $game = Game::find($game_id);
+        $now = Carbon::create();
+        $tournament = Game::find($game_id)->tournament;
+        $matches = Tournament::find($tournament->id)->matches()->where('days', '>=',$tournament->currentDay)->where('days', '<',$tournament->currentDay+$game->daysAhead)->where('date','>=', $now->addHours(+1))->get();
+        $bets_done = Bet::where('game_id', $game_id)->whereIn('match_id', array_column($matches->toArray(),'id'))->get();
+        $bets = $bets_done;
+        foreach ($matches as $match){
+            $done = false;
+            foreach ($bets as $bet){
+                if($bet->match_id == $match->id){
+                    $done = true;
+                }
+            }
+            if(!$done){
+                $oldBet = Bet::where('match_id', $match->id)->where('user_id', Auth::user()->id)->first();
+                $newBet = $oldBet->replicate();
+                $newBet->game_id = $game->id;
+                $newBet->save();
+            }
+        }
+
+        return redirect(route('bet', $game->id));
     }
 
     public function doBet(Request $request)

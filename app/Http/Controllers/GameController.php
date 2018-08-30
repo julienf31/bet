@@ -221,4 +221,23 @@ class GameController extends BaseController
 
         return view('games.results', compact('users', 'bets', 'game', 'results_available','matchs'));
     }
+
+    public function exitGame($game_id)
+    {
+        $game = Game::where('id',$game_id)->first();
+        $user = Auth::user();
+
+        if(Participant::where('user_id', Auth::user()->id)->where('game_id', $game_id)->exists()){
+            $participant = Participant::where('user_id', $user->id)->where('game_id', $game_id)->first();
+            $participant->delete();
+            Toastr::success('games.exit.confirm');
+        } else {
+            Toastr::error('games.exit.fail');
+        }
+        if($game->participants()->count() == 0){
+            $game->delete();
+        }
+
+        return redirect(route('games.index'));
+    }
 }
