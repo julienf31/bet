@@ -14,7 +14,7 @@
                     {{ $r['name'] }} {{ strtoupper(substr($r['lastname'],0,1)) }}.
                 </a>
             </td>
-            <td>{{ $r['score'] }} ({{ $r['percents'] }} %)</td>
+            <td>{{ $r['score'] }} ({{ round($r['percents']) }} %)</td>
         </tr>
     @endforeach
 </table>
