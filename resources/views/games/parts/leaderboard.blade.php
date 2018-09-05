@@ -3,6 +3,7 @@
         <th style="width: 20px;"></th>
         <th>Pseudo</th>
         <th>Score</th>
+        <th>%</th>
     </tr>
     @foreach($rank as $i => $r)
         <tr>
@@ -14,7 +15,8 @@
                     {{ $r['name'] }} {{ strtoupper(substr($r['lastname'],0,1)) }}.
                 </a>
             </td>
-            <td>{{ $r['score'] }} ({{ round($r['percents']) }} %)</td>
+            <td>{{ $r['score'] }}</td>
+            <td>{{ round($r['percents']) }} %</td>
         </tr>
     @endforeach
 </table>
