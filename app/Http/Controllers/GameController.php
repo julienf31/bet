@@ -70,6 +70,12 @@ class GameController extends BaseController
 
     public function edit($id)
     {
+        $user = Auth::user();
+        if(!$user->hasRole('admin') || !Auth::user()->games->contains($id)){
+            Toastr::warning("Vous n'avez pas accés aux paramétres de cette partie");
+            return redirect()->route('games.search');
+        }
+
         $game = Game::with('participants.user')->where('id',$id)->first();
         $users = User::all();
         $participantsList = Participant::where('game_id',$id)->select('user_id')->get();
