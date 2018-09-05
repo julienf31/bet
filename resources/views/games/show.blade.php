@@ -176,7 +176,6 @@
                     //$('#leaderboard .pseudo').popover('show');
                 }
             }).fail(function (data) {
-                alert('error')
                 console.log(data)
                 $('#leaderboard').replaceWith(data);
 

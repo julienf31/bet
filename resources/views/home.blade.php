@@ -48,7 +48,7 @@
             </div>
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-bar-chart fa-fw"></i> Stats</h3>
+                    <h3 class="box-title"><i class="fa fa-bar-chart fa-fw"></i> Stats générales</h3>
                 </div>
                 <div class="box-body">
                     <h3>Pronostics</h3>

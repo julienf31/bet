@@ -50,6 +50,7 @@ class Game extends Model
                     //bet fail
                 }
             }
+            $part['percents'] = ($part['score']*100)/count($bets);
             array_push($rank, $part);
         }
         return array_reverse(array_sort($rank, function ($value) {
