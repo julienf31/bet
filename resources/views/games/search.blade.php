@@ -10,12 +10,10 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Liste des parties <span class="badge bg-green"> {{ count($games) }}</span></h3>
-
                     <div class="pull-right">
-                        <a href="{{ route('games.create') }}" name="create" class="btn btn-success"><i class="fa fa-plus"> </i> Creer une partie</a>
+                        <a href="{{ route('games.create') }}" name="create" class="btn btn-success btn-flat"><i class="fa fa-plus fa-fw"> </i> Creer une partie</a>
                     </div>
                 </div>
-                <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     @foreach($games as $game)
                         <div class="col-sm-12">
@@ -31,9 +29,7 @@
                         </div>
                     @endforeach
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
         </div>
     </div>
 @stop

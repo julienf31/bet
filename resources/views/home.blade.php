@@ -36,8 +36,10 @@
                                         <img src="{{ asset('img/logos/tournaments/'.$game->tournament->logo) }}" class="img-responsive pull-left" style="display: inline-block;" width="100px">
 
                                         <h4 class="media-heading user_name"><small>{!! ($game->privacy)? '<i class="fa fa-lock fa-fw"></i>':'<i class="fa fa-unlock fa-fw"></i>' !!}</small> {{ $game->name }}</h4>
-                                        {{ $game->description }}
-                                        <p><small>@if(Auth::user()->games->contains($game->id))<a href="{{ route('games.show', $game->id) }}">Accéder</a>@endif @if(Auth::user()->hasRole('admin') || Auth::user()->games->contains($game->id)) - <a href="{{ route('games.edit', $game->id) }}">Paramétres</a> @endif</small></p>
+                                        <p>
+                                            {{ $game->description }}
+                                        </p>
+                                        <a href="{{ route('games.show',$game->id) }}" class="btn btn-primary btn-flat">Accéder</a>
                                         <a href="{{ route('bet',$game->id) }}" class="btn btn-success btn-flat">Parier</a>
                                     </div>
                                 </div>

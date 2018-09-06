@@ -12,7 +12,7 @@
                     <h3 class="box-title">Mes parties <span class="badge bg-green"> {{ count($games) }}</span></h3>
 
                     <div class="pull-right">
-                        <a href="{{ route('games.create') }}" name="create" class="btn btn-success"><i class="fa fa-plus"> </i> Creer une partie</a>
+                        <a href="{{ route('games.create') }}" name="create" class="btn btn-success btn-flat"><i class="fa fa-plus"> </i> Creer une partie</a>
                     </div>
                 </div>
                 <!-- /.box-header -->
@@ -24,14 +24,16 @@
                             @foreach($games as $game)
                                 <div class="col-sm-12">
                                     <hr>
-                                    <p class="pull-right"><small>{{ $game->participants->count() }}{{ (isset($game->max_participants))? '/'.$game->max_participants:'' }} <i class="fa fa-user"></i> </small></p>
+                                    <p class="pull-right"><small>{{ $game->participants->count() }} <i class="fa fa-user"></i> </small></p>
                                     <div class="media-body">
                                         <img src="{{ asset('img/logos/tournaments/'.$game->tournament->logo) }}" class="img-responsive pull-left" style="display: inline-block;" width="100px">
 
                                         <h4 class="media-heading user_name"><small>{!! ($game->privacy)? '<i class="fa fa-lock fa-fw"></i>':'<i class="fa fa-unlock fa-fw"></i>' !!}</small> {{ $game->name }}</h4>
-                                        {{ $game->description }}
-                                        <p><small><a href="{{ route('games.show', $game->id) }}">Accéder</a> - <a href="{{ route('games.edit', $game->id) }}">Paramétres</a></small></p>
-                                        <a href="{{ route('bet',$game->id) }}" class="btn btn-success">Parier</a>
+                                        <p>
+                                            {{ $game->description }}
+                                        </p>
+                                        <a href="{{ route('games.show',$game->id) }}" class="btn btn-primary btn-flat">Accéder</a>
+                                        <a href="{{ route('bet',$game->id) }}" class="btn btn-success btn-flat">Parier</a>
                                     </div>
                                 </div>
                             @endforeach
