@@ -37,20 +37,24 @@ class Game extends Model
         foreach ($this->participants as $participant) {
             $part = array();
             $user = $participant->user()->first();
-            $bets = $user->bets()->where('game_id', $this->id)->where('result', true)->orWhere('result', false)->get();
+            $bets = $user->bets()->where('game_id', $this->id)->whereNotNull('result')->get();
             $part['name'] = $user->firstname;
             $part['lastname'] = $user->lastname;
             $part['pseudo'] = $user->pseudo;
             $part['id'] = $user->id;
             $part['score'] = 0;
-            foreach ($bets as $bet) {
-                if ($bet->result) {
-                    $part['score'] += 1;
-                } else {
-                    //bet fail
+            if(count($bets) == 0){
+                $part['percents'] = 0;
+            } else {
+                foreach ($bets as $bet) {
+                    if ($bet->result) {
+                        $part['score'] += 1;
+                    } else {
+                        //bet fail
+                    }
                 }
+                $part['percents'] = ($part['score']*100)/count($bets);
             }
-            $part['percents'] = ($part['score']*100)/count($bets);
             array_push($rank, $part);
         }
         return array_reverse(array_sort($rank, function ($value) {
