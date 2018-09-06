@@ -37,7 +37,7 @@ class Game extends Model
         foreach ($this->participants as $participant) {
             $part = array();
             $user = $participant->user()->first();
-            $bets = $user->bets()->where('game_id', $this->id)->get();
+            $bets = $user->bets()->where('game_id', $this->id)->where('result', true)->orWhere('result', false)->get();
             $part['name'] = $user->firstname;
             $part['lastname'] = $user->lastname;
             $part['pseudo'] = $user->pseudo;
