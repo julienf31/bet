@@ -7,32 +7,36 @@
         <th>%</th>
     </tr>
     @php
-        $current_score = 0;
+        $current_score = null;
         $current_rank = 1;
-        $previous_rank = true;
+        $previous_rank = false;
     @endphp
     @foreach($rank as $i => $r)
         <tr>
+            @php
+                if($current_score == null){
+                    $current_score = $r['score'];
+                    }
+                if($r['score'] != $current_score){
+                    $current_rank+=1;
+                }
+            @endphp
             <td>
-                {!! ($i == 0)? '<i class="fa fa-star text-yellow"></i>':(($i == 1)? '<i class="fa fa-star text-gray"></i>':(($i == 2)? '<i class="fa fa-star text-brown"></i>':'')) !!}
+                {!! ($current_rank == 1)? '<i class="fa fa-star text-yellow"></i>':(($current_rank == 2)? '<i class="fa fa-star text-gray"></i>':(($current_rank == 3)? '<i class="fa fa-star text-brown"></i>':'')) !!}
             </td>
             @php
-                if($r['score'] > $current_score){
-                    $current_score == $r['score'];
-                }
-
                 if($r['score'] == $current_score){
                     if($previous_rank == false){
                         echo '<td>'.$current_rank.'</td>';
-                        $previous_rank == true;
+                        $current_score = $r['score'];
+                        $previous_rank = true;
                     } else {
                         echo '<td> - </td>';
                     }
                 }else{
                     echo '<td>'.$current_rank.'</td>';
-                    $current_rank++;
                     $current_score = $r['score'];
-                    $previous_rank == true;
+                    $previous_rank = true;
                 }
             @endphp
             <td>

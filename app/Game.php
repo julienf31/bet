@@ -57,9 +57,12 @@ class Game extends Model
             }
             array_push($rank, $part);
         }
-        return array_reverse(array_sort($rank, function ($value) {
+
+        return collect($rank)->sortBy('score')->sortBy('percents')->reverse()->toArray();
+
+        /*return array_reverse(array_sort($rank, function ($value) {
             return $value['score'];
-        }));
+        }));*/
 
     }
 
