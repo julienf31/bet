@@ -58,7 +58,7 @@ class Game extends Model
             array_push($rank, $part);
         }
 
-        return collect($rank)->sortBy('score')->sortBy('percents')->reverse()->toArray();
+        return collect($rank)->sortBy('percents')->sortBy('score')->reverse()->toArray();
 
         /*return array_reverse(array_sort($rank, function ($value) {
             return $value['score'];
