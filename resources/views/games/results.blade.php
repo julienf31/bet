@@ -18,13 +18,13 @@
                         @if($results_available)
                             <div class="nav-tabs-custom">
                                 <ul class="nav nav-tabs">
-                                    @for(($game->tournament->status == 3)? $i = $game->tournament->currentDay:$i = $game->tournament->currentDay-1; $i >= 1; $i--)
-                                        <li class="{{ ($i == $game->tournament->currentDay-1)? 'active':'' }}"><a href="#tab_{{$i}}" data-toggle="tab" aria-expanded="false">Journée {{ $i }}</a></li>
+                                    @for($i = $game->tournament->currentDay; $i >= 1; $i--)
+                                        <li class="{{ ($i == $game->tournament->currentDay)? 'active':'' }}"><a href="#tab_{{$i}}" data-toggle="tab" aria-expanded="false">Journée {{ $i }}</a></li>
                                     @endfor
                                 </ul>
                                 <div class="tab-content">
-                                    @for(($game->tournament->status == 3)? $i = $game->tournament->currentDay:$i = $game->tournament->currentDay-1; $i >= 1; $i--)
-                                        <div class="tab-pane table-responsive {{ ($i == $game->tournament->currentDay-1)? 'active':'' }}" id="tab_{{$i}}">
+                                    @for($i = $game->tournament->currentDay; $i >= 1; $i--)
+                                        <div class="tab-pane table-responsive {{ ($i == $game->tournament->currentDay)? 'active':'' }}" id="tab_{{$i}}">
                                             <table class="table">
                                                 <tr>
                                                     <th>Match</th>
@@ -35,17 +35,21 @@
                                                 @foreach($matchs->where('days', $i)->sortBy('date') as $match)
                                                     <tr>
                                                         <td style="min-width: 150px;" class="text-center">{!! $match->getIcons() !!}</td>
-                                                        @foreach($users as $participant)
-                                                            @if($participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first() != null)
-                                                            <td class="{{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->getStatusColor() }} text-center">
-                                                                {{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->bet }}
-                                                            </td>
-                                                            @else
-                                                                <td class="bg-danger text-center">
-                                                                    Non joué
+                                                        @if($match->status == NULL)
+                                                            <td colspan="{{ count($users) }}" class="text-center bg-warning">En attente</td>
+                                                        @else
+                                                            @foreach($users as $participant)
+                                                                @if($participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first() != null)
+                                                                <td class="{{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->getStatusColor() }} text-center">
+                                                                    {{ $participant->user->bets->where('match_id', $match->id)->where('game_id', $game->id)->first()->bet }}
                                                                 </td>
-                                                            @endif
-                                                        @endforeach
+                                                                @else
+                                                                    <td class="bg-danger text-center">
+                                                                        Non joué
+                                                                    </td>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
                                                     </tr>
                                                 @endforeach
                                                 <tr>
