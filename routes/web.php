@@ -25,7 +25,7 @@ Route::post('/login', array('as' => 'login', 'uses' => 'LoginController@login'))
 Route::get('/register', array('as' => 'register', 'uses' => 'ViewController@showRegister'));
 Route::post('/register', array('as' => 'register', 'uses' => 'LoginController@register'));
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','log']], function () {
     Route::get('/home', array('as' => 'home', 'uses' => 'ViewController@showHome'));
 
     Route::get('/logout', array('as' => 'logout', 'uses' => 'LoginController@logout'));
@@ -100,7 +100,5 @@ Route::group(['middleware' => ['auth']], function () {
     //Route::post('/version/new', array('as' => 'version.create', 'uses' => 'VersionController@store'));
 
     Route::resource('versions','VersionController');
+    Route::resource('logs','LogController');
 });
-
-
-Route::get('/test', array('as' => 'test', 'uses' => 'ViewController@test'));

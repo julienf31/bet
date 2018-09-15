@@ -146,6 +146,12 @@
                             <li {{ (Request::is('changelogs')) ? 'class=active' : '' }}><a href="{{ route('changelog.index') }}"><i class="fa fa-circle-o"></i>Changelog</a></li>
                         </ul>
                     </li>
+                    <!-- LOGS -->
+                    <li class=" {{ (Request::is('logs')) ? 'active' : '' }}">
+                        <a href="{{ route('logs.index') }}">
+                            <i class="fa fa-history"></i> <span>Logs</span>
+                        </a>
+                    </li>
                 @else
                     <!-- BUGS -->
                     <li {{ (Request::is('report')) ? 'class=active' : '' }}>
