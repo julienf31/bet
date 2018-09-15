@@ -16,6 +16,7 @@ class LogController extends Controller
     public function index(Request $request)
     {
         $user = $request->get('user', null);
+        $path = $request->get('path', null);
 
         $users = User::all();
 
@@ -23,6 +24,10 @@ class LogController extends Controller
 
         if($user != null){
             $logs = $logs->where('user_id', $user);
+        }
+
+        if($path != null){
+            $logs = $logs->where('path','like', '%'.$path.'%');
         }
 
         $logs = $logs->paginate(15);

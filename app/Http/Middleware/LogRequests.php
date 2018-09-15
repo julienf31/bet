@@ -27,7 +27,7 @@ class LogRequests
             'path'    => substr($request->path(), 0, 255),
             'method'  => $request->method(),
             'ip'      => $request->getClientIp(),
-            'input'   => json_encode($request->input()),
+            'input'   => json_encode($request->except(['password','oldPassword','newPassword','newPasswordConfirm'])),
         ];
 
         Log::create($log);

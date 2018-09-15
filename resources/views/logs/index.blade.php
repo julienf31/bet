@@ -21,9 +21,12 @@
                         <div class="form-group">
                             <select type="text" name="user" class="form-control select2">
                                 @foreach($users as $user)
-                                    <option value="{{ $user->id }}">{{ $user->pseudo }}</option>
+                                    <option value="{{ $user->id }}" {{ (request()->input('user') == $user->id)? 'selected':'' }}>{{ $user->pseudo }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="path" class="form-control" placeholder="Path" value="{{ request()->input('path') }}">
                         </div>
                         <button type="submit" class="btn btn-success btn-flat"><i class="fa fa-search"></i> Rechercher</button>
                     </form>
@@ -44,7 +47,7 @@
                 @foreach($logs as $log)
                     <tr>
                         <td>{!! $log->id !!}</td>
-                        <td>{!! (isset($log->user_id))? $log->user->pseudo:'guest' !!}</td>
+                        <td>{!! (isset($log->user_id))? $log->user->linkToProfile('pseudo'):'guest' !!}</td>
                         <td>{!! $log->getMethod() !!}</td>
                         <td><span class="label label-info">{!! $log->path !!}</span></td>
                         <td><span class="label label-primary">{!! $log->ip !!}</span></td>
@@ -53,7 +56,7 @@
                     </tr>
                 @endforeach
             </table>
-            {{ $logs->links() }}
+            {{ $logs->appends(request()->input())->links() }}
         </div>
     </div>
 @stop
