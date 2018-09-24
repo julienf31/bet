@@ -41,8 +41,8 @@
                     <th>Methode</th>
                     <th>Path</th>
                     <th>Ip</th>
-                    <th style="max-width: 300px;">Input</th>
-                    <th style="min-width: 300px;">Date</th>
+                    <th style="min-width: 200px;">Date</th>
+                    <th >Input</th>
                 </tr>
                 @foreach($logs as $log)
                     <tr>
@@ -51,8 +51,8 @@
                         <td>{!! $log->getMethod() !!}</td>
                         <td><span class="label label-info">{!! $log->path !!}</span></td>
                         <td><span class="label label-primary">{!! $log->ip !!}</span></td>
-                        <td><code>{!! $log->input !!}</code></td>
                         <td>{!! $log->created_at !!}</td>
+                        <td><code>{!! nl2br($log->input) !!}</code></td>
                     </tr>
                 @endforeach
             </table>

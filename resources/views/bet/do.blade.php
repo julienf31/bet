@@ -24,7 +24,7 @@
                         @foreach($matches->sortBy('date') as $match)
                             @php
                                 Carbon::setLocale('fr');
-                                setlocale(LC_TIME,'fr_FR');
+                                setlocale(LC_TIME,'fr');
                                     $currDay = $match->days;
                                     $currDate = $match->date;
 
