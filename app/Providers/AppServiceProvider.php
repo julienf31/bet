@@ -3,10 +3,11 @@
 namespace App\Providers;
 
 use App\Report;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
-
+use Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        setlocale(LC_ALL, 'fr');
+        Carbon::setLocale('fr');
         Schema::defaultStringLength(191);
         view()->composer('template.theme', function($view)
         {
