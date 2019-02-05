@@ -34,10 +34,12 @@ class GameController extends BaseController
     public function show($id)
     {
         $user = Auth::user();
+
         if(!$user->inGame($id)){
             Toastr::warning("Vous n'avez pas accés à cette partie");
             return redirect()->route('games.search');
         }
+
         $game = Game::with('participants.user')->where('id',$id)->first();
         $tournament = $game->tournament()->first();
         $nextmatchs = $tournament->matches()->with(['hometeam', 'visitorteam'])->where('days', '>=', $tournament->currentDay)->limit($game->daysAhead*$tournament->participants/2)->get();

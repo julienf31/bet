@@ -2,7 +2,93 @@
 
 return [
 
-    'version' => '1.1',
+    'version' => '2.01',
+    'colors' => [
+        'danger-color' => [
+            'name' => 'Rouge',
+            'code' => '#ff4444',
+        ],
+        'danger-color-dark' => [
+            'name' => 'Rouge foncé',
+            'code' => '#CC0000',
+        ],
+        'warning-color' => [
+            'name' => 'Jaune',
+            'code' => '#ffbb33',
+        ],
+        'warning-color-dark' => [
+            'name' => 'Jaune foncé',
+            'code' => '#FF8800',
+        ],
+        'success-color' => [
+            'name' => 'Vert',
+            'code' => '#00C851',
+        ],
+        'success-color-dark' => [
+            'name' => 'Vert foncé',
+            'code' => '#007E33',
+        ],
+        'info-color' => [
+            'name' => 'Bleu ciel',
+            'code' => '#33b5e5',
+        ],
+        'info-color-dark' => [
+            'name' => 'Bleu',
+            'code' => '#0099CC',
+        ],
+        'default-color' => [
+            'name' => 'Turquoise',
+            'code' => '#2BBBAD',
+        ],
+        'default-color-dark' => [
+            'name' => 'Turquoise foncé',
+            'code' => '#00695c',
+        ],
+        'primary-color' => [
+            'name' => 'Azur',
+            'code' => '#4285F4',
+        ],
+        'primary-color-dark' => [
+            'name' => 'Bleu foncé',
+            'code' => '#0d47a1',
+        ],
+        'secondary-color' => [
+            'name' => 'Violet',
+            'code' => '#aa66cc',
+        ],
+        'secondary-color-dark' => [
+            'name' => 'Violet foncé',
+            'code' => '#9933CC',
+        ],
+        'elegant-color' => [
+            'name' => 'Gris',
+            'code' => '#2E2E2E',
+        ],
+        'elegant-color-dark' => [
+            'name' => 'Gris foncé',
+            'code' => '#212121',
+        ],
+        'aqua-gradient' => [
+            'name' => 'Aqua',
+            'code' => '#2096ff',
+        ],
+        'purple-gradient' => [
+            'name' => 'Nuances de rose',
+            'code' => '#ff6ec4',
+        ],
+        'peach-gradient' => [
+            'name' => 'Peach',
+            'code' => '#ffd86f',
+        ],
+        'blue-gradient' => [
+            'name' => 'Nuances de bleu',
+            'code' => '#45cafc',
+        ],
+        'om' => [
+            'name' => 'OM',
+            'code' => '#45cafc',
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------

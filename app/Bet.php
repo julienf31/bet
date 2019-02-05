@@ -27,9 +27,9 @@ class Bet extends Model
     {
         switch ($this->result){
             case 1:
-                return 'bg-success';
+                return 'green lighten-5';
             case 0:
-                return 'bg-danger';
+                return 'red lighten-5';
         }
     }
 }

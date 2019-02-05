@@ -6,17 +6,11 @@
 
 @section('content')
     <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Mes parties <span class="badge bg-green"> {{ count($games) }}</span></h3>
-
-                    <div class="pull-right">
-                        <a href="{{ route('games.create') }}" name="create" class="btn btn-success btn-flat"><i class="fa fa-plus"> </i> Creer une partie</a>
-                    </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Mes parties</h4>
+                    <a href="{{ route('games.create') }}" name="create" class="btn btn-success btn-flat"><i class="fa fa-plus"> </i> Creer une partie</a>
                     <div class="row">
                         @if(count($games) == 0)
                             Pas de parties en cours
@@ -40,9 +34,7 @@
                         @endif
                     </div>
                 </div>
-                <!-- /.box-body -->
             </div>
-            <!-- /.box -->
         </div>
     </div>
 @stop

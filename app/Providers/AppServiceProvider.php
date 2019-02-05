@@ -27,6 +27,12 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('notif', Report::where('seen',0)->count());
             }
         });
+        view()->composer('template.new_theme', function($view)
+        {
+            if(Auth::user() && Auth::user()->hasRole('admin')){
+                $view->with('notif', Report::where('seen',0)->count());
+            }
+        });
     }
 
     /**

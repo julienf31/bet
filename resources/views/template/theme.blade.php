@@ -2,97 +2,143 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
     <title>Application - @yield('title')</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('plugins/font-awesome/css/font-awesome.min.css') }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="{{ asset('plugins/Ionicons/css/ionicons.min.css') }}">
-    <!-- Select2 -->
-    <link rel="stylesheet" href="{{ asset('plugins/select2/dist/css/select2.min.css') }}">
-
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css') }}">
-    <link href="{{ asset('plugins/flag-icon-css-master/css/flag-icon.css') }}" rel="stylesheet">
-
-    <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset('css/AdminLTE.min.css') }}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="{{ asset('css/skins/_all-skins.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- Google Font -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('theme/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ asset('theme/css/mdb.min.css') }}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ asset('theme/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="manifest" href="{{ asset('manifest.webmanifest') }}">
+
+    <?php
+        $color = Auth::user()->theme;
+        $background = config('app.colors');
+        $background = $background[$color]['code'];
+    ?>
+    <style>
+        body{
+            background: {{ $background }} !important;
+        }
+        .back-color{
+            background-color: white;
+        }
+    </style>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+
 </head>
+
 <body class="hold-transition skin-{{ (Auth::user()) ? Auth::user()->theme:'green' }} sidebar-mini fixed">
 <!-- Site wrapper -->
-<div class="wrapper">
+<div class="back-color">
 
-@include('template.parts.menu')
-
-<!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-            <h1>
-                @yield('title')
-                <small>@yield('subtitle')</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="{{ route('home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-                @if(isset($hasMainPage) && $hasMainPage)
-                    <li><a href="@yield('linkToMain')">@yield('mainPage')</a></li>
-                @endif
-                <li class="active">@yield('title')</li>
-            </ol>
-        </section>
-
-        <!-- Main content -->
-        <section class="content">
-            @section('content')
-            @show
-        </section>
-        <!-- /.content -->
+@include('template.parts.new_menu')
+    <!-- Content Header (Page header) -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1>
+                    @yield('title')
+                    <small>@yield('subtitle')</small>
+                </h1>
+            </div>
+        </div>
     </div>
-    <!-- /.content-wrapper -->
 
-    @include('template.parts.footer')
-
+    <!-- Main content -->
+    <div class="container-fluid">
+        @section('content')
+        @show
+    </div>
+    <!-- /.content -->
+@include('template.parts.new_footer')
 </div>
-<!-- ./wrapper -->
+<!-- /.content-wrapper -->
+
+
+
+<!-- SCRIPTS -->
+<!-- JQuery -->
+<script type="text/javascript" src="{{ asset('theme/js/jquery-3.3.1.min.js') }}"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="{{ asset('theme/js/popper.min.js') }}"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="{{ asset('theme/js/bootstrap.min.js') }}"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="{{ asset('theme/js/mdb.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('theme/js/script.js') }}"></script>
+
+
 
 <!-- jQuery 3 -->
-<script src="{{ asset('plugins/jquery/dist/jquery.min.js') }}"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="{{ asset('bootstrap/js/bootstrap.min.js') }}"></script>
 <!-- SlimScroll -->
 <script src="{{ asset('plugins/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
 <!-- Select2 -->
 <script src="{{ asset('plugins/select2/dist/js/select2.full.min.js') }}"></script>
 <!-- FastClick -->
 <script src="{{ asset('plugins/fastclick/lib/fastclick.js') }}"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset('js/adminlte.min.js') }}"></script>
-<script>
-    $(document).ready(function () {
-        $('.sidebar-menu').tree()
-    });
-</script>
 
 <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
+<script>
+    // This code dosen't works on Firefox and IE and works on other browesers.
+    $(document).ready(function () {
+        $('.animated-icon1,.animated-icon3,.animated-icon4').click(function () {
+            $(this).toggleClass('open');
+        });
+    });
 
+    // Works everywhere
+    $(document).ready(function () {
+
+        // Hide/show animation hamburger function
+        $('.navbar-toggler').on('click', function () {
+
+            // Take this line to first hamburger animations
+            $('.animated-icon1').toggleClass('open');
+
+            // Take this line to second hamburger animation
+            $('.animated-icon3').toggleClass('open');
+
+            // Take this line to third hamburger animation
+            $('.animated-icon4').toggleClass('open');
+        });
+
+    });
+    if ('serviceWorker' in navigator) {
+        alert('ok')
+
+    };
+
+
+    navigator.geolocation.getCurrentPosition(function (location) {
+        alert(location)
+    });
+
+
+    //This is the "Offline copy of pages" service worker
+    //Add this below content to your HTML page, or add the js file to your page at the very top to register service worker
+    if (navigator.serviceWorker) {
+        console.log('[PWA Builder] active service worker found, no need to register')
+    } else {
+        //Register the ServiceWorker
+        navigator.serviceWorker.register('{{ asset('theme/js/doWork.js') }}', {
+            scope: './'
+        }).then(function(reg) {
+            alert('Service worker has been registered for scope:'+ reg.scope);
+        });
+    }
+</script>
 @section('scripts')
     <script>
         $(document).ready(function(){
@@ -100,6 +146,7 @@
         });
     </script>
 @show
+
 {!! Toastr::render() !!}
 </body>
 </html>

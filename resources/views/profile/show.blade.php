@@ -6,17 +6,12 @@
 
 @section('content')
     <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Informations</h3>
-                    @if(Auth::user() == $user || Auth::user()->hasRole('admin'))
-                        <a href="{{ route('profile.edit', ((Auth::user()->hasRole('admin'))? $user->id:null)) }}" class="btn btn-warning pull-right">Editer le profil</a>
-                    @endif
-                </div>
-                <div class="box-body">
-                    <div class="col-md-6">
-                        <ul class="list-group list-group-unbordered">
+        <div class="col-12">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <h4 class="card-title">Profil</h4>
+                    <div class="col">
+                        <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <b>Nom</b> <a class="pull-right"> {{ $user->getFullName() }}</a>
                             </li>
@@ -25,14 +20,10 @@
                             </li>
                             <li class="list-group-item">
                                 @php
-                                Carbon::setLocale('fr');
+                                    Carbon::setLocale('fr');
                                 @endphp
                                 <b>Inscription</b> <a class="pull-right"> il y a {{ $user->created_at->diffForHumans(now(),true) }}</a>
                             </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <ul class="list-group list-group-unbordered">
                             <li class="list-group-item">
                                 <b>Pseudo</b> <a class="pull-right"> {{ $user->pseudo }}</a>
                             </li>
@@ -46,30 +37,34 @@
                             @endif
                         </ul>
                     </div>
+                    @if(Auth::user() == $user || Auth::user()->hasRole('admin'))
+                        <a href="{{ route('profile.edit', ((Auth::user()->hasRole('admin'))? $user->id:null)) }}" class="btn btn-warning pull-right">Editer le profil</a>
+                    @endif
                 </div>
             </div>
+
         </div>
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title">Stats</h3>
-                </div>
-                <div class="box-body">
-                    <div class="col-md-6">
-                        <ul class="list-group list-group-unbordered">
-                            <li class="list-group-item">
-                                <b>Parties</b> <a class="pull-right"> {{ $user->parties()->count() }}</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Pronostics</b> <a class="pull-right">{{ $user->bets()->count() }}</a>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Score</b> <a class="pull-right">{{ $user->bets()->where('result',true)->count() }}</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-md-6">
-                        <canvas id="betsChart"></canvas>
+        <div class="col-12">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <h4 class="card-title">Stats</h4>
+                    <div class="row">
+                        <div class="col">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <b>Parties</b> <a class="pull-right"> {{ $user->parties()->count() }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Pronostics</b> <a class="pull-right">{{ $user->bets()->count() }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Score</b> <a class="pull-right">{{ $user->bets()->where('result',true)->count() }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col">
+                            <canvas id="betsChart"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>

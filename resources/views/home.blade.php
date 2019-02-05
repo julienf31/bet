@@ -4,7 +4,6 @@
     Accueil
 @stop
 
-
 @section('content')
     @if(!isset(Auth::user()->favorite_team))
         <div class="alert alert-info alert-dismissible">
@@ -13,14 +12,11 @@
             <p>Vous n'avez pas encore définis d'équipe favorite, rendez vous dans votre profil pour en selectionner une.</p>
         </div>
     @endif
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-dashboard fa-fw"></i> Dashboard</h3>
-                </div>
-                <div class="box-body">
-                    <h3>Mes parties</h3>
+    <div class="row mb-5">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Mes parties</h4>
                     <div class="row">
                         @if(count($games) == 0)
                             <div class="col-xs-12 text-center text-bold">
@@ -48,16 +44,17 @@
                     </div>
                 </div>
             </div>
-            <div class="box">
-                <div class="box-header">
-                    <h3 class="box-title"><i class="fa fa-bar-chart fa-fw"></i> Stats générales</h3>
-                </div>
-                <div class="box-body">
-                    <h3>Pronostics</h3>
+        </div>
+    </div>
+    <div class="row mb-5">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Pronostics</h4>
                     <div class="row">
                         <div class="col-md-6">
                             Meilleur utilisateur
-                            <ul class="nav nav-pills nav-stacked">
+                            <ul class="list-group list-group-flush">
                                 @php
                                     $number = 0;
                                 @endphp
@@ -66,13 +63,13 @@
                                         $number++;
                                     @endphp
                                     @if($number == 1)
-                                        <li><a href="#"><span class="text-green">1<sup>er</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }}</span></a></li>
+                                        <li class="list-group-item"><span class="text-green">1<sup>er</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-navy">score : {{ $player['score'] }}</span></li>
                                     @elseif($number == 2)
-                                        <li><a href="#"><span class="text-orange">2<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }} </span></a></li>
+                                        <li class="list-group-item"><span class="text-orange">2<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-navy">score : {{ $player['score'] }} </span></li>
                                     @elseif($number == 3)
-                                        <li><a href="#"><span class="text-red">3<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }} </span></a></li>
+                                        <li class="list-group-item"><span class="text-red">3<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-navy">score : {{ $player['score'] }} </span></li>
                                     @else
-                                        <li><a href="#"><span class="">{{$number}}<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-light">score : {{ $player['score'] }} </span></a></li>
+                                        <li class="list-group-item"><span class="">{{$number}}<sup>éme</sup></span> - &nbsp; {{ $player['pseudo'] }}<span class="pull-right text-navy">score : {{ $player['score'] }} </span></li>
                                     @endif
                                 @endforeach
                             </ul>
